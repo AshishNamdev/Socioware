@@ -1,0 +1,40 @@
+#main
+{
+ background-color:lightyellow;
+}
+
+.left
+{
+ border-style:solid;
+ border:2px;
+ border-color:green;
+ posiiton:relative;
+ margin-top:15px;
+ margin-left:-5px;
+ width:150px;
+ height:500px;
+ background-color:khaki;
+opacity :1; 
+}
+
+#spntitle
+{
+ color:red;
+ font:TImes new roman;
+ font-style:bold;
+ text-decoration:blink;
+ position:relative;
+ left:35px;
+ top:10px;
+}
+
+#mn
+{
+ dbackground-color: #acacac;
+  width: 15 %;
+ line-height: 2;
+  display: block;
+  border: 1mm ;
+  border-style:solid 
+  border-color:#000000;
+}
