@@ -1,0 +1,80 @@
+/* 
+    Document   : MenuEx
+    Created on : Oct 27, 2012, 6:54:43 PM
+    Author     : ashnamde
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body { 
+    background-color: whitesmoke;    
+}
+
+.main{
+    
+  display: block;
+  list-style: none;
+   position: relative;
+  left: 500px;
+  
+ }
+ .li {
+     display:table-cell;
+     list-style: none;
+     width:100px;
+     padding: 1px;
+     
+ }
+/* .li2{
+     
+     list-style: none;
+     width:100px;
+     padding: 1px;
+     display: none;
+ }
+ .li3{
+     list-style: none;
+     width:100px;
+     padding: 1px;
+     display: none;
+ }
+ */
+ li ul
+ {
+   list-style: none;
+     width:100px;
+     padding: 2px;
+    display: none;  
+ }
+ .ul4{
+    position:absolute;
+    left:445px;
+    top:108px;
+    width:120px;
+   }
+  li ul li{
+     padding: 1px;
+ }
+ ul li a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    background-color: brown;
+    font-family:"Century";
+    padding:4px;
+    border-radius:4px;
+    text-align:center;
+    border-style: solid;
+    border-color:  black;
+ }
+top{
+ position: relative;
+ top:0px;
+ width: 100%;
+ border:3px;
+ border-color:cadetblue;
+ border-style: solid;
+ background-color: burlywood;
+}
+
+
