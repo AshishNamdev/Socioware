@@ -1,0 +1,235 @@
+
+<style>
+
+ul{
+    list-style: none;
+    margin-top: -22px;
+    margin-left: 902px;
+}
+ul li .a2_1	{
+    position:relative;
+
+    display: block;
+
+    text-decoration: none;
+    background-color: white;
+    color: orangered;
+    border:3px red ridge;
+    text-align: center;
+    font-family: Comic Sans MS;
+    font-size: small;
+    font-weight: bolder;
+    padding: 10px;
+    border-bottom-style: none;
+    border-top-style: none;
+    border-left-style: none;
+}
+.l{
+    display:table-cell;
+    width: 110px;
+
+}
+     #sub1{
+                margin-top: 2px;
+                margin-left: 5px;
+                font-size: small;
+                font-family: Tempus Sans ITC;
+                color: tomato;
+}
+#span1{
+                margin-top: -20;
+                margin-left: 20px;
+                font-family:Forte;
+                color: #6699FF;
+                font-size: xx-large;
+                font-weight: 900;
+
+            }
+             #dv1{
+                position: fixed;
+                z-index: +1;
+                background-color:#192201;
+                height: 60px;
+                width: 1400px;
+                border-bottom-style: ridge;
+                border-bottom-width: thin;
+                border-bottom-color: royalblue;
+                margin-top: -8px;
+                margin-left: -8px;
+}
+
+#span3{
+    margin-left: 30px;
+    color: firebrick;
+    font-weight: bold;
+    font-size: large;
+    text-decoration: blink;
+}
+.login{
+    position: absolute;
+    display:none;
+    top: 200px;
+    z-index: +1;
+    left: 500px;
+    width: 320px;
+    height: 320px;
+    background-color:azure;
+    border: 4px turquoise solid;
+    border-radius:10px;
+}
+.Close{
+    margin-left: 303px;
+}
+.Close:hover{
+    cursor: pointer;
+}
+.text{
+    margin-left: 10px;
+    color: tomato;
+    font-size: larger;
+    font-weight: bold;
+    
+}
+.cant{
+    margin-left: 60px;
+    color: red;
+}
+.cant:hover{
+    border: 1px orange solid;
+    cursor: pointer;
+}
+#disableHeader{
+    position: fixed;
+    top: -1px;
+    background-color: silver;
+    opacity:.2;
+    width: 1378px;
+    height: 58px;
+    z-index: +1;
+    display: none;
+}
+#disableFooter{
+    display: none;
+    position: fixed;
+    top: 613px;
+    background-color: silver;
+    opacity:.2;
+    width: 1378px;
+    height: 38px;
+    z-index: +1;
+}
+
+#disable{
+    position: absolute;
+    background-color: silver;
+    display: none;
+    opacity:.2;
+    width:1378px;
+    height: 605px;
+    z-index: 0;
+    border: 1px thistle solid;
+}
+ </style>
+ <script type="text/javascript" src="jquery.js"></script>
+  <script>
+            $(document).ready(function(){
+
+               $("#user,#ngo").click(
+                function(){$("#disable").css("display","block");});
+
+
+               $("#user,#ngo").click(
+                function(){$("#disableHeader").css("display","block");});
+
+               $("#user,#ngo").click(
+                function(){$("#disableFooter").css("display","block");});
+
+               $(".Close").click(
+                function(){$("#disableFooter").css("display","none");
+
+               });
+                $(".Close").click(
+                function(){$("#disableHeader").css("display","none");
+
+               }); $(".Close").click(
+                function(){$("#disable").css("display","none");
+
+               });
+                         });
+        </script>
+           <script type="text/javascript">
+            $(document).ready(function(){
+                $(".a2_1").hover(
+                function(){$(this).css("color","#32CD32").css("background-color","gray");},
+                function(){$(this).css("color","orangered").css("background-color","white");
+                });
+                $("#user").click(
+                function(){$("#UserLogin").fadeIn("slow");});
+                $(".Close").click(
+                function(){$("#UserLogin,#NgoLogin").fadeOut("fast");});
+                $("#ngo").click(
+                function(){$("#NgoLogin").fadeIn("slow");});
+                         });
+</script>
+<script type="text/javascript">
+    function alertLogin(){
+        var obj=getElementById("span3");
+        alert(obj);
+    }
+</script>
+<div id="dv1">
+<span id="span1">Socioware<sub id="sub1">B social B Realstic</sub></span>
+            <ul>
+                <li class="l"><a id="a2" class="a2_1" href="Home.jsp">Home</a></li>
+                <li class="l"><a  id="user" class="a2_1" href="#">User Login</a></li>
+                <li class="l"><a class="a2_1" id="ngo" href="#">NGO Login</a></li>
+                <li class="l"><a class="a2_1" id="a2" href="LogoutServlet">Admin Login</a></li>
+            </ul>
+        </div>
+ <div class="login" id="UserLogin">
+     <img class="Close" id="UClose" src="images/btn-delete.gif">
+     <br/><br/><span class="text">User are requested to login here .........!</span><br/>
+     <form action="UserLoginServlet" method="post">
+         <table cellpadding="6" cellspacing="4">
+             <tr>
+                 <th>User Name :</th><td><input type="text" name="uid" title="Enter your user name"></td></tr>
+             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" name="pwd" title="Enter your Password"></td>
+             </tr>
+             <tr>
+                 <th></th>
+                 <td><input type="submit" value="Login"/></td>
+             </tr>
+             <tr>
+                                      <td align="left"colspan="2"><span id="span3"></span></td>
+                                  </tr></table><br/>
+                                  <a class="cant">Cant access my account?</a>
+	           
+        
+             
+     </form>
+ </div>
+  <div class="login" id="NgoLogin">
+     <img class="Close" src="images/btn-delete.gif">
+     <br/><br/><span class="text">Ngo's are requested to login here .........!</span><br/>
+     <form action="NgoLoginServlet" method="post">
+         <table cellpadding="6" cellspacing="4">
+             <tr>
+                 <th>User Name :</th><td><input type="text" name="nid" title="Enter your user name"></td></tr>
+             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" name="pwd" title="Enter your Password"></td>
+             </tr>
+             <tr>
+                 <th></th>
+                 <td><input type="submit" value="Login"></td>
+             </tr>
+             <tr>
+                                      <td align="left"colspan="2"><span id="span3">ssssssssssssssssssssssssss</span></td>
+                                  </tr></table><br/>
+                                  <a class="cant">Cant access my account?</a>
+
+
+
+     </form>
+ </div>
+         <div id="disableHeader"></div>
+        <div id="disableFooter"></div>
+        <div id="disable"></div>
