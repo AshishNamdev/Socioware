@@ -108,7 +108,7 @@ ul li .a2_1	{
     cursor: pointer;
 }
 #disableHeader{
-    position: fixed;
+    position:  absolute;
     top: -1px;
     background-color: silver;
     opacity:.2;
@@ -164,6 +164,12 @@ ul li .a2_1	{
                 function(){$("#disable").css("display","none");
 
                });
+               
+               $(".Close").click(
+                function(){
+                    document.getElementById("ngoMessage").innerHTML="";
+                    document.getElementById("span3").innerHTML="";
+               });
                          });
         </script>
            <script type="text/javascript">
@@ -211,6 +217,7 @@ ul li .a2_1	{
     }
 
 </script>
+<div id="">
 <div id="dv1">
 <span id="span1">Socioware<sub id="sub1">B social B Realstic</sub></span>
             <ul>
@@ -267,3 +274,4 @@ ul li .a2_1	{
          <div id="disableHeader"></div>
         <div id="disableFooter"></div>
         <div id="disable"></div>
+</div>
