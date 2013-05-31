@@ -27,8 +27,7 @@ ul li .a2_1	{
 .l{
     display:table-cell;
     width: 110px;
-
-}
+  }
      #sub1{
                 margin-top: 2px;
                 margin-left: 5px;
@@ -46,7 +45,7 @@ ul li .a2_1	{
 
             }
              #dv1{
-                position: fixed;
+                position: absolute;
                 z-index: +1;
                 background-color:#192201;
                 height: 60px;
@@ -60,11 +59,21 @@ ul li .a2_1	{
 
 #span3{
     margin-left: 30px;
-    color: firebrick;
+    color: red;
     font-weight: bold;
-    font-size: large;
+    font-size: small;
     text-decoration: blink;
 }
+
+#ngoMessage
+{
+     margin-left: 30px;
+    color: red;
+    font-weight: bold;
+    font-size: small;
+    text-decoration: blink;
+}
+
 .login{
     position: absolute;
     display:none;
@@ -99,7 +108,7 @@ ul li .a2_1	{
     cursor: pointer;
 }
 #disableHeader{
-    position: fixed;
+    position:  absolute;
     top: -1px;
     background-color: silver;
     opacity:.2;
@@ -155,6 +164,12 @@ ul li .a2_1	{
                 function(){$("#disable").css("display","none");
 
                });
+               
+               $(".Close").click(
+                function(){
+                    document.getElementById("ngoMessage").innerHTML="";
+                    document.getElementById("span3").innerHTML="";
+               });
                          });
         </script>
            <script type="text/javascript">
@@ -164,7 +179,9 @@ ul li .a2_1	{
                 function(){$(this).css("color","orangered").css("background-color","white");
                 });
                 $("#user").click(
-                function(){$("#UserLogin").fadeIn("slow");});
+                function(){$("#UserLogin").fadeIn("slow"),
+                $("#UserLogin #span3").innerHTML=""
+                });
                 $(".Close").click(
                 function(){$("#UserLogin,#NgoLogin").fadeOut("fast");});
                 $("#ngo").click(
@@ -172,11 +189,35 @@ ul li .a2_1	{
                          });
 </script>
 <script type="text/javascript">
-    function alertLogin(){
-        var obj=getElementById("span3");
-        alert(obj);
+    function isValidUserLogin(){
+        var uid=document.getElementById("uid");
+        var upwd=document.getElementById("upwd");
+        var msg=document.getElementById("span3");
+        var flag=true;
+        if(uid.value=="" ||upwd.value=="")
+            {
+                   msg.innerHTML="Can't Login Empty User name & Password"
+                   flag=false;
+            }
+        
+            return flag;
     }
+ function isValidNgoLogin(){
+        var nid=document.getElementById("nid");
+        var npwd=document.getElementById("npwd");
+        var msg=document.getElementById("ngoMessage");
+        var flag=true;
+        if(nid.value=="" ||npwd.value=="")
+            {
+                   msg.innerHTML="Can't Login Empty User name & Password"
+                   flag=false;
+            }
+        
+            return flag;
+    }
+
 </script>
+
 <div id="dv1">
 <span id="span1">Socioware<sub id="sub1">B social B Realstic</sub></span>
             <ul>
@@ -188,16 +229,16 @@ ul li .a2_1	{
         </div>
  <div class="login" id="UserLogin">
      <img class="Close" id="UClose" src="images/btn-delete.gif">
-     <br/><br/><span class="text">User are requested to login here .........!</span><br/>
+     <br/><br/><span class="text">User are requested to login here !</span><br/>
      <form action="UserLoginServlet" method="post">
          <table cellpadding="6" cellspacing="4">
              <tr>
-                 <th>User Name :</th><td><input type="text" name="uid" title="Enter your user name"></td></tr>
-             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" name="pwd" title="Enter your Password"></td>
+                 <th>User Name :</th><td><input type="text" id="uid" name="uid" title="Enter your user name"></td></tr>
+             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" id ="upwd" name="pwd" title="Enter your Password"></td>
              </tr>
              <tr>
                  <th></th>
-                 <td><input type="submit" value="Login"/></td>
+                 <td><input type="submit" value="Login" onclick="return isValidUserLogin()"/></td>
              </tr>
              <tr>
                                       <td align="left"colspan="2"><span id="span3"></span></td>
@@ -210,19 +251,19 @@ ul li .a2_1	{
  </div>
   <div class="login" id="NgoLogin">
      <img class="Close" src="images/btn-delete.gif">
-     <br/><br/><span class="text">Ngo's are requested to login here .........!</span><br/>
+     <br/><br/><span class="text">Ngo's are requested to login here !</span><br/>
      <form action="NgoLoginServlet" method="post">
          <table cellpadding="6" cellspacing="4">
              <tr>
-                 <th>User Name :</th><td><input type="text" name="nid" title="Enter your user name"></td></tr>
-             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" name="pwd" title="Enter your Password"></td>
+                 <th>User Name :</th><td><input type="text" id="nid" name="nid" title="Enter your user name"></td></tr>
+             <tr><th>Password&nbsp;&nbsp; :</th><td><input type="password" id="npwd" name="pwd" title="Enter your Password"></td>
              </tr>
              <tr>
                  <th></th>
-                 <td><input type="submit" value="Login"></td>
+                 <td><input type="submit" value="Login" onclick="return isValidNgoLogin()"></td>
              </tr>
              <tr>
-                                      <td align="left"colspan="2"><span id="span3">ssssssssssssssssssssssssss</span></td>
+                                      <td align="left"colspan="2"><span id="ngoMessage"></span></td>
                                   </tr></table><br/>
                                   <a class="cant">Cant access my account?</a>
 
