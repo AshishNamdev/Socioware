@@ -411,7 +411,7 @@
 
 }
             #dv1{
-                position: fixed;
+                position: absolute;
                 z-index: +1;
                 background-color:#192201;
                 height: 50px;
