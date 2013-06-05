@@ -93,7 +93,7 @@
     border-radius:10px;
     border-collapse: collapse;
     border-bottom-style:solid;
-    border-bottom-radius:2px;
+    border-bottom-radius: 2px;
 }
 #div2_2{
     position: relative;
