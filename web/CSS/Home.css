@@ -1,0 +1,180 @@
+/* 
+    Document   : Home
+    Created on : Jun 5, 2013, 5:06:22 PM
+    Author     : ashnamde
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+             #bd{                
+                margin-top: 5px;
+                margin-left: -16px;
+                background-color:#202503 ;
+             }
+
+       
+             #spanH{
+                 margin-top: 30px;
+                 margin-left: 12px;
+                 font-weight: bolder;
+                 font-size: larger;
+                 font-family: Harrington;
+                 color:thistle;
+
+     }
+     #div1{
+         z-index: -1;
+         position: absolute;
+         margin-left: 20px;
+         margin-top:5px;
+         border-color: tan;
+         left: 20px;
+         top: 100px;
+         width: 500px;
+         height: 480px;
+         border: 1px solid turquoise;
+         border-radius:10px;
+         background-color: #232505;
+}
+.blink{
+    text-decoration: blink;
+    color:orangered;
+    font-family: Berlin Sans FB;
+    margin-left: 80px;
+    font-size: x-large;
+    
+}
+#img1{
+    margin-left: 80px;
+}
+#para{
+    position: absolute;
+    top:310px;
+    left: -35px;
+    margin-left: 50px;
+    text-align: justify;
+    color:whitesmoke;
+    font-weight: 100;
+}
+#div1:hover,#div2:hover,#div3:hover{
+    background-color: #556B2F;
+    border-color: slategray;
+    border-style: double;
+    border-width: 5px;
+}
+       
+            #div2{
+                z-index: -1;
+                position: absolute;
+                top:170px;
+                left:580px;
+                width: 250px;
+                height: 370px;
+                background-color: #232505;
+                border-color: turquoise;
+                border-width: 1px;
+                border-style: solid;
+                border-radius:10px;
+
+}
+#div2_1{
+    width:248px;
+    height:25px;
+    border: 1px solid turquoise;
+    border-radius:10px;
+    border-collapse: collapse;
+    border-bottom-style:solid;
+    border-bottom-radius: 2px;
+}
+#div2_2{
+    position: relative;
+  width: 150;
+  height: 300;
+  margin-top: -2px;
+margin-left:15px;
+}
+        
+            #div3{
+                z-index: -1;
+                position:absolute;
+                width:450px;
+                height: 450px;
+                margin-left: 880px;
+                margin-top: 120px;
+                border: 1px solid turquoise;
+                border-radius:10px;
+                background-color: #232505;
+}
+#div3_1{
+    width: 448px;
+    height: 30px;
+    border: 1px solid turquoise;
+    border-radius:10px;
+    border-collapse: collapse;
+}
+.blink1{
+    text-decoration: blink;
+    color:orangered;
+    font-family: Berlin Sans FB;
+    margin-left:5px;
+    font-size: x-large;
+}
+#div3_2{
+                width:200px;
+                height:400px;
+                margin-left: 10px;
+                margin-top: 10px;
+                border: 1px solid turquoise;
+                border-radius:10px;
+                background-color: #232505;
+}
+#div3_3{
+                width:200px;
+                height:400px;
+                margin-left: 230px;
+                margin-top: -402px;
+                border: 1px solid turquoise;
+                border-radius:10px;
+                background-color: #232505;
+}
+.text{
+    margin-left: 20px;
+    font-size: larger;
+    color: white;
+}
+#font{
+    font-size: x-large;
+    color:gold;
+    font-style: Lucida Calligraphy;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 30px;
+}
+#link{
+    text-decoration: none;
+    color: sandybrown;
+    font-weight: bold;
+}
+#link:hover{
+    color: steelblue;
+   
+}
+#heading{
+    text-decoration: underline;
+    color: royalblue;
+}
+#main{
+    position:absolute;
+    margin-top: -10px;
+    
+   }
+   #response{
+       color: red;
+       position: absolute;
+       margin-top:80px;
+       margin-left: 850px;
+       font-style: normal;
+       font-weight: bold;
+       text-decoration: blink;
+   }
+     
