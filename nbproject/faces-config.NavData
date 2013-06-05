@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="AboutUs.jsp" x="400" y="300" zoom="true"/>
+        <Node id="Security.jsp" x="400" y="750" zoom="true"/>
+        <Node id="news_win.htm" x="1150" y="300" zoom="true"/>
+        <Node id="RAbuse.jsp" x="650" y="450" zoom="true"/>
+        <Node id="Header.html" x="150" y="600" zoom="true"/>
+        <Node id="Footer.html" x="900" y="150" zoom="true"/>
+        <Node id="LearnMore.jsp" x="650" y="600" zoom="true"/>
+        <Node id="Privacypolicy.jsp" x="900" y="450" zoom="true"/>
+        <Node id="UserProfile.jsp" x="650" y="150" zoom="true"/>
+        <Node id="UserSignup.jsp" x="1400" y="150" zoom="true"/>
+        <Node id="UserProfile_old.jsp" x="1150" y="150" zoom="true"/>
+        <Node id="SocioBasic.jsp" x="150" y="300" zoom="true"/>
+        <Node id="UserSignUp_Old.jsp" x="1650" y="150" zoom="true"/>
+        <Node id="Feedback.jsp" x="150" y="450" zoom="true"/>
+        <Node id="AdminProfile.jsp" x="150" y="900" zoom="true"/>
+        <Node id="CantLogin.jsp" x="650" y="300" zoom="true"/>
+        <Node id="Other.jsp" x="400" y="450" zoom="true"/>
+        <Node id="upload.html" x="400" y="600" zoom="true"/>
+        <Node id="Terms.jsp" x="150" y="750" zoom="true"/>
+        <Node id="Home.jsp" x="400" y="150" zoom="true"/>
+        <Node id="SomethingNW.jsp" x="900" y="300" zoom="true"/>
+        <Node id="Help.jsp" x="150" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
