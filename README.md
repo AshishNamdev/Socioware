@@ -1,11 +1,14 @@
-
 Hello This is the information to tell more about socioware development. 
 Its a Project Initiated by Me (Ashish Namdev ) and my team
 
 Ashish Namdev -> Java Developer (Web Developer). 
+
 Anoop Tiwari -> Back End (Oracle). 
+
 Ajit Gupta -> Java Developer (JDBC). 
+
 Bhaskar Verma -> Document Management. 
+
 Vivek Jain -> Front End Developer.
 
 These all fellows are From Bhopal (M.P.) , India. The idea of Socioware came during a discussion of Anoop and Me. 
