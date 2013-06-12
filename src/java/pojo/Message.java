@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author Ashish
  */
-public class Message {
+public class Message 
+{
     private String msgid;
     private String senderid;
     private String receiverid;    

@@ -132,7 +132,7 @@ public final class Home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    border-radius:10px;\r\n");
       out.write("    border-collapse: collapse;\r\n");
       out.write("    border-bottom-style:solid;\r\n");
-      out.write("    border-bottom-radius:2px;\r\n");
+      out.write("    border-bottom-radius: 2px;\r\n");
       out.write("}\r\n");
       out.write("#div2_2{\r\n");
       out.write("    position: relative;\r\n");

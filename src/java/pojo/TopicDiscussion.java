@@ -7,7 +7,8 @@ import java.util.ArrayList;
  *
  * @author Ajit Gupta
  */
-public class TopicDiscussion {
+public class TopicDiscussion 
+{
     protected String discid;
     protected String unid;
     protected String discdate;
@@ -16,7 +17,8 @@ public class TopicDiscussion {
     Connection con=null;
     PreparedStatement ps=null;
     
-    public TopicDiscussion(){
+    public TopicDiscussion()
+    {
         discid=new String();
         unid=new String();
         discdate=new String();
@@ -25,7 +27,8 @@ public class TopicDiscussion {
         
         
     }
-    public TopicDiscussion(String discid, String unid, String discdate, int likes, String comments){
+    public TopicDiscussion(String discid, String unid, String discdate, int likes, String comments)
+    {
         this.discid=discid;
         this.unid=unid;
         this.discdate=discdate;
@@ -35,48 +38,59 @@ public class TopicDiscussion {
         
     }
 
-    public String getComments() {
+    public String getComments() 
+    {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setComments(String comments) 
+    {
         this.comments = comments;
     }
 
-    public String getDiscdate() {
+    public String getDiscdate() 
+    {
         return discdate;
     }
 
-    public void setDiscdate(String discdate) {
+    public void setDiscdate(String discdate) 
+    {
         this.discdate = discdate;
     }
 
-    public String getDiscid() {
+    public String getDiscid() 
+    {
         return discid;
     }
 
-    public void setDiscid(String discid) {
+    public void setDiscid(String discid) 
+    {
         this.discid = discid;
     }
 
-    public int getLikes() {
+    public int getLikes() 
+    {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(int likes) 
+    {
         this.likes = likes;
     }
 
-    public String getUnid() {
+    public String getUnid() 
+    {
         return unid;
     }
 
-    public void setUnid(String unid) {
+    public void setUnid(String unid) 
+    {
         this.unid = unid;
     }
     
     
-     public boolean createTopicDiscussion(){
+     public boolean createTopicDiscussion()
+     {
         boolean flag=false;
          System.out.println("in createTopic");
         DbContainor.loadDbDriver();

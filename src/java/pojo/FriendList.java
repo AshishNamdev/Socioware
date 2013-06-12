@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author Ajit Gupta 
  */
-public class FriendList {
+public class FriendList 
+{
     protected String userid;
     protected String friendid;
     protected String name;
