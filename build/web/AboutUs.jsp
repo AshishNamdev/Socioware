@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <title>Socioware/AboutUs</title>
-    <link href="Index.css" rel="stylesheet" type="text/css">
+    <link href="CSS/Index.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>

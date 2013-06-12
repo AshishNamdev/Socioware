@@ -13,6 +13,7 @@ import java.util.Calendar;
  *
  * @author ANOOP
  */
+
 public abstract class DbContainor {
     public static String dbuser="socioware";
     public static String dbpwd="social";
