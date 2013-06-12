@@ -285,7 +285,7 @@ public class UserSignup {
         try{
             con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
             ps=con.prepareStatement("select * from userinfo where EMail=?");
-            ps.setString(1,email);
+            ps.setString(1,this.email);
             rs=ps.executeQuery();
             if(rs.next()){
                 String temp=rs.getString(2);

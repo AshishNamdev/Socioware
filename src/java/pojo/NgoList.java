@@ -10,7 +10,8 @@ import java.util.ArrayList;
  *
  * @author Ajit Gupta 
  */
-public class NgoList {
+public class NgoList 
+{
     protected String ngoid;
     protected String unid;
     protected String name;
