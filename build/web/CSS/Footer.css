@@ -8,7 +8,7 @@
 
 
   #Footer{
-                position:  absolute;
+                position: fixed;
                 background-color:#192201;
                 height: 30px;
                 width: 1400px;
