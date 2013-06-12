@@ -14,7 +14,7 @@
         <title>Socioware/UserSignUp</title>
             <link href="CSS/UserSignup.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="js/UserSignupScript.js"></script>
-        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript">
            $(document).ready(function(){
                  $("#bridge0,#").eq(2).addClass("active");
