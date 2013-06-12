@@ -731,7 +731,7 @@ li ul{
    
 
         </style>
-        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script>
             $(document).ready(function(){
                 $("#span3").hover(
