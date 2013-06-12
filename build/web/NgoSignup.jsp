@@ -12,172 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Socioware/NgoSignUp</title>
+        <link href="CSS/NgoSignup.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="js/UserSignupScript.js">
             
         </script>
-        <style>
-             #bd{
-                margin-top: 5px;
-                margin-left: -16px;
-                background-color:#202503 ;
-             }
-             #main{
-    position:absolute;
-    margin-top: -10px;
-    height: 1100px;
-   }
-        </style>
-        <style>
-            #sign{
-                position:absolute;
-               top: 80px;
-               left:320px;
-               color: thistle;
-               font: bold large cursive ;
-               text-decoration: blink;
-}
-
-        </style>
-        <style>
-            #bridge{
-                position: absolute;
-                top: 700px;
-                left:320px;
-                width:650px;
-                height: 25px;
-                background-color:lightsteelblue;
-                border: 1px silver solid;
-                color: sienna;
-                font-family: Castellar;
-                font-weight: bolder;
-                font-size: large;
-                background-image: url("images/arrow-square.gif");
-                background-repeat: no-repeat;
-                background-position: right -51px;
-}
-#bridge0{
-                position: absolute;
-                top:121px;
-                left:320px;
-                width:650px;
-                height: 25px;
-                background-color: lightsteelblue;
-                border: 1px silver solid;
-                color: sienna;
-                font-family: Castellar;
-                font-weight: bolder;
-                font-size: large;
-                background-image: url("images/arrow-square.gif");
-                background-repeat: no-repeat;
-                background-position: right -51px;
-}
-#bridge:hover,#bridge0:hover{
-                background-color:powderblue;
-}
-#bridge.active,#bridge0.active{
-    background-position: right 10px;
-}
-        </style>
-        <style>
-            #div1{
-                display:block;
-                position: absolute;
-                top:148px;
-                left:320px;
-                width: 650px;
-                height: 550px;
-                background-color: #556B2F;
-                border: 1px turquoise solid;
-}
-#tbl{
-    margin-top: -50px;
-}
- #txt
-        {
-         color: darkgray;
-        }
-        </style>
-        <style>
-            #div2{
-              
-                display: block;
-                position: absolute;
-                top:727px;
-                left: 320px;
-                width: 650px;
-                height: 300px;
-                background-color: #556B2F;
-                border: 1px turquoise solid;
-}
-#div2_1{
-                margin-top: 20px;
-                margin-left: 25px;
-                width:120px;
-                height: 120px;
-                background-color: #696969;
-                border: 3px steelblue groove;
-}
-#div2_1_1{
-               margin-top: 10px;
-               margin-left: 10px;
-               width: 120px;
-               height: 120px;
-               background-color: silver;
-               border: 1px #1E90FF solid;
-}
-
-#div2_1_1:hover{
-    margin-top: 0px;
-    margin-left:0px;
-}
-#div2_1_2{
-    margin-top: -130px;
-    margin-left: 180px;
-}
-#div2_1_3{
-    margin-top: -24px;
-    margin-left: 410px;
-}
-#line1{
-    margin-left: 180px;
-    color: darkgray;
-    font-family: Bell MT;
-}
-#div2_2{
- margin-top: 60px;
-}
-#msg{
-    position:absolute;
-    margin-top: 208px;
-    margin-left:740px;
-    z-index: +1;
-    color:red;
-    font-family: fantasy; 
-    font-style:normal;
-    font-weight:bolder; 
-    font:large;
-    text-decoration: blink;    
-   }
-   #msg1{
-    color:red;
-    font-family:  cursive;
-    font-style:normal;
-    font:  xx-large;
-    position:absolute;
-    margin-top: 75px;
-    margin-left:450px;
-   z-index: +1;    
-   }
-.spn{
-    color: tomato;
-    font-weight: bold;
-   }
-   .star{
-       color:red;
-   }
-  
-
-        </style>
+        
         <script type="text/javascript" src="jquery.js"></script>
         <script type="text/javascript">
            $(document).ready(function(){
@@ -456,8 +295,8 @@
                 </div>
                  
                     </form>
-            </div><br/><br/>
-        </div>
+            </div>
+        
         <jsp:include page="Footer.html"></jsp:include>
     </body>
 </html>
