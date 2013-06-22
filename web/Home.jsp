@@ -20,14 +20,18 @@
             <div id="div1">
                <br/> <span id="spanH">Cause of the day:-</span>
               <br/> <br/><span class="blink" id="spanB">! Global Warming !</span>
-              <img id="img1" src="images/globalWarming.jpg">
-              <br/><br/><span id="para">
-                  <p>People tend to focus on  the here and now.The problem  is that, once  global</p>
-                  <p>warming is something that most people can feel in the course of their daily </p>
-                  <p>lives,it will be too late  to prevent the larger , potentially catastrophic</p>
+              <img src="images/globalWarming.jpg" alt="Global Warming!"  id="img1" >
+              
+              <br/><br/>
+              <div id="para">
+                  <p>
+                      People tend to focus on  the here and now.The problem  is that, once  global
+                      warming is something that most people can feel in the course of their daily 
+                      lives,it will be too late  to prevent the larger , potentially catastrophic
+                  </p>
                   changes.
-              </span>
-            </div>
+              </div>
+              </div>
             <div id="div2">
                 <div id="div2_1">
                     <span class="blink">!News Box!</span>
