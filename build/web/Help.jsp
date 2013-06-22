@@ -13,7 +13,7 @@
    <link href="CSS/Help.css" rel="stylesheet" type="text/css" > 
              
     </head>
-    <body id="bd">
+<body id="bd">
          <jsp:include page="Header.html"></jsp:include>
         <div id="part1">
               <tr>
@@ -30,22 +30,19 @@
      
     <div id="outerdiv">
             <div id="innerdiv1">
-                <form align="right">
-                    <textarea rows="2" value="What You Need" cols="45"></textarea><input type="button" value="Search">
-                    <br/>
+                <form >
+                    <textarea rows="2" placeholder="What You Need ?" cols="45"></textarea>
+                    <input type="button" value="Search">
+                </form>
                     
-                    
-                      <span id="sp">
-                            <b>Post your Problem:</b><br/>
-                        </span>
-
-         
-                    <b> If you are facing any problem while
-          working on this social Networking
-          site, then post your problem here</b>
-            
-              </form>
-            </div>
+                <span id="sp">
+                    <b>Post your Problem:</b><br/>
+                </span>
+       
+                    <b> If you are facing any problem while working on this social Networking site, 
+                        then post your problem here
+                    </b>
+              </div>
         
             <div id="innerdiv2" >
                 <a href="SocioBasic.jsp" class="anchors">Socioware Basics</a><br><br>
@@ -61,6 +58,5 @@
     </div> 
         <jsp:include page="Footer.html"></jsp:include>
     
-        
-    </body>
+</body>
 </html>
