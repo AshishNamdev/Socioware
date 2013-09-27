@@ -14,7 +14,8 @@ import pojo.UserSignup;
  *
  * @author ANOOP
  */
-public class UserSignupServlet extends HttpServlet {
+public class UserSignupServlet extends HttpServlet 
+{
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -25,7 +26,8 @@ public class UserSignupServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         System.out.println("in UserSignupServlet");
@@ -55,34 +57,33 @@ public class UserSignupServlet extends HttpServlet {
         System.out.println(request.getParameter("fname"));
          
         System.out.println("Dob is : "+sgn.getDob());
-        boolean chk=sgn.isRegisteredUser();
-        if(chk==true){
+        
+        if(sgn.isRegisteredUser())
+		{
             rd=request.getRequestDispatcher("UserSignup.jsp");
             out.println("<span id='msg'>Already A User</span>");
             rd.include(request, response);
         }
-        else{
-           boolean res=sgn.setUserinfo();
-        if(res==true){
-            rd=request.getRequestDispatcher("Home.jsp");
-            rd.forward(request, response);
-           
-        }
-        else{
-            rd=request.getRequestDispatcher("UserSignup.jsp");
-            out.println("<span id='msg1'>Unable to Register This Time Try again Later</span>");
-            rd.include(request, response);
-        } 
-        }
-        
-        
-        out.close();
-        System.out.println("Process completed In  UserSignupServlet");
-        
+        else
+		{
+			if(sgn.setUserinfo())
+			{
+				rd=request.getRequestDispatcher("Home.jsp");
+				rd.forward(request, response);
+            }
+			else
+			{
+				rd=request.getRequestDispatcher("UserSignup.jsp");
+				out.println("<span id='msg1'>Unable to Register This Time Try again Later</span>");
+				rd.include(request, response);
+			}
+		} 
+		out.close();
+		System.out.println("Process completed In  UserSignupServlet");
     }
-   
     @Override
-    public String getServletInfo() {
-        return "Short description";
+    public String getServletInfo() 
+	{
+		return "Short description";
     }// </editor-fold>
 }
