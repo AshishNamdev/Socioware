@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
@@ -17,33 +13,35 @@ import pojo.UniqueId;
 import pojo.UploadFile;
 
 /**
- *
- * @author Ashish
- */
-public class AddFileServlet extends HttpServlet {
+*
+* @author Ashish
+*/
+public class AddFileServlet extends HttpServlet 
+{
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    /**
+* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         UploadFile upld=new UploadFile();
-       RequestDispatcher rd=null;
-        try {
+        RequestDispatcher rd=null;
+        try 
+		{
            upld.setUpid("upl"+UniqueId.generateId());
            HttpSession session=request.getSession(false);
            String unid=session.getAttribute("id").toString();
-          // upld.setUnid("anku.namdev");
-             upld.setUnid(unid);
-           
-            request.setAttribute("id",upld.getUnid());
-            rd=request.getRequestDispatcher("UploadFileServlet");
+           // upld.setUnid("anku.namdev");
+           upld.setUnid(unid);
+           request.setAttribute("id",upld.getUnid());
+           rd=request.getRequestDispatcher("UploadFileServlet");
            rd.include(request, response);
            upld.setUnid(unid);
            upld.setLikes(0);
@@ -51,54 +49,58 @@ public class AddFileServlet extends HttpServlet {
            upld.setUploaddate(DbContainor.getDate());
            String file=session.getAttribute("filePath").toString();
            upld.setFilepath(file);
-         
-           boolean res = upld.saveFile();
-            System.out.println("Back in AddFileServlet");
-            if(res==true){
+           
+           System.out.println("Back in AddFileServlet");
+           if(upld.saveFile())
+		   {
                 System.out.println("in if condition");
                 rd=request.getRequestDispatcher("UserProfile.jsp");
                 out.println("<div id='response'>File Uploaded</div>");
-               rd.include(request, response);
-                
+                rd.include(request, response);
            }
-        } finally {            
+        }
+		finally
+		{
             out.close();
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    /**
+* Handles the HTTP <code>GET</code> method.
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         processRequest(request, response);
     }
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    /**
+* Handles the HTTP <code>POST</code> method.
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException 
+	{
+		processRequest(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    /**
+* Returns a short description of the servlet.
+* @return a String containing servlet description
+*/
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+	{
         return "Short description";
     }// </editor-fold>
 }
