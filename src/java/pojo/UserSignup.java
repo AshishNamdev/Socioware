@@ -33,9 +33,6 @@ public class UserSignup
 	private String name;
 	private String signupdate;
 
-	Connection con = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
 
 	public String getSignupdate()
 	{
@@ -95,16 +92,6 @@ public class UserSignup
 	public void setCntry(String cntry)
 	{
 		 this.cntry = cntry;
-	}
-
-    public Connection getCon()
-	{
-		return con;
-    }
-
-	public void setCon(Connection con)
-	{
-		this.con = con;
 	}
 
 	public String getContact_no()
@@ -187,16 +174,6 @@ public class UserSignup
 		this.name = name;
 	}
 
-	public PreparedStatement getPs()
-	{
-		return ps;
-	}
-
-	public void setPs(PreparedStatement ps)
-	{
-		this.ps = ps;
-	}
-
 	public String getPwd()
 	{
 		return pwd;
@@ -215,16 +192,6 @@ public class UserSignup
 	public void setRemail(String remail)
 	{
 		this.remail = remail;
-	}
-
-	public ResultSet getRs()
-	{
-		return rs;
-	}
-
-	public void setRs(ResultSet rs)
-	{
-		this.rs = rs;
 	}
 
 	public String getSq1()
@@ -250,12 +217,13 @@ public class UserSignup
 	public boolean isRegisteredUser()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select fname,mname,lname from userinfo where EMail=?");
+			query = "Select fname,mname,lname from userinfo where EMail=?";
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1, email);
 
 			while(ps.executeQuery().next())
@@ -266,6 +234,10 @@ public class UserSignup
 			con.close();
 		}
 		
+		catch(NullPointerException npe)
+		{
+			System.out.println("Sql srror osccured in isRegisteredUser() in UserSingup.java   : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("Sql srror osccured in isRegisteredUser() in UserSingup.java   : "+sqle.getMessage());
@@ -276,15 +248,16 @@ public class UserSignup
 	public boolean setUserinfo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		System.out.println("In setUserInfo() of UserSignup.java class");
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			String qry = "insert into userinfo(FNAME, MNAME, LNAME, EMAIL, REMAIL, PASSWORD, GENDER, DOB, SIGNUPDATE, CONTACT, BLOODGROUP, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
-                       + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			ps = con.prepareStatement(qry);
+			query = "insert into userinfo(FNAME, MNAME, LNAME, EMAIL, REMAIL, PASSWORD, GENDER, DOB, SIGNUPDATE, CONTACT, BLOODGROUP,"
+				+" CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
+		                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1,fname);
 			ps.setString(2,mname);
 			ps.setString(3,lname);
@@ -314,7 +287,7 @@ public class UserSignup
 			ps.setString(16,sq2);
 			ps.setString(17,ans2);
 			
-            if(ps.executeUpdate()>0)
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Succesfully inserted into userinfo table  ");
 				ret_val = true;
@@ -326,28 +299,33 @@ public class UserSignup
 			}
 			con.close();
 		}
-       
+                
+		catch(NullPointerException npe)
+                {
+                        System.out.println("Sql srror osccured in isRegisteredUser() in UserSingup.java   : "+npe.getMessage());
+                }
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
 		}
-       
 		System.out.println("process completed In setUserInfo() of UserSignup.java class");
-		return flag;
+		return ret_val;
 	}
-    
+	
 	public UserSignup getUserInfo()
 	{
 		UserSignup uinf = new UserSignup();
+		String query = null;
+		ResultSet rs = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select * from userinfo where EMail=?");
+			query = "select * from userinfo where EMail=?"
+                        PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			ps = con.prepareStatement(query);
 			ps.setString(1,this.email);
 			rs = ps.executeQuery();
-			
 			if(rs.next())
 			{
 				String temp = rs.getString(2);
@@ -374,6 +352,10 @@ public class UserSignup
 				uinf.setCntry(rs.getString(13));
 			}
 		}
+                catch(NullPointerException npe)
+                {
+                        System.out.println("Connection error : "+npe.getMessage());
+                }
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
@@ -384,21 +366,26 @@ public class UserSignup
 	public String loginUser(String email)
 	{
 		String  userName = null;
+		String query = null;
+		ResultSet rs = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select fname from userinfo where EMail=?");
+			query = "select fname from userinfo where EMail=?";
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1,email);
 			rs=ps.executeQuery();
-            
 			if(rs.next())
 			{
 				userName =rs.getString(1);
 			}
 		}
             
+		catch(NullPointerException npe)
+		{
+			System.out.println("Connection error : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
