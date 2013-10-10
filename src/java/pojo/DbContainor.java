@@ -75,7 +75,7 @@ public abstract class DbContainor
 		return rpath;
 	}
 
-	public static Connection createConnection(String query)
+	public static Connection createConnection()
 	{
 			Connection con = null;
 			con = DriverManager.getConnection(dburl,dbuser,dbpwd);
