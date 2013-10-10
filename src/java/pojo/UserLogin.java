@@ -13,9 +13,7 @@ public class UserLogin
 {
 	private String uid;
 	private String pwd;
-	PreparedStatement ps = null;
 	ResultSet rs = null;
-	Connection con = null;
 
 	public void setPwd(String pwd)
 	{
@@ -40,13 +38,14 @@ public class UserLogin
 	public boolean isValidUser()
 	{
 		boolean ret_val = false;
+		String query = null;
 		System.out.println("in isvalidusr methos of userlogin class.");
 		DbContainor.loadDbDriver();
 
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps  = con.prepareStatement("select EMail,Password from userinfo where EMail=? and Password=?");
+			query = "select EMail,Password from userinfo where EMail=? and Password=?";
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1,uid);
 			ps.setString(2, pwd);
 			ps.execute();
@@ -59,10 +58,13 @@ public class UserLogin
 		con.close();
 		}
 
+		catch(NullPointerException npe)
+		{
+			System.out.println("SQl Error Occured : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQl Error Occured : "+sqle.getMessage());
-              
 		}
        
 		return ret_val;
