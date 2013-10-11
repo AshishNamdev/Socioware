@@ -223,7 +223,8 @@ public class UserSignup
 		try
 		{
 			query = "Select fname,mname,lname from userinfo where EMail=?";
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, email);
 
 			while(ps.executeQuery().next())
@@ -257,7 +258,8 @@ public class UserSignup
 			query = "insert into userinfo(FNAME, MNAME, LNAME, EMAIL, REMAIL, PASSWORD, GENDER, DOB, SIGNUPDATE, CONTACT, BLOODGROUP,"
 				+" CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
 		                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,fname);
 			ps.setString(2,mname);
 			ps.setString(3,lname);
@@ -301,9 +303,9 @@ public class UserSignup
 		}
                 
 		catch(NullPointerException npe)
-                {
-                        System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
-                }
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
@@ -322,7 +324,8 @@ public class UserSignup
 		try
 		{
 			query = "select * from userinfo where EMail=?"
-                        PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps = con.prepareStatement(query);
 			ps.setString(1,this.email);
 			rs = ps.executeQuery();
@@ -352,10 +355,10 @@ public class UserSignup
 				uinf.setCntry(rs.getString(13));
 			}
 		}
-                catch(NullPointerException npe)
-                {
-                        System.out.println("Connection error : "+npe.getMessage());
-                }
+		catch(NullPointerException npe)
+		{
+			System.out.println("Connection error : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
@@ -373,7 +376,8 @@ public class UserSignup
 		try
 		{
 			query = "select fname from userinfo where EMail=?";
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,email);
 			rs=ps.executeQuery();
 			if(rs.next())
