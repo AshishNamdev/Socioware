@@ -60,7 +60,7 @@ public class UserLogin
 
 		catch(NullPointerException npe)
 		{
-			System.out.println("SQl Error Occured : "+npe.getMessage());
+			System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

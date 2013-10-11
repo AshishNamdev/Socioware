@@ -236,7 +236,7 @@ public class UserSignup
 		
 		catch(NullPointerException npe)
 		{
-			System.out.println("Sql srror osccured in isRegisteredUser() in UserSingup.java   : "+npe.getMessage());
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -302,7 +302,7 @@ public class UserSignup
                 
 		catch(NullPointerException npe)
                 {
-                        System.out.println("Sql srror osccured in isRegisteredUser() in UserSingup.java   : "+npe.getMessage());
+                        System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
                 }
 		catch(SQLException sqe)
 		{
