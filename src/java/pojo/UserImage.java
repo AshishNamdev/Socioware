@@ -48,18 +48,15 @@ public class UserImage
 		this.userImage = userImage;
 	}
 
-	Connection con = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
-
 	public boolean saveImage()
 	{
 		boolean ret = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("update userinfo set userimage=? where EMail=?");
+			query = "update userinfo set userimage=? where EMail=?"
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1, userImage);
 			ps.setString(2, uid);
 			
@@ -74,6 +71,10 @@ public class UserImage
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection(): Can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQL Error in saveImage() of UserImage : "+sqle.getMessage());
@@ -85,20 +86,27 @@ public class UserImage
 	public  UserImage getImage()
 	{
 		UserImage uimg = new UserImage();
+		String query = null;
+		ResultSet rs = null;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select userimage from userinfo where EMail=?");
+			query = "select userimage from userinfo where EMail=?";
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1, uid);
+			rs = ps.executeQuery();
 			// uimg.setUserImage(rs.getString(1));  
 			
-			if(ps.executeQuery().next())
+			if(rs.next())
 			{
 				uimg.setUserImage(rs.getString(1));
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection(): Can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -110,6 +118,7 @@ public class UserImage
 	public void delUserImageFile()
 	{
 		String image = getImage().getUserImage();
+		String query = null;
 		File img = new File(image);
 		
 		if(img.delete())
@@ -125,12 +134,13 @@ public class UserImage
 	public boolean delImage() 
 	{
 		boolean ret = false;
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dbuser,DbContainor.dbuser, DbContainor.dbpwd);
-			ps = con.prepareStatement("delete userimage from userinfo where EMail=?");
+			query = "delete userimage from userinfo where EMail=?"
+			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
 			ps.setString(1, uid);
 			
 			if(ps.executeUpdate()>0)
@@ -145,7 +155,10 @@ public class UserImage
 			}
 		con.close();
 		}
-		
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection(): Can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQL Error  in delImage() of UserImage : "+sqle.getMessage());
