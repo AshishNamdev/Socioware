@@ -45,7 +45,8 @@ public class UserLogin
 		try
 		{
 			query = "select EMail,Password from userinfo where EMail=? and Password=?";
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,uid);
 			ps.setString(2, pwd);
 			ps.execute();
@@ -57,7 +58,6 @@ public class UserLogin
 			}
 		con.close();
 		}
-
 		catch(NullPointerException npe)
 		{
 			System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());

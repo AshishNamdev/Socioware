@@ -56,7 +56,8 @@ public class UserImage
 		try
 		{
 			query = "update userinfo set userimage=? where EMail=?"
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, userImage);
 			ps.setString(2, uid);
 			
@@ -93,7 +94,8 @@ public class UserImage
 		try
 		{
 			query = "select userimage from userinfo where EMail=?";
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, uid);
 			rs = ps.executeQuery();
 			// uimg.setUserImage(rs.getString(1));  
@@ -140,7 +142,8 @@ public class UserImage
 		try
 		{
 			query = "delete userimage from userinfo where EMail=?"
-			PreparedStatement ps = DbContainor.createConnection().prepareStatement(query);
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, uid);
 			
 			if(ps.executeUpdate()>0)
