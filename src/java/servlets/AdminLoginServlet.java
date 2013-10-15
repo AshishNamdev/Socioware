@@ -1,53 +1,50 @@
 package servlets;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import pojo.AdminLogin;
 
 /**
- *
- * @author ANOOP
- */
-public class AdminLoginServlet extends HttpServlet {
+*
+* @author Ashish
+*/
+public class AdminLoginServlet extends HttpServlet
+{
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    /**
+* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-//        processRequest(request, response);
-   response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException 
+	{
+		// processRequest(request, response);
+		response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        AdminLogin  admn=new AdminLogin();
+        AdminLogin admn=new AdminLogin();
         admn.setAdminid(request.getParameter("admnid").trim());
         admn.setPwd(request.getParameter("pwd").trim());
         
         System.out.println("admnid is : "+admn.getAdminid()+ " pwd is : "+admn.getPwd());
         RequestDispatcher rd=null;
         
-        boolean res=admn.isValidAdmin();
-        System.out.println("res is : "+res);
-        if(res==true){
+        if(admn.isValidAdmin())
+		{
            HttpSession obj=request.getSession();
            obj.setAttribute("admnid",admn.getAdminid());
            obj.setMaxInactiveInterval(5000);
            rd=request.getRequestDispatcher("AdminHome.jsp");
            rd.forward(request, response);
         
-            }
-        else{
+        }
+        else
+		{
             rd=request.getRequestDispatcher("AdminLogin.jsp");
             out.println("<span>Admin Id and Password Do not Match</span>");
             rd.include(request, response);
@@ -55,12 +52,13 @@ public class AdminLoginServlet extends HttpServlet {
         out.close();
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    /**
+* Returns a short description of the servlet.
+* @return a String containing servlet description
+*/
     @Override
-    public String getServletInfo() {
+    public String getServletInfo() 
+	{
         return "Short description";
     }// </editor-fold>
 }

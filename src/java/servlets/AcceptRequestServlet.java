@@ -18,7 +18,8 @@ import pojo.*;
  *
  * @author Ashish
  */
-public class AcceptRequestServlet extends HttpServlet {
+public class AcceptRequestServlet extends HttpServlet 
+{
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -28,50 +29,61 @@ public class AcceptRequestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
+        try 
+		{
             FriendRequest freq=new FriendRequest();
             HttpSession session=request.getSession(false);
             RequestDispatcher rd=null;
-            if(session!=null){
+            if(session!=null)
+			{
                 String receiver=session.getAttribute("id").toString();
                 String sender=request.getParameter("qid").toString();
                 freq.setReqSender(sender);
                 freq.setReqReciever(receiver);
                  rd=request.getRequestDispatcher("UserProfile.jsp");
-                boolean chk1 = freq.updateRequest();
-                if(chk1){
+            
+                if(freq.updateRequest())
+				{
                     FriendList frlst=new FriendList();
                     frlst.setUserid(receiver);
                     frlst.setFriendid(sender);
-                    boolean chk2 = frlst.updateFriendList();
-                    if(chk2){
-                    frlst.setUserid(sender);
-                    frlst.setFriendid(receiver);
-                    boolean chk3 = frlst.updateFriendList();
-                        if(chk3==false){
+                    
+                    if(frlst.updateFriendList())
+					{
+						frlst.setUserid(sender);
+						frlst.setFriendid(receiver);
+						
+                        if(!frlst.updateFriendList())
+						{
                            out.println("<span id='response'>Database Insertion Failed</span>");
                             rd.include(request, response);
                         }
                     }
-                    else{
+                    else
+					{
                         out.println("<span id='response'>Database Insertion Failed</span>");
                             rd.include(request, response);
                     }
                 }
-                else{
+                else
+				{
                     out.println("<span id='response'>Database Insertion Failed</span>");
-                            rd.include(request, response);
+                    rd.include(request, response);
                 }
             }
-            else{
+            else
+			{
                 rd=request.getRequestDispatcher("Home.jsp");
                 out.println("<span id='response'>To Continue, Please Log In Again:</span>");
                 rd.include(request, response);
             }
-        } finally {            
+        } 
+		finally 
+		{ 
             out.close();
         }
     }
@@ -86,7 +98,8 @@ public class AcceptRequestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         processRequest(request, response);
     }
 
@@ -99,7 +112,8 @@ public class AcceptRequestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+	{
         processRequest(request, response);
     }
 
@@ -108,7 +122,8 @@ public class AcceptRequestServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo() 
+	{
         return "Short description";
     }// </editor-fold>
 }
