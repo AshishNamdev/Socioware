@@ -46,7 +46,7 @@ public class NgoLogo
     
 	public boolean saveLogo()
 	{
-		boolean flag=false;
+		boolean ret_val=false;
 		DbContainor.loadDbDriver();
         
 		try
@@ -59,7 +59,7 @@ public class NgoLogo
 			if(res>0)
 			{
 				System.out.println("NgoLogo inserted in ngoinfo ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -71,7 +71,7 @@ public class NgoLogo
 		{
 			System.out.println("SQL Error in saveLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 
 	public NgoLogo getLogo()
@@ -97,7 +97,7 @@ public class NgoLogo
     
 	public boolean delLogo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
           
 		try
@@ -110,7 +110,7 @@ public class NgoLogo
 			{
 				System.out.println("NgoLogo deleted in ngoinfo ");
 				this.delNgoLogoFile();
-				flag = true;
+				ret_val = true;
             }
 			else
 			{
@@ -122,7 +122,7 @@ public class NgoLogo
 		{
 			System.out.println("SQL Error in delLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
      
 	public void delNgoLogoFile()

@@ -158,7 +158,7 @@ public class NgoSignup
     
 	public boolean isRegisteredNgo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
 		
 		try
@@ -169,7 +169,7 @@ public class NgoSignup
 			rs=ps.executeQuery();
 			while(rs.next())
 			{
-				flag=true;    
+				ret_val=true;    
 			}
 			System.out.println("Succefuly completed in isRegisteredNgo() of NgoSignup.java");
 			con.close();        
@@ -178,12 +178,12 @@ public class NgoSignup
 		{
 			System.out.println("Sql Error occured in isRegisteredNgo() of NgoSignup.java");
 		}
-		return flag;
+		return ret_val;
 	}
    
 	public boolean setNgoinfo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
        
 		try
@@ -219,7 +219,7 @@ public class NgoSignup
 			if(res>0)
             {
 				System.out.println("Data Succesfully inserted into ngoinfo table  ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -231,7 +231,7 @@ public class NgoSignup
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
     
 	public NgoSignup getNgoInfo()

@@ -105,7 +105,7 @@ public class NgoList
 	}
 	public boolean uploadNgoList()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
         
 		try
@@ -118,7 +118,7 @@ public class NgoList
 			if(res>0)
 			{
 				System.out.println("Data Succesfully inserted into Joins table  ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -131,6 +131,6 @@ public class NgoList
             
 			System.out.println("sql error in createNgoList() of NgoList.java : " + sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 }

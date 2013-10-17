@@ -93,7 +93,7 @@ public class Message
     
 	public boolean sendMessage()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
         
 		try
@@ -118,7 +118,7 @@ public class Message
 			if(res>0)
 			{
 				System.out.println("Data Succefully inserted in message table");
-				flag = true;
+				ret_val = true;
 				con.close();
 			}
 			else
@@ -131,7 +131,7 @@ public class Message
 		{
 			System.out.println("sql error in saveMessage() : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
     
 	public Message findMessageById()
@@ -195,7 +195,7 @@ public class Message
     
 	public boolean delMessage()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
         
 		try
@@ -207,7 +207,7 @@ public class Message
 			if(res>0)
 			{
 				System.out.println("Record deleted from message table");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -218,6 +218,6 @@ public class Message
 		{
 			System.out.println("sql error in delMessage() :"+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 }
