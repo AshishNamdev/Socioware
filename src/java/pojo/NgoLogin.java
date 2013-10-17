@@ -37,7 +37,7 @@ public class NgoLogin
 	
 	public boolean isValidNgo()
 	{ 
-		boolean flag=false;
+		boolean ret_val=false;
 		System.out.println("in is validNgo  methos of userlogin class.");
 		DbContainor.loadDbDriver();
         
@@ -53,7 +53,7 @@ public class NgoLogin
 			System.out.println("command is successfully executed");
 			while(rs.next())
 			{
-			flag=true;
+			ret_val=true;
 			}
 			con.close();  
 		}
@@ -61,6 +61,6 @@ public class NgoLogin
 		{
 			System.out.println("SQl Error Occured : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 }

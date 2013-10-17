@@ -125,7 +125,7 @@ public class Event {
     }
     
 public boolean createEvent(){
-        boolean flag=false;
+        boolean ret_val=false;
        DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -152,7 +152,7 @@ public boolean createEvent(){
              if(res>0)
             {
                 System.out.println("Data Succesfully inserted into events table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -162,10 +162,10 @@ public boolean createEvent(){
         catch(SQLException sqle){
             System.out.println("sql error in createDiscussion() of Discussion.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
 public boolean editDiscussion(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -190,7 +190,7 @@ public boolean editDiscussion(){
              if(res>0)
             {
                 System.out.println("Data Succesfully updated into event table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -200,10 +200,10 @@ public boolean editDiscussion(){
         catch(SQLException sqle){
             System.out.println("sql error in editEvent() of Event.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
 public boolean deleteEvent(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -213,7 +213,7 @@ public boolean deleteEvent(){
              if(res>0)
             {
                 System.out.println("Data Succesfully deleted into event table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -223,7 +223,7 @@ public boolean deleteEvent(){
         catch(SQLException sqle){
             System.out.println("sql error in deleteEvent() of Event.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
 }
 public  ArrayList<Event> findAllEvent() {
         ArrayList<Event> al = new ArrayList<Event>();

@@ -34,7 +34,7 @@ public class AdminLogin {
     }
     public boolean isValidAdmin()
     {
-        boolean flag=false;
+        boolean ret_val=false;
         System.out.println("in isValidAdmin methos of Adminlogin class.");
         DbContainor.loadDbDriver();
        
@@ -49,7 +49,7 @@ public class AdminLogin {
                 System.out.println("command is successfully executed");
                 while(rs.next())
                 {
-                 flag=true;
+                 ret_val=true;
                 }
                
                 con.close();
@@ -58,6 +58,6 @@ public class AdminLogin {
               System.out.println("SQl Error Occured : "+sqle.getMessage());
               
           }
-        return flag;
+        return ret_val;
     }
 }

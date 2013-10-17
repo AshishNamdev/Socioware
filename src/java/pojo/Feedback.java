@@ -33,7 +33,7 @@ public class Feedback {
     }
 
      public boolean storeFeedback(){
-         boolean flag=false;
+         boolean ret_val=false;
          DbContainor.loadDbDriver();
          try{
              con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
@@ -45,7 +45,7 @@ public class Feedback {
              int res=ps.executeUpdate();
              if(res>0){
                  System.out.println("Data succefully inserted into feedback.");
-                 flag=true;
+                 ret_val=true;
                   }
              con.close();
                }

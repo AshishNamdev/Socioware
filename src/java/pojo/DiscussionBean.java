@@ -69,7 +69,7 @@ public class DiscussionBean {
     
    
      public boolean createDiscussion(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -86,7 +86,7 @@ public class DiscussionBean {
              if(res>0)
             {
                 System.out.println("Data Succesfully inserted into discussion table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -96,11 +96,11 @@ public class DiscussionBean {
         catch(SQLException sqle){
             System.out.println("sql error in createDiscussion() of Discussion.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
     
      public boolean editDiscussion(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -117,7 +117,7 @@ public class DiscussionBean {
              if(res>0)
             {
                 System.out.println("Data Succesfully updated into discussion table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -127,11 +127,11 @@ public class DiscussionBean {
         catch(SQLException sqle){
             System.out.println("sql error in editDiscussion() of Discussion.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
      
      public boolean deleteDiscussion(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -141,7 +141,7 @@ public class DiscussionBean {
              if(res>0)
             {
                 System.out.println("Data Succesfully deleted into discussion table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -151,7 +151,7 @@ public class DiscussionBean {
         catch(SQLException sqle){
             System.out.println("sql error in deleteDiscussion() of Discussion.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
       public  ArrayList<DiscussionBean> findAllDiscussion() {
         ArrayList<DiscussionBean> al = new ArrayList<DiscussionBean>();

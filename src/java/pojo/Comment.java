@@ -103,7 +103,7 @@ public class Comment {
     }
     
         public boolean addComment(){
-        boolean flag=false;
+        boolean ret_val=false;
         DbContainor.loadDbDriver();
         try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
@@ -124,7 +124,7 @@ public class Comment {
              if(res>0)
             {
                 System.out.println("Data Succesfully inserted into comments table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -134,10 +134,10 @@ public class Comment {
         catch(SQLException sqle){
             System.out.println("sql error in addComment() of Comment.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
     }
         public boolean deleteComment(){
-            boolean flag=false;
+            boolean ret_val=false;
             DbContainor.loadDbDriver();
             try{
             con=DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
@@ -147,7 +147,7 @@ public class Comment {
              if(res>0)
             {
                 System.out.println("Data Succesfully deleted into comments table  ");
-                flag=true;
+                ret_val=true;
             }
             
             else
@@ -157,7 +157,7 @@ public class Comment {
         catch(SQLException sqle){
             System.out.println("sql error in deleteComment() of Comment.java : " + sqle.getMessage());
         }
-        return flag;
+        return ret_val;
 
         }
         
