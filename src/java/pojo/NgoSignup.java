@@ -25,8 +25,7 @@ public class NgoSignup
 	private String sq2;
 	private String ans2;
 	private String signupdate;
-    
-    ResultSet rs=null;
+
 	public String getAdd()
 	{
 		return add;
@@ -158,18 +157,18 @@ public class NgoSignup
     
 	public boolean isRegisteredNgo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps=con.prepareStatement("select Name,EMail form ungoinfo where EMail=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select Name,EMail form ungoinfo where EMail=?");
 			ps.setString(1, email);
-			rs=ps.executeQuery();
-			while(rs.next())
+
+			if(ps.executeQuery().next())
 			{
-				flag=true;    
+				ret_val=true;    
 			}
 			System.out.println("Succefuly completed in isRegisteredNgo() of NgoSignup.java");
 			con.close();        
@@ -178,18 +177,18 @@ public class NgoSignup
 		{
 			System.out.println("Sql Error occured in isRegisteredNgo() of NgoSignup.java");
 		}
-		return flag;
+		return ret_val;
 	}
    
 	public boolean setNgoinfo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
        
 		try
 		{
-			con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps=con.prepareStatement("insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
                                     + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,name);
 			ps.setString(2, email);
@@ -215,11 +214,11 @@ public class NgoSignup
 			ps.setString(13, ans1);
 			ps.setString(14,sq2);
 			ps.setString(15,ans2);
-			int res=ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
             {
 				System.out.println("Data Succesfully inserted into ngoinfo table  ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -231,7 +230,7 @@ public class NgoSignup
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
     
 	public NgoSignup getNgoInfo()
@@ -241,10 +240,10 @@ public class NgoSignup
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select * from Ngoinfo where EMail=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select * from Ngoinfo where EMail=?");
 			ps.setString(1,email);
-			rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
 				ninf.setAdd(rs.getString(10));
