@@ -72,9 +72,6 @@ public class NgoList
 	{
 		this.unid = unid;
 	}
-   
-	Connection con = null;
-	PreparedStatement ps = null;
 	
 	public ArrayList<NgoList> getNgoList()
 	{
@@ -83,8 +80,8 @@ public class NgoList
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select ngoname , EMail,ngologo  from ngoinfo where EMail in (Select ngoid from joins where unid=?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select ngoname , EMail,ngologo  from ngoinfo where EMail in (Select ngoid from joins where unid=?)");
 			ps.setString(1,unid);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -103,19 +100,19 @@ public class NgoList
 		}
 		return ngal;
 	}
-	public boolean uploadNgoList()
+	public boolean updateNgoList()
 	{
 		boolean ret_val = false;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into joins values(?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into joins values(?,?)");
 			ps.setString(1,ngoid);
 			ps.setString(2, unid);
-			int res = ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Succesfully inserted into Joins table  ");
 				ret_val = true;

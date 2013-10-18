@@ -13,7 +13,6 @@ public class UserLogin
 {
 	private String uid;
 	private String pwd;
-	ResultSet rs = null;
 
 	public void setPwd(String pwd)
 	{
@@ -52,7 +51,7 @@ public class UserLogin
 			ps.execute();
               
 			System.out.println("command is successfully executed");
-			while(ps.executeQuery().next())
+			if(ps.executeQuery().next())
 			{
 				ret_val = true;
 			}

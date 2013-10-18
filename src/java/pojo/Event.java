@@ -99,9 +99,6 @@ public class Event
 		this.visibility = visibility;
 	}
 
-	Connection con=null;
-	PreparedStatement ps=null;
-    
 	public Event()
 	{
 		eventid = new String();
@@ -135,8 +132,8 @@ public class Event
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into events values(?,?,?,?,?,?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into events values(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,eventid);
 			ps.setString(2, organiserid);
 			try
@@ -178,8 +175,8 @@ public class Event
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("update discussion set organiserid=?, eventdate=?, expdate=?,eventdesc=?,likes=?,visbility=?,subject=?,eventname=? where eventid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("update discussion set organiserid=?, eventdate=?, expdate=?,eventdesc=?,likes=?,visbility=?,subject=?,eventname=? where eventid=?");
 			ps.setString(1, organiserid);
 			try
 			{
@@ -219,8 +216,8 @@ public class Event
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("delete from event where eventid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("delete from event where eventid=?");
 			ps.setString(1,eventid);
 			if(ps.executeUpdate()>0)
 			{
@@ -246,8 +243,8 @@ public class Event
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps =con.prepareStatement("Select * from event");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps =con.prepareStatement("Select * from event");
 			ResultSet rs=ps.executeQuery();
 			
 			while(rs.next())
@@ -279,8 +276,8 @@ public class Event
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select * from discussion where eventid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select * from discussion where eventid=?");
 			ps.setString(1, eventid);
 			ResultSet rs = ps.executeQuery();
             

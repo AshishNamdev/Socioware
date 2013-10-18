@@ -31,10 +31,6 @@ public class NgoLogin
 		return nid;
 	}
 	
-	PreparedStatement ps=null; 
-	ResultSet rs=null;
-	Connection con=null;
-	
 	public boolean isValidNgo()
 	{ 
 		boolean ret_val=false;
@@ -43,17 +39,15 @@ public class NgoLogin
         
 		try
 		{
-			con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps=con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
 			ps.setString(1,nid);
 			ps.setString(2, pwd);
 			ps.execute();
-			rs=ps.executeQuery();
-              
 			System.out.println("command is successfully executed");
-			while(rs.next())
+			if(ps.executeQuery().next())
 			{
-			ret_val=true;
+				ret_val=true;
 			}
 			con.close();  
 		}

@@ -87,17 +87,14 @@ public class FriendRequest
 	this.status=status;
 	}
 	
-	Connection con = null;
-    PreparedStatement ps = null;
-	
 	public boolean sendRequest()
 	{
 		boolean ret_val = false;
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into friendrequest values(?,?,?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into friendrequest values(?,?,?,?,?,?)");
 			ps.setString(1, "reqid");
 			ps.setString(2, "reqsender");
 			ps.setString(3,"reqreceiver");
@@ -135,10 +132,10 @@ public class FriendRequest
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps =con.prepareStatement("select fname, mname, lname, email from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='unconfirmed')");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps =con.prepareStatement("select fname, mname, lname, email from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='unconfirmed')");
 			ps.setString(1,reqReciever);
-			ResultSet rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
 				fr.setName(rs.getString("fname")+" "+rs.getString("mname")+" "+rs.getString("lname"));
@@ -159,8 +156,8 @@ public class FriendRequest
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("update friendrequest set status='confirmed' where reqsender=? and reqreceiver=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("update friendrequest set status='confirmed' where reqsender=? and reqreceiver=?");
 			ps.setString(1,reqSender);
 			ps.setString(2,reqReciever);
 			if(ps.executeUpdate()>0)

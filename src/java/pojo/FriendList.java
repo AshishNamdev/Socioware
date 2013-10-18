@@ -50,9 +50,6 @@ public class FriendList
 	{
 		this.userid = userid;
 	}
-	
-	Connection con=null;
-    PreparedStatement ps=null;
     
 	public FriendList()
 	{
@@ -73,8 +70,8 @@ public class FriendList
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select fname, mname, lname,EMail ,USERIMAGE from userinfo where EMail in (Select friendid from friendlist where userid=?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select fname, mname, lname,EMail ,USERIMAGE from userinfo where EMail in (Select friendid from friendlist where userid=?)");
 			ps.setString(1, userid);
 			ResultSet rs=ps.executeQuery();
 			
@@ -107,8 +104,8 @@ public class FriendList
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into friendlist values(?,?)");
+			Connection con  = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into friendlist values(?,?)");
 			ps.setString(1,userid);
 			ps.setString(2, friendid);
 			if(ps.executeUpdate()>0)

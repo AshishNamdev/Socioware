@@ -31,9 +31,6 @@ public class Feedback
 	{
 		this.name = name;
 	}
-
-	PreparedStatement ps=null;
-	Connection con=null;
     
 	public boolean storeFeedback()
 	{
@@ -41,8 +38,8 @@ public class Feedback
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into feedback values(?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into feedback values(?,?,?,?)");
 			ps.setString(1, name);
 			ps.setString(2,email);
 			ps.setString(3, feedback);
