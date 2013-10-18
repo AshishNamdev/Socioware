@@ -52,9 +52,9 @@ public class AdminLogin
 			rs = ps.executeQuery();
 			System.out.println("command is successfully executed");
 			
-			while(rs.next())
+			if(rs.next())
 			{
-				ret_val=true;
+				ret_val = true;
 			}
 			con.close();
 		}
