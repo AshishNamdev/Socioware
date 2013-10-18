@@ -31,21 +31,17 @@ public class AdminLogin
 	{
 		return adminid;
 	}
-    
-	PreparedStatement ps=null;
-	ResultSet rs=null;
-	Connection con=null;
-	
+
 	public boolean isValidAdmin()
-    {
+	{
 		boolean ret_val = false;
 		System.out.println("in isValidAdmin methos of Adminlogin class.");
 		DbContainor.loadDbDriver();
        
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select EMail,Password from userinfo where EMail=? and Password=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select EMail,Password from userinfo where EMail=? and Password=?");
 			ps.setString(1,adminid);
 			ps.setString(2, pwd);
 			ps.execute();

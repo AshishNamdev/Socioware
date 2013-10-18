@@ -18,8 +18,6 @@ public class Issue
 	protected String issuedate;
 	protected String content;
 	protected String visibility;
-    Connection con=null;
-    PreparedStatement ps=null;
     
 	public Issue()
 	{
@@ -83,8 +81,8 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into issues values(?,?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into issues values(?,?,?,?,?)");
 			ps.setString(1,issueid);
 			ps.setString(2, unid);
 			try
@@ -121,8 +119,8 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("update discussion set unid=?, issuedate=?, content=? visibility=? where issueid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("update discussion set unid=?, issuedate=?, content=? visibility=? where issueid=?");
 			ps.setString(1, unid);
 			try
 			{
@@ -159,8 +157,8 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("delete from issues where issueid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("delete from issues where issueid=?");
 			ps.setString(1,issueid);
 			if(ps.executeUpdate()>0)
 			{
@@ -186,8 +184,8 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select * from issues");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select * from issues");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
@@ -214,8 +212,8 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("Select * from discussion where issueid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select * from discussion where issueid=?");
 			ps.setString(1, issueid);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next())

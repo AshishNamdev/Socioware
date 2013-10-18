@@ -192,7 +192,7 @@ public class PublishStatus
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,unid);
-			rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
             
 			while(rs.next())
 			{

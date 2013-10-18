@@ -85,9 +85,6 @@ public class Comment
 		this.unid = unid;
 	}
     
-    Connection con=null;
-    PreparedStatement ps=null;
-    
 	public Comment()
 	{
 		cmntid = new String();
@@ -113,8 +110,8 @@ public class Comment
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			ps = con.prepareStatement("Insert into comments values(?,?,?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Insert into comments values(?,?,?,?,?,?)");
 			ps.setString(1,cmntid);
 			ps.setString(2, unid);
 			ps.setString(3, cmnton);
@@ -152,10 +149,10 @@ public class Comment
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			ps = con.prepareStatement("delete from comments where cmntid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("delete from comments where cmntid=?");
 			ps.setString(1,cmntid);
-            int res=ps.executeUpdate();
+
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Successfully deleted into comments table  ");
@@ -179,9 +176,9 @@ public class Comment
 		DbContainor.loadDbDriver();
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			ps = con.prepareStatement("Select * from comments");
-			ResultSet rs=ps.executeQuery();
+			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("Select * from comments");
+			ResultSet rs = ps.executeQuery();
             
 			while(rs.next())
 			{

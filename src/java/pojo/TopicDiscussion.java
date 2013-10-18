@@ -91,7 +91,7 @@ public class TopicDiscussion
 			{
 				ps.setDate(3,DbContainor.toSQLDate(discdate));
 			}
-			catch ( ParseException ex)
+			catch (ParseException ex)
 			{
 				System.out.println("can not convert date : "+ex.getMessage());
 			}

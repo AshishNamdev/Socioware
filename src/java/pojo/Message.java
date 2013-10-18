@@ -86,10 +86,6 @@ public class Message
 	{
 		this.status = status;
 	}
-
-	Connection con = null;
-	PreparedStatement ps = null;
-	ResultSet rs1,rs = null;
     
 	public boolean sendMessage()
 	{
@@ -98,8 +94,8 @@ public class Message
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("insert into message values(?,?,?,?,?,?)");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("insert into message values(?,?,?,?,?,?)");
 			ps.setString(1, msgid);
 			ps.setString(2, senderid);
 			ps.setString(3,this.receiverid);
@@ -114,8 +110,8 @@ public class Message
 			}
 			ps.setString(6, this.message);
 			ps.setString(5,this.status);
-			int res = ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Succefully inserted in message table");
 				ret_val = true;
@@ -141,10 +137,10 @@ public class Message
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select * from message where msgid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select * from message where msgid=?");
 			ps.setString(1, msgid);
-			rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			msg.setMsgid(rs.getString(1));
 			msg.setSenderid(rs.getString(2));
 			msg.setReceiverid(rs.getString(3));
@@ -167,10 +163,10 @@ public class Message
 		
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("select * from message where receiverid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select * from message where receiverid=?");
 			ps.setString(1, this.receiverid);
-			rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
             
 			while(rs.next())
@@ -200,11 +196,11 @@ public class Message
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("delete * from message where msgid=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("delete * from message where msgid=?");
 			ps.setString(1, msgid);
-			int res = ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Record deleted from message table");
 				ret_val = true;

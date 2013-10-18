@@ -13,7 +13,6 @@ public class UserLogin
 {
 	private String uid;
 	private String pwd;
-	ResultSet rs = null;
 
 	public void setPwd(String pwd)
 	{
