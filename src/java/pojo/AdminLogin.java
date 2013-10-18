@@ -49,10 +49,9 @@ public class AdminLogin
 			ps.setString(1,adminid);
 			ps.setString(2, pwd);
 			ps.execute();
-			rs = ps.executeQuery();
 			System.out.println("command is successfully executed");
 			
-			if(rs.next())
+			if(ps.executeQuery().next())
 			{
 				ret_val = true;
 			}

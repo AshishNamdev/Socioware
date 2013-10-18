@@ -52,7 +52,7 @@ public class UserLogin
 			ps.execute();
               
 			System.out.println("command is successfully executed");
-			while(ps.executeQuery().next())
+			if(ps.executeQuery().next())
 			{
 				ret_val = true;
 			}

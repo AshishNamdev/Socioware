@@ -48,12 +48,10 @@ public class NgoLogin
 			ps.setString(1,nid);
 			ps.setString(2, pwd);
 			ps.execute();
-			rs=ps.executeQuery();
-              
 			System.out.println("command is successfully executed");
-			while(rs.next())
+			if(ps.executeQuery().next())
 			{
-			ret_val=true;
+				ret_val=true;
 			}
 			con.close();  
 		}
