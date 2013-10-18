@@ -166,7 +166,7 @@ public class NgoSignup
 			PreparedStatement ps = con.prepareStatement("select Name,EMail form ungoinfo where EMail=?");
 			ps.setString(1, email);
 
-			while(ps.executeQuery().next())
+			if(ps.executeQuery().next())
 			{
 				ret_val=true;    
 			}

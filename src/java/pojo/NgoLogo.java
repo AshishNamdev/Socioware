@@ -81,7 +81,11 @@ public class NgoLogo
 			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
 			PreparedStatement ps = con.prepareCall("select ngologo from ngoinfo where Email=?");
 			ps.setString(1, ngoid);
-			ngl.setNgologo(ps.executeQuery().getString(1));
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				ngl.setNgologo(rs.getString(1));
+			}
 			con.close();
 		}
 		catch(SQLException sqle)

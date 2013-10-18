@@ -227,7 +227,7 @@ public class UserSignup
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, email);
 
-			while(ps.executeQuery().next())
+			if(ps.executeQuery().next())
 			{
 				ret_val = true;
 			}

@@ -141,12 +141,15 @@ public class Message
 			PreparedStatement ps = con.prepareStatement("select * from message where msgid=?");
 			ps.setString(1, msgid);
 			ResultSet rs = ps.executeQuery();
-			msg.setMsgid(rs.getString(1));
-			msg.setSenderid(rs.getString(2));
-			msg.setReceiverid(rs.getString(3));
-			msg.setMsgDate(rs.getDate(4).toString());
-			msg.setMessage(rs.getString(6));
-			msg.setStatus(rs.getString(5));
+			if(rs.next())
+			{
+				msg.setMsgid(rs.getString(1));
+				msg.setSenderid(rs.getString(2));
+				msg.setReceiverid(rs.getString(3));
+				msg.setMsgDate(rs.getDate(4).toString());
+				msg.setMessage(rs.getString(6));
+				msg.setStatus(rs.getString(5));
+			}
 			con.close();
 		}
 		catch(SQLException sqle)

@@ -100,7 +100,7 @@ public class NgoList
 		}
 		return ngal;
 	}
-	public boolean uploadNgoList()
+	public boolean updateNgoList()
 	{
 		boolean ret_val = false;
 		DbContainor.loadDbDriver();
