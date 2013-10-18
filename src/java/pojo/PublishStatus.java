@@ -99,7 +99,7 @@ public class PublishStatus
     
 	public boolean saveStatus()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -126,7 +126,7 @@ public class PublishStatus
             if(ps.executeUpdate(>0)
 			{
 				System.out.println("status published succefully.");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -142,12 +142,12 @@ public class PublishStatus
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
      
 	public boolean delStatus()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -161,7 +161,7 @@ public class PublishStatus
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("suceefully deleted from publishstatus table.");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -177,7 +177,7 @@ public class PublishStatus
 		{
 			System.out.println("SQL Error in delStatus() of Staus.java : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
  
 	public   ArrayList<PublishStatus> findAllStatus()
@@ -192,7 +192,7 @@ public class PublishStatus
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,unid);
-			rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
             
 			while(rs.next())
 			{

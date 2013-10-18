@@ -31,29 +31,23 @@ public class NgoLogin
 		return nid;
 	}
 	
-	PreparedStatement ps=null; 
-	ResultSet rs=null;
-	Connection con=null;
-	
 	public boolean isValidNgo()
 	{ 
-		boolean flag=false;
+		boolean ret_val=false;
 		System.out.println("in is validNgo  methos of userlogin class.");
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con=DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps=con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
 			ps.setString(1,nid);
 			ps.setString(2, pwd);
 			ps.execute();
-			rs=ps.executeQuery();
-              
 			System.out.println("command is successfully executed");
-			while(rs.next())
+			if(ps.executeQuery().next())
 			{
-			flag=true;
+				ret_val=true;
 			}
 			con.close();  
 		}
@@ -61,6 +55,6 @@ public class NgoLogin
 		{
 			System.out.println("SQl Error Occured : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 }

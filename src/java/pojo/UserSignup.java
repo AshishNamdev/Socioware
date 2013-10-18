@@ -227,7 +227,7 @@ public class UserSignup
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, email);
 
-			while(ps.executeQuery().next())
+			if(ps.executeQuery().next())
 			{
 				ret_val = true;
 			}
@@ -318,7 +318,6 @@ public class UserSignup
 	{
 		UserSignup uinf = new UserSignup();
 		String query = null;
-		ResultSet rs = null;
 		DbContainor.loadDbDriver();
         
 		try
@@ -328,7 +327,7 @@ public class UserSignup
 			PreparedStatement ps = con.prepareStatement(query);
 			ps = con.prepareStatement(query);
 			ps.setString(1,this.email);
-			rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
 				String temp = rs.getString(2);
@@ -370,7 +369,6 @@ public class UserSignup
 	{
 		String  userName = null;
 		String query = null;
-		ResultSet rs = null;
 		DbContainor.loadDbDriver();
         
 		try
@@ -379,7 +377,7 @@ public class UserSignup
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,email);
-			rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
 				userName =rs.getString(1);

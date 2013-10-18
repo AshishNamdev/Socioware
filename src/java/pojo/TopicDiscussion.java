@@ -74,7 +74,7 @@ public class TopicDiscussion
     
 	public boolean createTopicDiscussion()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		String query = null;
 		System.out.println("in createTopic");
 		DbContainor.loadDbDriver();
@@ -91,7 +91,7 @@ public class TopicDiscussion
 			{
 				ps.setDate(3,DbContainor.toSQLDate(discdate));
 			}
-			catch ( ParseException ex)
+			catch (ParseException ex)
 			{
 				System.out.println("can not convert date : "+ex.getMessage());
 			}
@@ -101,7 +101,7 @@ public class TopicDiscussion
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Successfully inserted into topicdiscussion table  ");
-				flag = true;
+				ret_val = true;
             }
 			else
 			{
@@ -117,12 +117,12 @@ public class TopicDiscussion
 		{
 			System.out.println("sql error in createTopicDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
    
 	public boolean editTopicDiscussion()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		String query = null;
 		DbContainor.loadDbDriver();
 		
@@ -147,7 +147,7 @@ public class TopicDiscussion
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Successfully updated into Topicdiscussion table  ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -163,12 +163,12 @@ public class TopicDiscussion
 		{
 			System.out.println("sql error in editTopicDiscussion() of TopicDiscussion.java : " + sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
      
 	public boolean deleteTopicDiscussion()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		String query = null;
 		DbContainor.loadDbDriver();
 		
@@ -182,7 +182,7 @@ public class TopicDiscussion
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Successfully deleted into TopicDiscussion table  ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -198,7 +198,7 @@ public class TopicDiscussion
 		{
 			System.out.println("sql error in deleteTopicDiscussion() of TopicDiscussion.java : " + sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
      
 	public  ArrayList<TopicDiscussion> findAllTopicDiscussion()

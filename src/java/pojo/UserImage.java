@@ -88,7 +88,6 @@ public class UserImage
 	{
 		UserImage uimg = new UserImage();
 		String query = null;
-		ResultSet rs = null;
 		DbContainor.loadDbDriver();
 		
 		try
@@ -97,7 +96,7 @@ public class UserImage
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, uid);
-			rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			// uimg.setUserImage(rs.getString(1));  
 			
 			if(rs.next())

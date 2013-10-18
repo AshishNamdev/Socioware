@@ -77,13 +77,12 @@ public abstract class DbContainor
 
 	public static Connection createConnection()
 	{
-			Connection con = null;
-			con = DriverManager.getConnection(dburl,dbuser,dbpwd);
-			if(con==null)
-			{
-				throw new NullPointerException();
-			}
-			
-			return con;
+		Connection con = null;
+		con = DriverManager.getConnection(dburl,dbuser,dbpwd);
+		if(con==null)
+		{
+			throw new NullPointerException();
+		}
+		return con;
 	}
 }

@@ -40,26 +40,23 @@ public class NgoLogo
 	{
 		this.ngologo = ngologo;
 	}
-    Connection con=null;
-    PreparedStatement ps=null;
-    ResultSet rs = null;
     
 	public boolean saveLogo()
 	{
-		boolean flag=false;
+		boolean ret_val=false;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("update ngoinfo set ngologo=? where EMail=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("update ngoinfo set ngologo=? where EMail=?");
 			ps.setString(1, ngologo);
 			ps.setString(2, ngoid);
-			int res=ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("NgoLogo inserted in ngoinfo ");
-				flag = true;
+				ret_val = true;
 			}
 			else
 			{
@@ -71,7 +68,7 @@ public class NgoLogo
 		{
 			System.out.println("SQL Error in saveLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
 
 	public NgoLogo getLogo()
@@ -81,11 +78,14 @@ public class NgoLogo
           
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareCall("select ngologo from ngoinfo where Email=?");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareCall("select ngologo from ngoinfo where Email=?");
 			ps.setString(1, ngoid);
-			rs = ps.executeQuery();
-			ngl.setNgologo(rs.getString(1));
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				ngl.setNgologo(rs.getString(1));
+			}
 			con.close();
 		}
 		catch(SQLException sqle)
@@ -97,20 +97,20 @@ public class NgoLogo
     
 	public boolean delLogo()
 	{
-		boolean flag = false;
+		boolean ret_val = false;
 		DbContainor.loadDbDriver();
           
 		try
 		{
-			con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			ps = con.prepareStatement("delete ngologo from ngoinfo where EMail=? ");
+			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
+			PreparedStatement ps = con.prepareStatement("delete ngologo from ngoinfo where EMail=? ");
 			ps.setString(1, ngoid);
-			int res = ps.executeUpdate();
-			if(res>0)
+
+			if(ps.executeUpdate()>0)
 			{
 				System.out.println("NgoLogo deleted in ngoinfo ");
 				this.delNgoLogoFile();
-				flag = true;
+				ret_val = true;
             }
 			else
 			{
@@ -122,7 +122,7 @@ public class NgoLogo
 		{
 			System.out.println("SQL Error in delLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return flag;
+		return ret_val;
 	}
      
 	public void delNgoLogoFile()
