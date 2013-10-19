@@ -129,11 +129,13 @@ public class Event
 	public boolean createEvent()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into events values(?,?,?,?,?,?,?,?,?)");
+			query = "insert into events values(?,?,?,?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,eventid);
 			ps.setString(2, organiserid);
 			try
@@ -172,11 +174,13 @@ public class Event
 	public boolean editDiscussion()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("update discussion set organiserid=?, eventdate=?, expdate=?,eventdesc=?,likes=?,visbility=?,subject=?,eventname=? where eventid=?");
+			query = "update discussion set organiserid=?, eventdate=?, expdate=?,eventdesc=?,likes=?,visbility=?,subject=?,eventname=? where eventid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, organiserid);
 			try
 			{
@@ -213,11 +217,13 @@ public class Event
 	public boolean deleteEvent()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete from event where eventid=?");
+			query = "delete from event where eventid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,eventid);
 			if(ps.executeUpdate()>0)
 			{
@@ -240,11 +246,13 @@ public class Event
 	public  ArrayList<Event> findAllEvent()
 	{
 		ArrayList<Event> al = new ArrayList<Event>();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps =con.prepareStatement("Select * from event");
+			query = "Select * from event";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs=ps.executeQuery();
 			
 			while(rs.next())
@@ -273,11 +281,13 @@ public class Event
 	public Event findEvent()
 	{
 		Event ev = new Event();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from discussion where eventid=?");
+			query = "Select * from discussion where eventid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, eventid);
 			ResultSet rs = ps.executeQuery();
             

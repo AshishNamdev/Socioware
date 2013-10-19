@@ -107,11 +107,13 @@ public class Comment
 	public boolean addComment()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Insert into comments values(?,?,?,?,?,?)");
+			query = "Insert into comments values(?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,cmntid);
 			ps.setString(2, unid);
 			ps.setString(3, cmnton);
@@ -136,6 +138,10 @@ public class Comment
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in addComment() of Comment.java : " + sqle.getMessage());
@@ -146,11 +152,13 @@ public class Comment
 	public boolean deleteComment()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete from comments where cmntid=?");
+			query = "delete from comments where cmntid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,cmntid);
 
 			if(ps.executeUpdate()>0)
@@ -164,6 +172,10 @@ public class Comment
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in deleteComment() of Comment.java  : " + sqle.getMessage());
@@ -174,10 +186,12 @@ public class Comment
 	{
 		ArrayList<Comment> al = new ArrayList<Comment>();
 		DbContainor.loadDbDriver();
+		String query = null;
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser, DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from comments");
+			query = "Select * from comments";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);	
 			ResultSet rs = ps.executeQuery();
             
 			while(rs.next())
@@ -193,6 +207,10 @@ public class Comment
 			}
 			con.close();
         }
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in findAllComment() of Comment.java : " + sqle.getMessage());

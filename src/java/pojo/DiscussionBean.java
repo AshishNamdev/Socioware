@@ -71,11 +71,13 @@ public class DiscussionBean
 	public boolean createDiscussion()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into discussion values(?,?,?,?)");
+			query = "insert into discussion values(?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,discid);
 			ps.setString(2, topic);
 			try
@@ -109,11 +111,13 @@ public class DiscussionBean
 	public boolean editDiscussion()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("update discussion set topic=?, topicdate=?, topicdesc=? where discid=?");
+			query = "update discussion set topic=?, topicdate=?, topicdesc=? where discid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, topic);
 			try
 			{
@@ -146,11 +150,13 @@ public class DiscussionBean
 	public boolean deleteDiscussion()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete from discussion where discid=?");
+			query = "delete from discussion where discid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,discid);
 			if(ps.executeUpdate()>0)
 			{
@@ -173,12 +179,13 @@ public class DiscussionBean
 	public  ArrayList<DiscussionBean> findAllDiscussion()
 	{
 		ArrayList<DiscussionBean> al = new ArrayList<DiscussionBean>();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from discussion");
-			ResultSet rs = ps.executeQuery();
+			query = "Select * from discussion";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 
 			while(rs.next())
 			{
@@ -201,11 +208,14 @@ public class DiscussionBean
 	public DiscussionBean findDiscussion()
 	{
 		DiscussionBean db = new DiscussionBean();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from discussion where discid=?");
+			
+			query = "Select * from discussion where discid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, discid);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
