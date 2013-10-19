@@ -158,12 +158,14 @@ public class NgoSignup
 	public boolean isRegisteredNgo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select Name,EMail form ungoinfo where EMail=?");
+			query = "select Name,EMail form ungoinfo where EMail=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, email);
 
 			if(ps.executeQuery().next())
@@ -172,6 +174,10 @@ public class NgoSignup
 			}
 			System.out.println("Succefuly completed in isRegisteredNgo() of NgoSignup.java");
 			con.close();        
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -183,13 +189,15 @@ public class NgoSignup
 	public boolean setNgoinfo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
        
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
-                                    + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			query = "insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
+                                    + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,name);
 			ps.setString(2, email);
 			ps.setString(3,remail);
@@ -226,6 +234,10 @@ public class NgoSignup
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
@@ -236,12 +248,14 @@ public class NgoSignup
 	public NgoSignup getNgoInfo()
 	{
 		NgoSignup ninf = new NgoSignup();
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select * from Ngoinfo where EMail=?");
+			query = "select * from Ngoinfo where EMail=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,email);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
@@ -257,7 +271,11 @@ public class NgoSignup
 				ninf.setWebsite(rs.getString(5));
 				ninf.setSignupdate(rs.getDate(7).toString());
 			}
-		}     
+		} 
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());

@@ -164,6 +164,10 @@ public class Event
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in createDiscussion() of Discussion.java : " + sqle.getMessage());

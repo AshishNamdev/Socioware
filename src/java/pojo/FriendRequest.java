@@ -90,11 +90,13 @@ public class FriendRequest
 	public boolean sendRequest()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into friendrequest values(?,?,?,?,?,?)");
+			query = "insert into friendrequest values(?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, "reqid");
 			ps.setString(2, "reqsender");
 			ps.setString(3,"reqreceiver");
@@ -119,6 +121,10 @@ public class FriendRequest
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQL Error in sendRequest() of FriendRequest.java");
@@ -129,11 +135,13 @@ public class FriendRequest
 	public FriendRequest findReceivedRequest()
 	{
 		FriendRequest fr = new FriendRequest();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps =con.prepareStatement("select fname, mname, lname, email from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='unconfirmed')");
+			query = "select fname, mname, lname, email from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='unconfirmed')";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,reqReciever);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
@@ -142,6 +150,10 @@ public class FriendRequest
 				fr.setEmail(rs.getString("email"));
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -153,11 +165,13 @@ public class FriendRequest
 	public boolean updateRequest()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("update friendrequest set status='confirmed' where reqsender=? and reqreceiver=?");
+			query = "update friendrequest set status='confirmed' where reqsender=? and reqreceiver=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,reqSender);
 			ps.setString(2,reqReciever);
 			if(ps.executeUpdate()>0)
@@ -169,6 +183,10 @@ public class FriendRequest
 			{
 				System.out.println("c'ldn't update friendrequest table  in updateRequest() in class FriendRequest.java");
 			}
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
