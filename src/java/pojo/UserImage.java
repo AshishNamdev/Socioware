@@ -118,7 +118,7 @@ public class UserImage
 	
 	public void delUserImageFile()
 	{
-		String image = getImage().getUserImage();
+		String image = this.getImage().getUserImage();
 		String query = null;
 		File img = new File(image);
 		
@@ -130,7 +130,7 @@ public class UserImage
 		{
 			System.out.println("can not delete UserImage from server.");
 		}
-        }
+    }
 
 	public boolean delImage() 
 	{

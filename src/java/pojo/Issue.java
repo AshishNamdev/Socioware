@@ -78,11 +78,13 @@ public class Issue
 	public boolean createIssue()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into issues values(?,?,?,?,?)");
+			query = "insert into issues values(?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,issueid);
 			ps.setString(2, unid);
 			try
@@ -106,6 +108,10 @@ public class Issue
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in createIssue() of Issue.java : " + sqle.getMessage());
@@ -116,11 +122,14 @@ public class Issue
 	public boolean editIssue()
 	{
 		boolean ret_val=false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("update discussion set unid=?, issuedate=?, content=? visibility=? where issueid=?");
+			
+			query = "update discussion set unid=?, issuedate=?, content=? visibility=? where issueid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, unid);
 			try
 			{
@@ -144,6 +153,10 @@ public class Issue
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in editIssue() of Issue.java : " + sqle.getMessage());
@@ -154,11 +167,13 @@ public class Issue
 	public boolean deleteIssue()
 	{
 		boolean ret_val=false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete from issues where issueid=?");
+			query = "delete from issues where issueid=?"
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,issueid);
 			if(ps.executeUpdate()>0)
 			{
@@ -171,6 +186,10 @@ public class Issue
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in deleteIssues() of Issue.java : " + sqle.getMessage());
@@ -181,11 +200,13 @@ public class Issue
 	public  ArrayList<Issue> findAllIssue()
 	{
 		ArrayList<Issue> al = new ArrayList<Issue>();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from issues");
+			query = "delete from issues where issueid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
@@ -199,6 +220,10 @@ public class Issue
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in findAllDiscussion() of Discussion.java : " + sqle.getMessage());
@@ -209,11 +234,13 @@ public class Issue
 	public Issue findIssue()
 	{
 		Issue is = new Issue();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl, DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select * from discussion where issueid=?");
+			query = "Select * from discussion where issueid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, issueid);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next())
@@ -225,6 +252,10 @@ public class Issue
 				is.setVisibility(rs.getString("visibility"));
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

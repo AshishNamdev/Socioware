@@ -101,6 +101,10 @@ public class DiscussionBean
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in createDiscussion() of Discussion.java : " + sqle.getMessage());
@@ -140,6 +144,10 @@ public class DiscussionBean
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in editDiscussion() of Discussion.java : " + sqle.getMessage());
@@ -168,6 +176,10 @@ public class DiscussionBean
 				System.out.println("Could not update data into discussion table.");
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -198,6 +210,10 @@ public class DiscussionBean
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("ql error in findAllDiscussion() of Discussion.java : " + sqle.getMessage());
@@ -226,6 +242,10 @@ public class DiscussionBean
 				db.setTopicdesc(rs.getString("topicdesc"));
 			}
 		con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

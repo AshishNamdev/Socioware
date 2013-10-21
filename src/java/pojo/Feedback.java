@@ -35,11 +35,14 @@ public class Feedback
 	public boolean storeFeedback()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into feedback values(?,?,?,?)");
+
+			query = "insert into feedback values(?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, name);
 			ps.setString(2,email);
 			ps.setString(3, feedback);
@@ -50,6 +53,10 @@ public class Feedback
 				ret_val = true;
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

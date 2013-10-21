@@ -34,13 +34,15 @@ public class NgoLogin
 	public boolean isValidNgo()
 	{ 
 		boolean ret_val=false;
+		String query = null;
 		System.out.println("in is validNgo  methos of userlogin class.");
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
+			query = "select EMail,Password from ngoinfo where EMail=? and Password=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,nid);
 			ps.setString(2, pwd);
 			ps.execute();
@@ -50,6 +52,10 @@ public class NgoLogin
 				ret_val=true;
 			}
 			con.close();  
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

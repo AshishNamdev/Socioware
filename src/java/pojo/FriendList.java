@@ -67,11 +67,14 @@ public class FriendList
 	public ArrayList<FriendList> getFriendList()
 	{
 		ArrayList<FriendList>al=new ArrayList();
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("Select fname, mname, lname,EMail ,USERIMAGE from userinfo where EMail in (Select friendid from friendlist where userid=?)");
+			
+			query = "Select fname, mname, lname,EMail ,USERIMAGE from userinfo where EMail in (Select friendid from friendlist where userid=?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, userid);
 			ResultSet rs=ps.executeQuery();
 			
@@ -91,6 +94,10 @@ public class FriendList
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in getFriendlist of FrienList.java : " + sqle.getMessage());
@@ -101,11 +108,14 @@ public class FriendList
 	public boolean updateFriendList()
 	{
 		boolean ret_val =false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		try
 		{
-			Connection con  = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into friendlist values(?,?)");
+			
+			query = "insert into friendlist values(?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,userid);
 			ps.setString(2, friendid);
 			if(ps.executeUpdate()>0)
@@ -118,6 +128,10 @@ public class FriendList
 				System.out.println("Could not insert data into FriendList table.");
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
