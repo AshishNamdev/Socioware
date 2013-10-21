@@ -356,7 +356,7 @@ public class UserSignup
 		}
 		catch(NullPointerException npe)
 		{
-			System.out.println("Connection error : "+npe.getMessage());
+			System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
 		}
 		catch(SQLException sqe)
 		{
@@ -386,7 +386,7 @@ public class UserSignup
             
 		catch(NullPointerException npe)
 		{
-			System.out.println("Connection error : "+npe.getMessage());
+			System.out.println("DbContainor.createConnection():can not create connection to database: "+npe.getMessage());
 		}
 		catch(SQLException sqe)
 		{
