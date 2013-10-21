@@ -234,7 +234,6 @@ public class UserSignup
 			System.out.println("Succefully exceuted in isRegisteredUser() in UserSignup.java");
 			con.close();
 		}
-		
 		catch(NullPointerException npe)
 		{
 			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
