@@ -24,7 +24,6 @@ public class NgoSignup
 	private String ans1;
 	private String sq2;
 	private String ans2;
-	private String signupdate;
 
 	public String getAdd()
 	{
@@ -207,9 +206,12 @@ public class NgoSignup
             
 			try
 			{
-				String signupDate = new java.util.Date().toString();
-				ps.setDate(7,DbContainor.toSQLDate(signupDate));
-			} 
+				/*  getting signupDate from getDate and converting it into sql date format directly 
+					without using any temporary variable , 
+					using getDate() API to get System date instead of using util.Date()
+				*/
+				ps.setDate(7,DbContainor.toSQLDate(DbContainor.getDate()));
+			}
 			catch (ParseException ex)
 			{
 				System.out.println("Unable to convert signupDate in sql date : "+ex.getMessage());

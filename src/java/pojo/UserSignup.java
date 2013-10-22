@@ -31,8 +31,6 @@ public class UserSignup
 	private String sq2;
 	private String ans2;
 	private String name;
-	private String signupdate;
-
 
 	public String getSignupdate()
 	{
@@ -270,10 +268,12 @@ public class UserSignup
 			try
 			{
 				ps.setDate(8,DbContainor.toSQLDate(dob));
-				String signupDate = DbContainor.getDate();
-				ps.setDate(9,DbContainor.toSQLDate(signupDate));
+				String signupDate = ;
+				/*  getting signupDate from getDate and converting it into sql date format directly 
+					without using any temporary variable
+				*/
+				ps.setDate(9,DbContainor.toSQLDate(DbContainor.getDate()));
 			} 
-			
 			catch (ParseException ex)
 			{
 				System.out.println("Unable to convert dob/signupdate in sql date : "+ex.getMessage());
