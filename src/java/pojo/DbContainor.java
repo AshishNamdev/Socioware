@@ -34,36 +34,34 @@ public abstract class DbContainor
     
 	public static java.sql.Date toSQLDate(String date) throws ParseException
 	{
-		java.sql.Date sqdate;
-		java.util.Date temp;
+		java.sql.Date sqldate;
+		java.util.Date u_date;
+		long time;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		long t;
-		temp = sdf.parse(date);
-		t = temp.getTime();
-		sqdate = new java.sql.Date(t);
-		return sqdate;
+		u_date = sdf.parse(date);
+		time = u_date.getTime();
+		sqldate = new java.sql.Date(time);
+		return sqldate;
 	}
     
 	public static String getDate()
 	{
-		Calendar td = Calendar.getInstance();
-		int day = td.get(Calendar.DATE);
-		int mon = td.get(Calendar.MONTH)+1;
-		int year = td.get(Calendar.YEAR);
+		Calendar cal = Calendar.getInstance();
+		int day = cal.get(Calendar.DATE);
+		int mon = cal.get(Calendar.MONTH)+1;
+		int year = cal.get(Calendar.YEAR);
 		String date = day+"-"+mon+"-"+year;
 		return date;
 	}
     
-	public static String revString(String str)
+	public static String revString(String date)
 	{
-		String revStr = null;
 		String dd,mm,yyyy;
-		int ln = str.length();
-		yyyy = str.substring(0,str.indexOf("-"));
-		mm = str.substring(str.indexOf("-"), str.indexOf("-"));
-		dd = str.substring(str.indexOf("-"), ln);
-        revStr=dd+mm+yyyy;
-		return revStr;
+		int len = date.length();
+		yyyy = date.substring(0,date.indexOf("-"));
+		mm = date.substring(date.indexOf("-"), date.indexOf("-"));
+		dd = date.substring(date.indexOf("-"), len);
+		return dd+mm+yyyy ;
 	}
     
 	public static String arrangePath(String path)

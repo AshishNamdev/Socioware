@@ -51,10 +51,10 @@ public class NgoSignupServlet extends HttpServlet
 			nsgn.setAdd(request.getParameter("add").trim());
 			nsgn.setCity(request.getParameter("city").trim());
 			nsgn.setCntry(request.getParameter("cntry").trim());
-			nsgn.setSq1(request.getParameter("sq1"));
-			nsgn.setAns1(request.getParameter("ans1").trim());
-			nsgn.setSq2(request.getParameter("sq2"));
-			nsgn.setAns2(request.getParameter("ans2").trim());
+			nsgn.setSec_que1(request.getParameter("sq1"));
+			nsgn.setSec_ans1(request.getParameter("ans1").trim());
+			nsgn.setSec_que2(request.getParameter("sq2"));
+			nsgn.setSec_ans2(request.getParameter("ans2").trim());
 
 			if(nsgn.setNgoinfo())
 			{

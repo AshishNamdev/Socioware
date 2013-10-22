@@ -79,7 +79,7 @@ public class NgoLogo
 
 	public NgoLogo getLogo()
 	{
-		NgoLogo ngl = new NgoLogo();
+		NgoLogo ngo_logo = new NgoLogo();
 		String query = null;
 		DbContainor.loadDbDriver();
           
@@ -92,7 +92,7 @@ public class NgoLogo
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				ngl.setNgologo(rs.getString(1));
+				ngo_logo.setNgologo(rs.getString(1));
 			}
 			con.close();
 		}
@@ -104,7 +104,7 @@ public class NgoLogo
 		{
 			System.out.println("SQL Error in getLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return ngl;
+		return ngo_logo;
 	}
     
 	public boolean delLogo()

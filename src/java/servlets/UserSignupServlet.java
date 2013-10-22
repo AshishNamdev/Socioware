@@ -54,10 +54,10 @@ public class UserSignupServlet extends HttpServlet
 			sgn.setBlood_grp(request.getParameter("bg"));
 			sgn.setCity(request.getParameter("city").trim());
 			sgn.setCntry(request.getParameter("cntry").trim());
-			sgn.setSq1(request.getParameter("sq1"));
-			sgn.setAns1(request.getParameter("ans1").trim());
-			sgn.setSq2(request.getParameter("sq2"));
-			sgn.setAns2(request.getParameter("ans2").trim());
+			sgn.setSec_que1(request.getParameter("sq1"));
+			sgn.setSec_ans1(request.getParameter("ans1").trim());
+			sgn.setSec_que2(request.getParameter("sq2"));
+			sgn.setSec_ans2(request.getParameter("ans2").trim());
 			sgn.setDob(request.getParameter("dd")+"-"+request.getParameter("mon")+"-"+request.getParameter("yyyy"));
 			/*
 				System.out.println(request.getParameter("fname"));

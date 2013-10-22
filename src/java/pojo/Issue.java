@@ -119,7 +119,7 @@ public class Issue
 		return ret_val;
 	}
     
-	public boolean editIssue()
+	public boolean updateIssue()
 	{
 		boolean ret_val=false;
 		String query = null;
@@ -199,7 +199,7 @@ public class Issue
     
 	public  ArrayList<Issue> findAllIssue()
 	{
-		ArrayList<Issue> al = new ArrayList<Issue>();
+		ArrayList<Issue> issue_list = new ArrayList<Issue>();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -210,13 +210,13 @@ public class Issue
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				Issue is = new Issue();
-				is.setIssueid(rs.getString("issueid"));
-				is.setUnid(rs.getString("unid"));
-				is.setIssuedate(rs.getString("issuedate"));
-				is.setContent(rs.getString("content"));
-				is.setVisibility(rs.getString("visibility"));
-				al.add(is);
+				Issue issue = new Issue();
+				issue.setIssueid(rs.getString("issueid"));
+				issue.setUnid(rs.getString("unid"));
+				issue.setIssuedate(rs.getString("issuedate"));
+				issue.setContent(rs.getString("content"));
+				issue.setVisibility(rs.getString("visibility"));
+				issue_list.add(issue);
 			}
 			con.close();
 		}
@@ -228,12 +228,12 @@ public class Issue
 		{
 			System.out.println("sql error in findAllDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return al;
+		return issue_list;
 	}
        
 	public Issue findIssue()
 	{
-		Issue is = new Issue();
+		Issue issue = new Issue();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -245,11 +245,11 @@ public class Issue
 			ResultSet rs=ps.executeQuery();
 			if(rs.next())
 			{
-				is.setIssueid(rs.getString("issueid"));
-				is.setUnid(rs.getString("unid"));
-				is.setIssuedate(rs.getString("issuedate"));
-				is.setContent(rs.getString("content"));
-				is.setVisibility(rs.getString("visibility"));
+				issue.setIssueid(rs.getString("issueid"));
+				issue.setUnid(rs.getString("unid"));
+				issue.setIssuedate(rs.getString("issuedate"));
+				issue.setContent(rs.getString("content"));
+				issue.setVisibility(rs.getString("visibility"));
 			}
 			con.close();
 		}
@@ -261,6 +261,6 @@ public class Issue
 		{
 			System.out.println("sql error in findDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return is;
+		return issue;
 	}
 }

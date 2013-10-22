@@ -134,7 +134,7 @@ public class FriendRequest
     
 	public FriendRequest findReceivedRequest()
 	{
-		FriendRequest fr = new FriendRequest();
+		FriendRequest frnd_req = new FriendRequest();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -146,8 +146,14 @@ public class FriendRequest
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				fr.setName(rs.getString("fname")+" "+rs.getString("mname")+" "+rs.getString("lname"));
-				fr.setEmail(rs.getString("email"));
+				String mname = rs.getString("mname");
+				/* System.out.println("mname is  :" +mname); */
+				if(mname==null)
+				{
+					mname=" ";
+				}
+				frnd_req.setName(rs.getString("fname")+" "+mname+" "+rs.getString("lname"));
+				frnd_req.setEmail(rs.getString("email"));
 			}
 			con.close();
 		}
@@ -159,7 +165,7 @@ public class FriendRequest
 		{
 			System.out.println("SQL Error in findRecievedRequest() of FriendRequest.java  :"+ sqle.getMessage());
 		}		
-		return fr;
+		return frnd_req;
 	}
      
 	public boolean updateRequest()

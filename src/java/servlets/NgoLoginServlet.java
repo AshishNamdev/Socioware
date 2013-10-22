@@ -31,7 +31,7 @@ public class NgoLoginServlet extends HttpServlet {
          response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
          NgoLogin  nlgn=new NgoLogin();
-       nlgn.setNid(request.getParameter("nid"));
+       nlgn.setNgoId(request.getParameter("nid"));
        nlgn.setPwd(request.getParameter("pwd"));
         
         System.out.println("Nid is : "+nlgn.getNid()+ " pwd is : "+nlgn.getPwd());

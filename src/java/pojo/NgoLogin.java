@@ -11,24 +11,24 @@ import java.sql.*;
  */
 public class NgoLogin
 {
-	private String nid;
+	private String ngoid;
 	private String pwd;
 
 	public void setPwd(String pwd)
 	{
 		this.pwd = pwd;
 	}
-	public void setNid(String nid)
+	public void setNgoId(String ngoid)
 	{
-		this.nid = nid;
+		this.ngoid = ngoid;
 	}
 	public String getPwd()
 	{
 		return pwd;
 	}
-	public String getNid()
+	public String getNgoId()
 	{
-		return nid;
+		return ngoid;
 	}
 	
 	public boolean isValidNgo()
@@ -43,7 +43,7 @@ public class NgoLogin
 			query = "select EMail,Password from ngoinfo where EMail=? and Password=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1,nid);
+			ps.setString(1,ngoid);
 			ps.setString(2, pwd);
 			ps.execute();
 			System.out.println("command is successfully executed");

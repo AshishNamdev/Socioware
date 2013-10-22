@@ -26,10 +26,10 @@ public class UserSignup
 	private String blood_grp;
 	private String city;
 	private String cntry;
-	private String sq1;
-	private String ans1;
-	private String sq2;
-	private String ans2;
+	private String sec_que1;
+	private String sec_ans1;
+	private String sec_que2;
+	private String sec_ans2;
 	private String name;
 
 	public String getSignupdate()
@@ -42,24 +42,24 @@ public class UserSignup
 		this.signupdate = signupdate;
 	}
 
-	public String getAns1()
+	public String getSec_ans1()
 	{
-		return ans1;
+		return sec_ans1;
 	}
 
-	public void setAns1(String ans1)
+	public void setSec_ans1(String sec_ans1)
 	{
-		this.ans1 = ans1;
+		this.sec_ans1 = sec_ans1;
 	}
 
-	public String getAns2()
+	public String getSec_ans2()
 	{
-		return ans2;
+		return sec_ans2;
 	}
 
-	public void setAns2(String ans2)
+	public void setSec_ans2(String sec_ans2)
 	{
-		this.ans2 = ans2;
+		this.sec_ans2 = sec_ans2;
 	}
 
 	public String getBlood_grp()
@@ -192,24 +192,24 @@ public class UserSignup
 		this.remail = remail;
 	}
 
-	public String getSq1()
+	public String getSec_que1()
 	{
-		return sq1;
+		return sec_que1;
 	}
 
-	public void setSq1(String sq1)
+	public void setSec_que1(String sec_que1)
 	{
-		this.sq1 = sq1;
+		this.sec_que1 = sec_que1;
 	}
 
-	public String getSq2()
+	public String getSec_que2()
 	{
-		return sq2;
+		return sec_que2;
 	}
 
-	public void setSq2(String sq2)
+	public void setSec_que2(String sec_que2)
 	{
-		this.sq2 = sq2;
+		this.sec_que2 = sec_que2;
 	}
      
 	public boolean isRegisteredUser()
@@ -283,10 +283,10 @@ public class UserSignup
 			ps.setString(11,blood_grp);
 			ps.setString(12,city);
 			ps.setString(13,cntry);
-			ps.setString(14,sq1);
-			ps.setString(15, ans1);
-			ps.setString(16,sq2);
-			ps.setString(17,ans2);
+			ps.setString(14,sec_que1);
+			ps.setString(15, sec_ans1);
+			ps.setString(16,sec_que2);
+			ps.setString(17,sec_ans2);
 			
 			if(ps.executeUpdate()>0)
 			{
