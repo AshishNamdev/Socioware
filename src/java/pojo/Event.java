@@ -114,15 +114,15 @@ public class Event
 	}
 	public Event(String eventid,String organiserid,String eventdate,String expdate,String eventdesc,int likes,String visibility,String subject,String eventname)
 	{
-		this.eventid=eventid;
-		this.organiserid=organiserid;
-		this.eventdate=eventdate;
-		this.expdate=expdate;
-		this.eventdesc=eventdesc;
-		this.likes=likes;
-		this.visibility=visibility;
-		this.subject=subject;
-		this.eventname=eventname;
+		this.eventid = eventid;
+		this.organiserid = organiserid;
+		this.eventdate = eventdate;
+		this.expdate = expdate;
+		this.eventdesc = eventdesc;
+		this.likes = likes;
+		this.visibility = visibility;
+		this.subject = subject;
+		this.eventname = eventname;
 	}    
 	
 	
@@ -257,7 +257,7 @@ public class Event
 	
 	public  ArrayList<Event> findAllEvent()
 	{
-		ArrayList<Event> al = new ArrayList<Event>();
+		ArrayList<Event> a_list = new ArrayList<Event>();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -265,21 +265,21 @@ public class Event
 			query = "Select * from event";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ResultSet rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next())
 			{
-				Event ev = new Event();
-				ev.setEventid(rs.getString("eventid"));
-				ev.setOrganiserid(rs.getString("organiserid"));
-				ev.setEventdate(rs.getString("eventdate"));
-				ev.setExpdate(rs.getString("expdate"));
-				ev.setEventdesc(rs.getString("eventdesc"));
-				ev.setLikes(rs.getInt("likes"));
-				ev.setVisibility(rs.getString("visibility"));
-				ev.setSubject(rs.getString("subject"));
-				ev.setEventname(rs.getString("eventname"));
-				al.add(ev);
+				Event event = new Event();
+				event.setEventid(rs.getString("eventid"));
+				event.setOrganiserid(rs.getString("organiserid"));
+				event.setEventdate(rs.getString("eventdate"));
+				event.setExpdate(rs.getString("expdate"));
+				event.setEventdesc(rs.getString("eventdesc"));
+				event.setLikes(rs.getInt("likes"));
+				event.setVisibility(rs.getString("visibility"));
+				event.setSubject(rs.getString("subject"));
+				event.setEventname(rs.getString("eventname"));
+				a_list.add(event);
 			}
 			con.close();
 		}
@@ -291,12 +291,12 @@ public class Event
 		{
 			System.out.println("sql error in findAllDiscussion() of Discussion.java  " + sqle.getMessage());
 		}
-		return al;
+		return a_list;
 	}
 	
 	public Event findEvent()
 	{
-		Event ev = new Event();
+		Event event = new Event();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -309,15 +309,15 @@ public class Event
             
 			if(rs.next())
 			{
-				ev.setEventid(rs.getString("eventid"));
-				ev.setOrganiserid(rs.getString("organiderid"));
-				ev.setEventdate(rs.getString("eventdate"));
-				ev.setExpdate(rs.getString("expdate"));
-				ev.setEventdesc(rs.getString("eventdesc"));
-				ev.setLikes(rs.getInt("likes"));
-				ev.setVisibility(rs.getString("visibility"));
-				ev.setSubject(rs.getString("subject"));
-				ev.setEventname(rs.getString("eventname"));
+				event.setEventid(rs.getString("eventid"));
+				event.setOrganiserid(rs.getString("organiderid"));
+				event.setEventdate(rs.getString("eventdate"));
+				event.setExpdate(rs.getString("expdate"));
+				event.setEventdesc(rs.getString("eventdesc"));
+				event.setLikes(rs.getInt("likes"));
+				event.setVisibility(rs.getString("visibility"));
+				event.setSubject(rs.getString("subject"));
+				event.setEventname(rs.getString("eventname"));
 			}
 			con.close();
 		}
@@ -329,6 +329,6 @@ public class Event
 		{
 			System.out.println("sql error in findDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return ev;
+		return event;
 	}
 }

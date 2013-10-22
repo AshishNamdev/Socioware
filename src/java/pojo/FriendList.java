@@ -66,7 +66,7 @@ public class FriendList
 	
 	public ArrayList<FriendList> getFriendList()
 	{
-		ArrayList<FriendList>al=new ArrayList();
+		ArrayList<FriendList> f_list = new ArrayList();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -80,17 +80,17 @@ public class FriendList
 			
 			while(rs.next())
 			{
-				FriendList fl = new FriendList();
+				FriendList flst = new FriendList();
 				String mname = rs.getString(2);
 				/* System.out.println("mname is  :" +mname); */
 				if(mname==null)
 				{
 					mname=" ";
 				}
-				fl.setName(rs.getString(1)+" "+mname+" "+rs.getString(3));
-				fl.setFriendid(rs.getString(4));
-				fl.setUserimage(rs.getString(5));
-				al.add(fl);
+				flst.setName(rs.getString(1)+" "+mname+" "+rs.getString(3));
+				flst.setFriendid(rs.getString(4));
+				flst.setUserimage(rs.getString(5));
+				f_list.add(flst);
 			}
 			con.close();
 		}
@@ -102,7 +102,7 @@ public class FriendList
 		{
 			System.out.println("sql error in getFriendlist of FrienList.java : " + sqle.getMessage());
 		}
-		return al;
+		return f_list;
 	}
     
 	public boolean updateFriendList()

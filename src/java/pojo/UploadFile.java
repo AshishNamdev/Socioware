@@ -137,7 +137,7 @@ public class UploadFile
    
 	public ArrayList<UploadFile> findAllFiles()
 	{
-		ArrayList<UploadFile> upld = new ArrayList<UploadFile>();
+		ArrayList<UploadFile> upload_list = new ArrayList<UploadFile>();
 		ResultSet rs = null;
 		DbContainor.loadDbDriver();
 		
@@ -152,14 +152,14 @@ public class UploadFile
             
 			while(rs.next())
 			{
-				UploadFile upl = new UploadFile();
-				upl.setUpid(rs.getString(1));
-				upl.setUnid(rs.getString(2));
-				upl.setFilepath(rs.getString(3));
-				upl.setUploaddate(rs.getDate(4).toString());
-				upl.setLikes(rs.getInt(5));
-				upl.setReport(rs.getString(6));
-				upld.add(up);
+				UploadFile upld = new UploadFile();
+				upld.setUpid(rs.getString(1));
+				upld.setUnid(rs.getString(2));
+				upld.setFilepath(rs.getString(3));
+				upld.setUploaddate(rs.getDate(4).toString());
+				upld.setLikes(rs.getInt(5));
+				upld.setReport(rs.getString(6));
+				upload_list.add(upld);
 			}
 			con.close();
 		}
@@ -171,12 +171,12 @@ public class UploadFile
 		{
 			System.out.println("SQL Error in findAllFiles() : "+sqle.getMessage());
 		}
-		return upld;
+		return upload_list;
 	}
 	
 	public UploadFile findFileById()
 	{
-		UploadFile uplf = new UploadFile();
+		UploadFile upld = new UploadFile();
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -186,7 +186,7 @@ public class UploadFile
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, upid);
-            uplf.setFilepath(ps.executeQuery().getString(1));
+            upld.setFilepath(ps.executeQuery().getString(1));
 			con.close();
 		}
 		catch(NullPointerException npe)
@@ -197,7 +197,7 @@ public class UploadFile
 		{
 			System.out.println("SQL Error in findFileById() : "+sqle.getMessage());
 		}
-		return  uplf;
+		return  upld;
 	}
     
 	public boolean delFile()

@@ -75,7 +75,7 @@ public class NgoList
 	
 	public ArrayList<NgoList> getNgoList()
 	{
-		ArrayList<NgoList> ngal = new ArrayList<NgoList>();
+		ArrayList<NgoList> ngo_list = new ArrayList<NgoList>();
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -88,11 +88,11 @@ public class NgoList
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				NgoList ngl =n ew NgoList();
-				ngl.setName(rs.getString("ngoname"));
-				ngl.setEmailid(rs.getString("EMail"));
-				ngl.setNgologo(rs.getString(3));
-				ngal.add(ngl);
+				NgoList ngolst =n ew NgoList();
+				ngolst.setName(rs.getString("ngoname"));
+				ngolst.setEmailid(rs.getString("EMail"));
+				ngolst.setNgologo(rs.getString(3));
+				ngo_list.add(nglost);
 			}
 			con.close();
 		}
@@ -104,7 +104,7 @@ public class NgoList
 		{
 			System.out.println("sql error in getNgoLsit() of NgoList.java : " + sqle.getMessage());
 		}
-		return ngal;
+		return ngo_list;
 	}
 	public boolean updateNgoList()
 	{

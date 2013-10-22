@@ -96,12 +96,12 @@ public class Comment
 	}
 	public Comment(String cmntid, String unid, String cmnton,String cmntdate,String comments, int likes)
 	{
-		this.cmntid=cmntid;
-		this.unid=unid;
-		this.cmnton=cmnton;
-		this.cmntdate=cmntdate;
-		this.comments=comments;
-		this.likes=likes;
+		this.cmntid = cmntid;
+		this.unid = unid;
+		this.cmnton = cmnton;
+		this.cmntdate = cmntdate;
+		this.comments = comments;
+		this.likes = likes;
 	}
         
 	public boolean addComment()

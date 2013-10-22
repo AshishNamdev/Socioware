@@ -173,7 +173,7 @@ public class Message
     
 	public ArrayList<Message> findAllMessages()
 	{
-		ArrayList<Message> almsg = new ArrayList<Message>();
+		ArrayList<Message> msg_list = new ArrayList<Message>();
 		String query = null;
 		DbContainor.loadDbDriver();
 		
@@ -198,7 +198,7 @@ public class Message
 				msg.setMsgDate(rs.getDate(4).toString());
 				msg.setMessage(rs.getString(6));
 				msg.setStatus(rs.getString(5));
-				almsg.add(msg);
+				msg_list.add(msg);
 			}
 			con.close();
 		}
@@ -210,7 +210,7 @@ public class Message
 		{
 			System.out.println("sql error in findAllMessages() : "+sqle.getMessage());
 		}
-		return almsg;
+		return msg_list;
 	}
     
 	public boolean delMessage()
