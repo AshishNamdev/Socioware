@@ -21,109 +21,110 @@ import pojo.*;
 public class AcceptRequestServlet extends HttpServlet 
 {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
+	/** 
+	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try 
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = null;
+        
+		try 
 		{
-            FriendRequest freq=new FriendRequest();
+            FriendRequest frnd_req = new FriendRequest();
             HttpSession session=request.getSession(false);
-            RequestDispatcher rd=null;
-            if(session!=null)
-			{
-                String receiver=session.getAttribute("id").toString();
-                String sender=request.getParameter("qid").toString();
-                freq.setReqSender(sender);
-                freq.setReqReciever(receiver);
-                 rd=request.getRequestDispatcher("UserProfile.jsp");
             
-                if(freq.updateRequest())
-				{
-                    FriendList frlst=new FriendList();
-                    frlst.setUserid(receiver);
-                    frlst.setFriendid(sender);
-                    
-                    if(frlst.updateFriendList())
-					{
-						frlst.setUserid(sender);
-						frlst.setFriendid(receiver);
-						
-                        if(!frlst.updateFriendList())
-						{
-                           out.println("<span id='response'>Database Insertion Failed</span>");
-                            rd.include(request, response);
-                        }
-                    }
-                    else
-					{
-                        out.println("<span id='response'>Database Insertion Failed</span>");
-                            rd.include(request, response);
-                    }
-                }
-                else
-				{
-                    out.println("<span id='response'>Database Insertion Failed</span>");
-                    rd.include(request, response);
-                }
-            }
-            else
+			if(session!=null)
 			{
-                rd=request.getRequestDispatcher("Home.jsp");
-                out.println("<span id='response'>To Continue, Please Log In Again:</span>");
-                rd.include(request, response);
-            }
-        } 
+				String receiver = session.getAttribute("id").toString();
+				String sender=request.getParameter("qid").toString();
+				frnd_req.setReqSender(sender);
+				frnd_req.setReqReciever(receiver);
+				rd = request.getRequestDispatcher("UserProfile.jsp");
+            
+				if(frnd_req.updateRequest())
+				{
+					FriendList frnd_list = new FriendList();
+					frnd_list.setUserid(receiver);
+					frnd_list.setFriendid(sender);
+                    
+					if(frnd_list.updateFriendList())
+					{
+						frnd_list.setUserid(sender);
+						frnd_list.setFriendid(receiver);
+						
+						if(!frnd_list.updateFriendList())
+						{
+							out.println("<span id='response'>Database Insertion Failed</span>");
+							rd.include(request, response);
+						}
+					}
+					else
+					{
+						out.println("<span id='response'>Database Insertion Failed</span>");
+						rd.include(request, response);
+					}
+				}
+				else
+				{
+					out.println("<span id='response'>Database Insertion Failed</span>");
+					rd.include(request, response);
+				}
+			}
+			else
+			{
+				rd=request.getRequestDispatcher("Home.jsp");
+				out.println("<span id='response'>To Continue, Please Log In Again:</span>");
+				rd.include(request, response);
+			}
+		} 
 		finally 
 		{ 
-            out.close();
-        }
-    }
+			out.close();
+		}
+	}
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/**
+	* Handles the HTTP <code>POST</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
-        processRequest(request, response);
-    }
+		processRequest(request, response);
+	}
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
+	/**
+	* Handles the HTTP <code>POST</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
-        processRequest(request, response);
-    }
+		processRequest(request, response);
+	}
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() 
+	/** 
+	* Returns a short description of the servlet.
+	* @return a String containing servlet description
+	*/
+	@Override
+	public String getServletInfo()
 	{
-        return "Short description";
-    }// </editor-fold>
+		return "Short description";
+	}// </editor-fold>
 }
