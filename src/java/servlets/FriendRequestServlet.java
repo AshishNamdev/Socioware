@@ -33,14 +33,11 @@ public class FriendRequestServlet extends HttpServlet
             HttpSession session = request.getSession(false);
 
 			String msg = request.getParameter("message");
-			if(msg!=null)
+			if(msg==null)
 			{
-				frnd_req.setMsg(msg);
+				msg = "";
 			}
-			else
-			{
-				frnd_req.setMsg(msg);
-			}
+			frnd_req.setMsg(msg);
 			frnd_req.setReqid("frnd-req"+UniqueId.generateId());
 			frnd_req.setReqSender(session.getAttribute("id").toString());
 			frnd_req.setReqReciever(session.getAttribute("qid").toString());
