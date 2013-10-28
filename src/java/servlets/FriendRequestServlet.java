@@ -46,10 +46,17 @@ public class FriendRequestServlet extends HttpServlet
 			frnd_req.setReqReciever(session.getAttribute("qid").toString());
 			frnd_req.setReqdate(DbContainor.getDate());
 			frnd_req.setStatus("unconfirmed");
-
+			
+			String referer = request.getHeader("Referer");
 			if(frnd_req.sendRequest())
 			{
-				rd = request.getRequestDispatcher("UserProfile.jsp");
+				rd = request.getRequestDispatcher("referer");
+				rd.forward(request, response);
+			}
+			else
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='req_msg'>Can not Send Request , Try Again Later !</span>");
 				rd.forward(request, response);
 			}
 		}
