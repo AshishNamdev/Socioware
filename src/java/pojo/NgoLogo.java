@@ -44,12 +44,14 @@ public class NgoLogo
 	public boolean saveLogo()
 	{
 		boolean ret_val=false;
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("update ngoinfo set ngologo=? where EMail=?");
+			query = "update ngoinfo set ngologo=? where EMail=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, ngologo);
 			ps.setString(2, ngoid);
 
@@ -64,6 +66,10 @@ public class NgoLogo
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQL Error in saveLogo() of NgoLogo : "+sqle.getMessage());
@@ -73,37 +79,45 @@ public class NgoLogo
 
 	public NgoLogo getLogo()
 	{
-		NgoLogo ngl = new NgoLogo();
+		NgoLogo ngo_logo = new NgoLogo();
+		String query = null;
 		DbContainor.loadDbDriver();
           
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareCall("select ngologo from ngoinfo where Email=?");
+			query = "select ngologo from ngoinfo where Email=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, ngoid);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				ngl.setNgologo(rs.getString(1));
+				ngo_logo.setNgologo(rs.getString(1));
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
 			System.out.println("SQL Error in getLogo() of NgoLogo : "+sqle.getMessage());
 		}
-		return ngl;
+		return ngo_logo;
 	}
     
 	public boolean delLogo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
           
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete ngologo from ngoinfo where EMail=? ");
+			query = "delete ngologo from ngoinfo where EMail=? ";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, ngoid);
 
 			if(ps.executeUpdate()>0)
@@ -117,6 +131,10 @@ public class NgoLogo
 				System.out.println("can not delete ngologo.");
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

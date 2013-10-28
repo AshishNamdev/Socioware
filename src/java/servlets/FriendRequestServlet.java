@@ -18,74 +18,83 @@ import javax.servlet.RequestDispatcher;
  * @author Ajit Gupta 
  */
 @WebServlet(name = "FriendRequestServlet", urlPatterns = {"/FriendRequestServlet"})
-public class FriendRequestServlet extends HttpServlet {
+public class FriendRequestServlet extends HttpServlet
+{
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-             FriendRequest fr=new FriendRequest();
-            HttpSession hs= request.getSession(false);
-            RequestDispatcher rd=null;
-            String msg=request.getParameter("message");
-            if(msg!=null){
-                fr.setMsg(msg);
-            }
-            else{
-                fr.setMsg(msg);
-            }
-            fr.setReqid("fri"+UniqueId.generateId());
-            fr.setReqSender(hs.getAttribute("id").toString());
-            fr.setReqReciever(hs.getAttribute("id").toString());
-            fr.setReqdate(DbContainor.getDate());
-            fr.setStatus("unconfirmed");
-            boolean res=fr.sendRequest();
-            if(res){
-            rd = request.getRequestDispatcher("UserProfile.jsp");
-            rd.forward(request, response);
-            }
-            
-            
-            
-        } finally {            
-            out.close();
-        }
-    }
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	{
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		RequestDispatcher rd =n ull;
+		
+		try
+		{
+			FriendRequest frnd_req = new FriendRequest();
+            HttpSession session = request.getSession(false);
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+			String msg = request.getParameter("message");
+			if(msg!=null)
+			{
+				frnd_req.setMsg(msg);
+			}
+			else
+			{
+				frnd_req.setMsg(msg);
+			}
+			frnd_req.setReqid("frnd-req"+UniqueId.generateId());
+			frnd_req.setReqSender(session.getAttribute("id").toString());
+			frnd_req.setReqReciever(session.getAttribute("qid").toString());
+			frnd_req.setReqdate(DbContainor.getDate());
+			frnd_req.setStatus("unconfirmed");
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+			if(frnd_req.sendRequest())
+			{
+				rd = request.getRequestDispatcher("UserProfile.jsp");
+				rd.forward(request, response);
+			}
+		}
+		finally
+		{
+			out.close();
+		}
+	}
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/** 
+	* Handles the HTTP <code>GET</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	{
+		processRequest(request, response);
+	}
+
+  	/** 
+	* Handles the HTTP <code>GET</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	{
+		processRequest(request, response);
+	}
+
+	/** 
+	* Returns a short description of the servlet.
+	* @return a String containing servlet description
+	*/
+	@Override
+	public String getServletInfo()
+	{
+		return "Short description";
+	}// </editor-fold>
 }

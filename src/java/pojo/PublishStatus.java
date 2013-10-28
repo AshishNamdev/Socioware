@@ -54,23 +54,7 @@ public class PublishStatus
 	{
 		return content;
 	}
-	public PublishStatus()
-	{
-		this.report = null;
-		this.unid = null;
-		this.updateDate = null;
-		this.likes = 0;
-		this.content = null;
-		this.statusId = null;
-	}
-	public PublishStatus(String statusid,String unid, String updateDate, String content, String report)
-	{
-		this.statusId=statusid;
-		this.unid = unid;
-		this.updateDate = updateDate;
-		this.content = content;
-		this.report = report;
-    }
+
 	public String getReport()
 	{
 		return report;
@@ -96,7 +80,24 @@ public class PublishStatus
 	{
 		return unid;
 	}
-    
+  
+	public PublishStatus()
+	{
+		this.report = null;
+		this.unid = null;
+		this.updateDate = null;
+		this.likes = 0;
+		this.content = null;
+		this.statusId = null;
+	}
+	public PublishStatus(String statusid,String unid, String updateDate, String content, String report)
+	{
+		this.statusId=statusid;
+		this.unid = unid;
+		this.updateDate = updateDate;
+		this.content = content;
+		this.report = report;
+    }  
 	public boolean saveStatus()
 	{
 		boolean ret_val = false;
@@ -182,7 +183,7 @@ public class PublishStatus
  
 	public   ArrayList<PublishStatus> findAllStatus()
 	{
-		ArrayList<PublishStatus> pbls=new ArrayList<PublishStatus>();
+		ArrayList<PublishStatus> status_list = new ArrayList<PublishStatus>();
 		String query = null;
 		DbContainor.loadDbDriver();
          
@@ -196,12 +197,12 @@ public class PublishStatus
             
 			while(rs.next())
 			{
-				PublishStatus pb = new  PublishStatus();
-				pb.setStatusId(rs.getString(1));
-				pb.setContent(rs.getString(2));
-				pb.setLikes(rs.getInt(3));
-				pb.setUpdateDate(rs.getDate(4).toString());
-				pbls.add(pb);
+				PublishStatus pb_status = new  PublishStatus();
+				pb_status.setStatusId(rs.getString(1));
+				pb_status.setContent(rs.getString(2));
+				pb_status.setLikes(rs.getInt(3));
+				pb_status.setUpdateDate(rs.getDate(4).toString());
+				status_list.add(pb_status);
 			}
 			/* System.out.println("array list prepared");*/
 			con.close();
@@ -214,6 +215,6 @@ public class PublishStatus
 		{
 			System.out.println("SQL error in findAllStatus() :"+sqle.getMessage());
 		}
-		return pbls;
+		return status_list;
 	}
 }

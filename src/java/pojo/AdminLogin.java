@@ -35,13 +35,15 @@ public class AdminLogin
 	public boolean isValidAdmin()
 	{
 		boolean ret_val = false;
+		String query = null;
 		System.out.println("in isValidAdmin methos of Adminlogin class.");
 		DbContainor.loadDbDriver();
        
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select EMail,Password from userinfo where EMail=? and Password=?");
+			query = "select EMail,Password from userinfo where EMail=? and Password=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,adminid);
 			ps.setString(2, pwd);
 			ps.execute();
@@ -52,6 +54,10 @@ public class AdminLogin
 				ret_val = true;
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
