@@ -22,119 +22,111 @@ import pojo.DbContainor;
  *
  * @author Ashish
  */
-public class UploadFileServlet extends HttpServlet {
+public class UploadFileServlet extends HttpServlet
+{
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-             String contentType = request.getContentType();
-        System.out.println(contentType);
+	/** 
+	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+	{
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		try
+		{
+			String contentType = request.getContentType();
+			System.out.println(contentType);
         
-             if ((contentType != null) && (contentType.indexOf("multipart/form-data") >= 0)) {
-DataInputStream in = new DataInputStream(request.getInputStream());
-int formDataLength = request.getContentLength();
-byte dataBytes[] = new byte[formDataLength];
-int byteRead = 0;
-int totalBytesRead = 0;
-while (totalBytesRead < formDataLength) {
-byteRead = in.read(dataBytes, totalBytesRead,formDataLength);
-totalBytesRead += byteRead;
-}
-String file = new String(dataBytes);
-String saveFile = file.substring(file.indexOf("filename=\"") + 10);
-//    System.out.println("file 1 is   :"+saveFile);
-saveFile = saveFile.substring(0, saveFile.indexOf("\n"));
-//System.out.println("file 2 is   :"+saveFile);
-saveFile = saveFile.substring(saveFile.lastIndexOf("\\") + 1,saveFile.indexOf("\""));
-//System.out.println("file 3 is   :"+saveFile);
-int lastIndex = contentType.lastIndexOf("=");
-//System.out.println("last index  is"+lastIndex);
-String boundary = contentType.substring(lastIndex + 1,contentType.length());
-//System.out.println("boundry  is   :"+boundary);
-int pos;
-pos = file.indexOf("filename=\"");
-//System.out.println("pos 1 is  :"+pos);
-pos = file.indexOf("\n", pos) + 1;
-//System.out.println("pos 2 is  :"+pos);
-pos = file.indexOf("\n", pos) + 1;
-//System.out.println("pos 3 is  :"+pos);
-pos = file.indexOf("\n", pos) + 1;
-//System.out.println("pos 4 is  :"+pos);
-int boundaryLocation = file.indexOf(boundary, pos) - 4;
-//System.out.println("boundary loc is  : "+boundaryLocation);
-int startPos = ((file.substring(0, pos)).getBytes()).length;
-//System.out.println("start pos  is  : "+startPos);
-int endPos = ((file.substring(0, boundaryLocation)).getBytes()).length;
-//System.out.println("endpos 1 is   :"+endPos);
-ServletContext sc=request.getServletContext();   
-String path= sc.getRealPath("");
-//System.out.println("Path is : "+path);
-path=DbContainor.arrangePath(path);
-                 System.out.println("file path is : "+path);
-String preFix=request.getAttribute("id").toString();
-preFix=preFix.substring(0, 5);
-//String preFix=email.substring(0,email.indexOf("@"));
-FileOutputStream fileOut = new FileOutputStream(path+preFix+saveFile);
-fileOut.write(dataBytes, startPos, (endPos - startPos));
-fileOut.flush();
-fileOut.close();
-    saveFile=preFix+saveFile;
-  File f=new File(path+preFix+saveFile);
-//HttpSession session=request.getSession(true);
-HttpSession session=request.getSession(false);
-
-session.setAttribute("image", saveFile);
-   System.out.println("in end of UploadFileServlet");
-
-  }
+			if ((contentType != null) && (contentType.indexOf("multipart/form-data") >= 0))
+			{
+			
+				DataInputStream in = new DataInputStream(request.getInputStream());
+				int formDataLength = request.getContentLength();
+				byte dataBytes[] = new byte[formDataLength];
+				int byteRead = 0;
+				int totalBytesRead = 0;
+				while (totalBytesRead < formDataLength)
+				{
+					byteRead = in.read(dataBytes, totalBytesRead,formDataLength);
+					totalBytesRead += byteRead;
+				}
+				String file = new String(dataBytes);
+				String saveFile = file.substring(file.indexOf("filename=\"") + 10);
+				saveFile = saveFile.substring(0, saveFile.indexOf("\n"));
+				saveFile = saveFile.substring(saveFile.lastIndexOf("\\") + 1,saveFile.indexOf("\""));
+				int lastIndex = contentType.lastIndexOf("=");
+				String boundary = contentType.substring(lastIndex + 1,contentType.length());
+				int pos = file.indexOf("filename=\"");
+				pos = file.indexOf("\n", pos) + 1;
+				pos = file.indexOf("\n", pos) + 1;
+				pos = file.indexOf("\n", pos) + 1;
+				int boundaryLocation = file.indexOf(boundary, pos) - 4;
+				int startPos = ((file.substring(0, pos)).getBytes()).length;
+				int endPos = ((file.substring(0, boundaryLocation)).getBytes()).length;
+				ServletContext sc = request.getServletContext();   
+				String path = sc.getRealPath("");
+				path = DbContainor.arrangePath(path);
+				System.out.println("file path is : "+path);
+				String preFix = request.getAttribute("id").toString();
+				preFix = preFix.substring(0, 5);
+				FileOutputStream fileOut = new FileOutputStream(path+preFix+saveFile);
+				fileOut.write(dataBytes, startPos, (endPos - startPos));
+				fileOut.flush();
+				fileOut.close();
+				saveFile = preFix+saveFile;
+				File file = new File(path+preFix+saveFile);
+				HttpSession session=request.getSession(false);
+				session.setAttribute("image", saveFile);
+				System.out.println("in end of UploadFileServlet");
+			}
         } 
-        finally {            
+        finally
+		{            
             out.close();
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/** 
+	* Handles the HTTP <code>GET</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+	{
+		processRequest(request, response);
+	}
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+	/** 
+	* Handles the HTTP <code>POST</code> method.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+	{
+		processRequest(request, response);
+	}
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+	/** 
+	* Returns a short description of the servlet.
+	* @return a String containing servlet description
+	*/
+	@Override
+	public String getServletInfo()
+	{
+		return "Short description";
+	}// </editor-fold>
 }

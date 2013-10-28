@@ -11,37 +11,39 @@ import java.sql.*;
  */
 public class NgoLogin
 {
-	private String nid;
+	private String ngoid;
 	private String pwd;
 
 	public void setPwd(String pwd)
 	{
 		this.pwd = pwd;
 	}
-	public void setNid(String nid)
+	public void setNgoId(String ngoid)
 	{
-		this.nid = nid;
+		this.ngoid = ngoid;
 	}
 	public String getPwd()
 	{
 		return pwd;
 	}
-	public String getNid()
+	public String getNgoId()
 	{
-		return nid;
+		return ngoid;
 	}
 	
 	public boolean isValidNgo()
 	{ 
 		boolean ret_val=false;
+		String query = null;
 		System.out.println("in is validNgo  methos of userlogin class.");
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select EMail,Password from ngoinfo where EMail=? and Password=?");
-			ps.setString(1,nid);
+			query = "select EMail,Password from ngoinfo where EMail=? and Password=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1,ngoid);
 			ps.setString(2, pwd);
 			ps.execute();
 			System.out.println("command is successfully executed");
@@ -50,6 +52,10 @@ public class NgoLogin
 				ret_val=true;
 			}
 			con.close();  
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{

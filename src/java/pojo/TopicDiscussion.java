@@ -203,7 +203,7 @@ public class TopicDiscussion
      
 	public  ArrayList<TopicDiscussion> findAllTopicDiscussion()
 	{
-		ArrayList<TopicDiscussion> al = new ArrayList<TopicDiscussion>();
+		ArrayList<TopicDiscussion> topic_list = new ArrayList<TopicDiscussion>();
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -215,13 +215,13 @@ public class TopicDiscussion
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				TopicDiscussion td = new TopicDiscussion();
-				td.setDiscid(rs.getString("discid"));
-				td.setUnid(rs.getString("unid"));
-				td.setDiscdate(rs.getString("discdate"));
-				td.setLikes(rs.getInt("likes"));
-				td.setComments(rs.getString("comments"));
-				al.add(td);
+				TopicDiscussion topic_dis = new TopicDiscussion();
+				topic_dis.setDiscid(rs.getString("discid"));
+				topic_dis.setUnid(rs.getString("unid"));
+				topic_dis.setDiscdate(rs.getString("discdate"));
+				topic_dis.setLikes(rs.getInt("likes"));
+				topic_dis.setComments(rs.getString("comments"));
+				topic_list.add(topic_dis);
 			}
 			con.close();
 		}
@@ -233,12 +233,12 @@ public class TopicDiscussion
 		{
 			System.out.println("sql error in findAllDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return al;
+		return topic_list;
 	}
        
 	public TopicDiscussion findTopicDiscussion()
 	{
-		TopicDiscussion td = new TopicDiscussion();
+		TopicDiscussion topic_dis = new TopicDiscussion();
 		String query = null;
 		DbContainor.loadDbDriver();
         
@@ -252,11 +252,11 @@ public class TopicDiscussion
             
 			if(rs.next())
 			{
-				td.setDiscid(rs.getString("discid"));
-				td.setUnid(rs.getString("Unid"));
-				td.setDiscdate(rs.getString("discdate"));
-				td.setLikes(rs.getInt("likes"));
-				td.setComments(rs.getString("comments"));
+				topic_dis.setDiscid(rs.getString("discid"));
+				topic_dis.setUnid(rs.getString("Unid"));
+				topic_dis.setDiscdate(rs.getString("discdate"));
+				topic_dis.setLikes(rs.getInt("likes"));
+				topic_dis.setComments(rs.getString("comments"));
 			}
 			con.close();
 		}
@@ -268,6 +268,6 @@ public class TopicDiscussion
 		{
 			System.out.println("sql error in findAllTopicDiscussion() of TopicDiscussion.java : " + sqle.getMessage());
 		}
-		return td;
+		return topic_dis;
 	}
 }

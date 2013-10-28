@@ -20,11 +20,10 @@ public class NgoSignup
 	private String add;
 	private String city;
 	private String cntry;
-	private String sq1;
-	private String ans1;
-	private String sq2;
-	private String ans2;
-	private String signupdate;
+	private String sec_que1;
+	private String sec_ans1;
+	private String sec_que2;
+	private String sec_ans2;
 
 	public String getAdd()
 	{
@@ -42,21 +41,21 @@ public class NgoSignup
 	{
 		this.signupdate = signupdate;
 	}
-	public String getAns1()
+	public String getSec_ans1()
 	{
-        return ans1;
+        return sec_ans1;
     }
-	public void setAns1(String ans1)
+	public void setSec_ans1(String sec_ans1)
 	{
-		this.ans1 = ans1;
+		this.sec_ans1 = sec_ans1;
 	}
-	public String getAns2()
+	public String getSec_ans2()
 	{
-		return ans2;
+		return sec_ans2;
 	}
-	public void setAns2(String ans2)
+	public void setSec_ans2(String sec_ans2)
 	{
-		this.ans2 = ans2;
+		this.sec_ans2 = sec_ans2;
 	}
 	public String getCity()
 	{
@@ -122,29 +121,21 @@ public class NgoSignup
 	{
 		this.remail = remail;
 	}
-	public ResultSet getRs()
+	public String getSec_que1()
 	{
-		return rs;
+		return sec_que1;
 	}
-	public void setRs(ResultSet rs)
+	public void setSec_que1(String sec_que1)
 	{
-		this.rs = rs;
+		this.sec_que1 = sec_que1;
 	}
-	public String getSq1()
+	public String getSec_que2()
 	{
-		return sq1;
+		return sec_que2;
 	}
-	public void setSq1(String sq1)
+	public void setSec_que2(String sec_que2)
 	{
-		this.sq1 = sq1;
-	}
-	public String getSq2()
-	{
-		return sq2;
-	}
-	public void setSq2(String sq2)
-	{
-		this.sq2 = sq2;
+		this.sec_que2 = sec_que2;
 	}
 	public String getWebsite()
 	{
@@ -158,12 +149,14 @@ public class NgoSignup
 	public boolean isRegisteredNgo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select Name,EMail form ungoinfo where EMail=?");
+			query = "select Name,EMail form ungoinfo where EMail=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, email);
 
 			if(ps.executeQuery().next())
@@ -172,6 +165,10 @@ public class NgoSignup
 			}
 			System.out.println("Succefuly completed in isRegisteredNgo() of NgoSignup.java");
 			con.close();        
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
@@ -183,13 +180,15 @@ public class NgoSignup
 	public boolean setNgoinfo()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
        
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
-                                    + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			query = "insert into ngoinfo( NGONAME, EMAIL, REMAIL, PASSWORD, WEBSITE, ESTDYEAR, SIGNUPDATE, CONTACT, ADDRESS, CITY, COUNTRY, SQUESTION1, ANSWER1, SQUESTION2, ANSWER2)"
+                                    + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,name);
 			ps.setString(2, email);
 			ps.setString(3,remail);
@@ -199,9 +198,12 @@ public class NgoSignup
             
 			try
 			{
-				String signupDate = new java.util.Date().toString();
-				ps.setDate(7,DbContainor.toSQLDate(signupDate));
-			} 
+				/*  getting signupDate from getDate and converting it into sql date format directly 
+					without using any temporary variable , 
+					using getDate() API to get System date instead of using util.Date()
+				*/
+				ps.setDate(7,DbContainor.toSQLDate(DbContainor.getDate()));
+			}
 			catch (ParseException ex)
 			{
 				System.out.println("Unable to convert signupDate in sql date : "+ex.getMessage());
@@ -210,10 +212,10 @@ public class NgoSignup
 			ps.setString(9,add);
 			ps.setString(10,city);
 			ps.setString(11,cntry);
-			ps.setString(12,sq1);
-			ps.setString(13, ans1);
-			ps.setString(14,sq2);
-			ps.setString(15,ans2);
+			ps.setString(12,sec_que1);
+			ps.setString(13,sec_ans1);
+			ps.setString(14,sec_que2);
+			ps.setString(15,sec_ans2);
 
 			if(ps.executeUpdate()>0)
             {
@@ -226,6 +228,10 @@ public class NgoSignup
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());
@@ -236,12 +242,14 @@ public class NgoSignup
 	public NgoSignup getNgoInfo()
 	{
 		NgoSignup ninf = new NgoSignup();
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select * from Ngoinfo where EMail=?");
+			query = "select * from Ngoinfo where EMail=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,email);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
@@ -257,7 +265,11 @@ public class NgoSignup
 				ninf.setWebsite(rs.getString(5));
 				ninf.setSignupdate(rs.getDate(7).toString());
 			}
-		}     
+		} 
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqe)
 		{
 			System.out.println("Sql error : "+sqe.getMessage());

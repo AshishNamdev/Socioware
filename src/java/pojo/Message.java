@@ -90,12 +90,14 @@ public class Message
 	public boolean sendMessage()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("insert into message values(?,?,?,?,?,?)");
+			query = "insert into message values(?,?,?,?,?,?)";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, msgid);
 			ps.setString(2, senderid);
 			ps.setString(3,this.receiverid);
@@ -123,6 +125,10 @@ public class Message
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in saveMessage() : "+sqle.getMessage());
@@ -133,12 +139,14 @@ public class Message
 	public Message findMessageById()
 	{
 		Message msg = new Message();
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select * from message where msgid=?");
+			query = "select * from message where msgid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, msgid);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
@@ -152,6 +160,10 @@ public class Message
 			}
 			con.close();
 		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in findMessageById() : "+sqle.getMessage());
@@ -161,13 +173,18 @@ public class Message
     
 	public ArrayList<Message> findAllMessages()
 	{
-		ArrayList<Message> almsg = new ArrayList<Message>();
+		ArrayList<Message> msg_list = new ArrayList<Message>();
+		String query = null;
 		DbContainor.loadDbDriver();
 		
 		try
 		{
+			query = "select * from message where receiverid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			
 			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("select * from message where receiverid=?");
+			PreparedStatement ps = con.prepareStatement();
 			ps.setString(1, this.receiverid);
 			ResultSet rs = ps.executeQuery();
 			String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
@@ -181,26 +198,32 @@ public class Message
 				msg.setMsgDate(rs.getDate(4).toString());
 				msg.setMessage(rs.getString(6));
 				msg.setStatus(rs.getString(5));
-				almsg.add(msg);
+				msg_list.add(msg);
 			}
 			con.close();
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
 			System.out.println("sql error in findAllMessages() : "+sqle.getMessage());
 		}
-		return almsg;
+		return msg_list;
 	}
     
 	public boolean delMessage()
 	{
 		boolean ret_val = false;
+		String query = null;
 		DbContainor.loadDbDriver();
         
 		try
 		{
-			Connection con = DriverManager.getConnection(DbContainor.dburl,DbContainor.dbuser,DbContainor.dbpwd);
-			PreparedStatement ps = con.prepareStatement("delete * from message where msgid=?");
+			query = "delete * from message where msgid=?";
+			Connection con = DbContainor.createConnection();
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, msgid);
 
 			if(ps.executeUpdate()>0)
@@ -212,6 +235,10 @@ public class Message
 			{
 				System.out.println("can not delete record form message.");
 			}
+		}
+		catch(NullPointerException npe)
+		{
+			System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
 		}
 		catch(SQLException sqle)
 		{
