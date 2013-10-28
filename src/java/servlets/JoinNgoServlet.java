@@ -39,7 +39,7 @@ public class JoinNgoServlet extends HttpServlet
 				ngo_list.setUnid(session.getAttribute("id").toString());
 				String referer = request.getHeader("Referer");
 
-				if(ngo_list.uploadNgoList())
+				if(ngo_list.updateNgoList())
 				{
 					rd = request.getRequestDispatcher("referer");
 					rd.forward(request,response);
