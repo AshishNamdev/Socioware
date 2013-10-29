@@ -129,7 +129,7 @@ public class FriendRequest
 		{
 			System.out.println("SQL Error in sendRequest() of FriendRequest.java");
 		}
-		return false;  
+		return ret_val;  
 	}
     
 	public FriendRequest findReceivedRequest()

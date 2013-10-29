@@ -44,9 +44,16 @@ public class CreateEventServlet extends HttpServlet
 			event.setSubject(request.getParameter("subject"));
 			event.setEventname(request.getParameter("eventname"));
            
+			String referer = request.getHeader("Referer");
 			if(event.createEvent())
 			{
-				rd = request.getRequestDispatcher("UserProfile.jsp");
+				rd = request.getRequestDispatcher("referer");
+				rd.forward(request, response);
+			}
+			else
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='event_msg'>Can not create event , Try Again Later !</span>");
 				rd.forward(request, response);
 			}
 		}
