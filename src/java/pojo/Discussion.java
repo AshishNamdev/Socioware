@@ -62,10 +62,10 @@ public class Discussion
 	}
 	public Discussion(String discid, String topic, String topicdate, String topicdesc)
 	{
-		this.discid=discid;
-		this.topic=topic;
-		this.topicdate=topicdate;
-		this.topicdesc=topicdesc;
+		this.discid = discid;
+		this.topic = topic;
+		this.topicdate = topicdate;
+		this.topicdesc = topicdesc;
 	}
     
 	public boolean createDiscussion()
@@ -190,7 +190,7 @@ public class Discussion
     
 	public  ArrayList<Discussion> findAllDiscussion()
 	{
-		ArrayList<Discussion> al = new ArrayList<Discussion>();
+		ArrayList<Discussion> disc_list = new ArrayList<Discussion>();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -201,12 +201,12 @@ public class Discussion
 
 			while(rs.next())
 			{
-				Discussion db = new Discussion();
-				db.setDiscid(rs.getString("discid"));
-				db.setTopic(rs.getString("topic"));
-				db.setTopicdate(rs.getString("topicdate"));
-				db.setTopicdesc(rs.getString("topicdesc"));
-				al.add(db);
+				Discussion disc = new Discussion();
+				disc.setDiscid(rs.getString("discid"));
+				disc.setTopic(rs.getString("topic"));
+				disc.setTopicdate(rs.getString("topicdate"));
+				disc.setTopicdesc(rs.getString("topicdesc"));
+				disc_list.add(disc);
 			}
 			con.close();
 		}
@@ -218,12 +218,12 @@ public class Discussion
 		{
 			System.out.println("ql error in findAllDiscussion() of Discussion.java : " + sqle.getMessage());
 		}
-		return al;
+		return disc_list;
 	}
     
 	public Discussion findDiscussion()
 	{
-		Discussion db = new Discussion();
+		Discussion disc = new Discussion();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -236,10 +236,10 @@ public class Discussion
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				db.setDiscid(rs.getString("discid"));
-				db.setTopic(rs.getString("topic"));
-				db.setTopicdate(rs.getString("topicdate"));
-				db.setTopicdesc(rs.getString("topicdesc"));
+				disc.setDiscid(rs.getString("discid"));
+				disc.setTopic(rs.getString("topic"));
+				disc.setTopicdate(rs.getString("topicdate"));
+				disc.setTopicdesc(rs.getString("topicdesc"));
 			}
 		con.close();
 		}
@@ -251,6 +251,6 @@ public class Discussion
 		{
 			System.out.println("sql error in findDiscussion() of Discussion.java : " + sqle.getMessage());
 		}           
-		return db;
+		return disc;
 	}
 }

@@ -32,12 +32,25 @@ public class DeleteDiscussionServlet extends HttpServlet
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = null;
         
 		try
 		{
 			Discussion disc = new Discussion();
 			disc.setDiscid(request.getParameter("discid"));
-			disc.deleteDiscussion();
+			String referer = request.getHeader("Referer");
+			if(disc.deleteDiscussion())
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='desc_response'>Deleted Discussion Successfully !</span>");
+				rd.include(request, response);
+			}
+			else
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='desc_response'>Can not Delete Discussion , Try Again Later !</span>");
+				rd.include(request, response);
+			}
 		}
 		finally
 		{
