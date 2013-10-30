@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author HP
  */
-public class DiscussionBean
+public class Discussion
 {
 	protected String discid;
 	protected String topic;
@@ -53,14 +53,14 @@ public class DiscussionBean
 		this.topicdesc = topicdesc;
 	}
 
-	public DiscussionBean()
+	public Discussion()
 	{
 		discid = new String();
 		topic = new String();
 		topicdate = new String();
 		topicdesc = new String();
 	}
-	public DiscussionBean(String discid, String topic, String topicdate, String topicdesc)
+	public Discussion(String discid, String topic, String topicdate, String topicdesc)
 	{
 		this.discid=discid;
 		this.topic=topic;
@@ -188,9 +188,9 @@ public class DiscussionBean
 		return ret_val;            
 	}
     
-	public  ArrayList<DiscussionBean> findAllDiscussion()
+	public  ArrayList<Discussion> findAllDiscussion()
 	{
-		ArrayList<DiscussionBean> al = new ArrayList<DiscussionBean>();
+		ArrayList<Discussion> al = new ArrayList<Discussion>();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try
@@ -201,7 +201,7 @@ public class DiscussionBean
 
 			while(rs.next())
 			{
-				DiscussionBean db = new DiscussionBean();
+				Discussion db = new Discussion();
 				db.setDiscid(rs.getString("discid"));
 				db.setTopic(rs.getString("topic"));
 				db.setTopicdate(rs.getString("topicdate"));
@@ -221,9 +221,9 @@ public class DiscussionBean
 		return al;
 	}
     
-	public DiscussionBean findDiscussion()
+	public Discussion findDiscussion()
 	{
-		DiscussionBean db = new DiscussionBean();
+		Discussion db = new Discussion();
 		String query = null;
 		DbContainor.loadDbDriver();
 		try

@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pojo.DiscussionBean;
+import pojo.Discussion;
 
 /**
  *
@@ -35,9 +35,9 @@ public class DeleteDiscussionServlet extends HttpServlet
         
 		try
 		{
-			DiscussionBean disc_bean = new DiscussionBean();
-			disc_bean.setDiscid(request.getParameter("discid"));
-			disc_bean.deleteDiscussion();
+			Discussion disc = new Discussion();
+			disc.setDiscid(request.getParameter("discid"));
+			disc.deleteDiscussion();
 		}
 		finally
 		{
