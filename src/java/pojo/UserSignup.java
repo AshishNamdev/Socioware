@@ -321,7 +321,7 @@ public class UserSignup
         
 		try
 		{
-			query = "select * from userinfo where EMail=?"
+			query = "select * from userinfo where EMail=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps = con.prepareStatement(query);
