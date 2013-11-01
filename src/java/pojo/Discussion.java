@@ -198,7 +198,7 @@ public class Discussion
 			query = "Select * from discussion";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-
+                        ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
 				Discussion disc = new Discussion();
