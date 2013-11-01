@@ -33,7 +33,7 @@ public class DiscussionServlet extends HttpServlet
 		
 		try
 		{
-			DiscussionBean disc_bean = new DiscussionBean();            
+			Discussion disc_bean = new Discussion();
 			disc_bean.setTopic(request.getParameter("topic").trim());
 			disc_bean.setTopicdesc(request.getParameter("topicdesc").trim());
 			disc_bean.setDiscid("dis"+UniqueId.generateId());
