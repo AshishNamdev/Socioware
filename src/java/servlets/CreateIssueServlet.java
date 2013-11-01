@@ -43,10 +43,17 @@ public class CreateIssueServlet extends HttpServlet
 			issue.setContent(request.getParameter("content"));
 			issue.setVisibility("Friends");
             
+			String referer = request.getHeader("Referer");
 			if(issue.createIssue())
 			{
-				rd = request.getRequestDispatcher("UserProfile.jsp");
+				rd = request.getRequestDispatcher("referer");
 				rd.forward(request, response);    
+			}
+			else
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='issue_msg'>Can not create Issue , Try Again Later !</span>");
+				rd.forward(request, response);
 			}
 		}
 		finally
