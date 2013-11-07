@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Socioware/NgoSignUp</title>
-        <link href="CSS/NgoSignup.css" rel="stylesheet" type="text/css">
+        <link href="style/NgoSignup.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="js/UserSignupScript.js">
             
         </script>

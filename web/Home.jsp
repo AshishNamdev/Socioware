@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Socioware/Home</title>
-        <link href="CSS/Home.css" rel="stylesheet" type="text/css" >
+        <link href="style/Home.css" rel="stylesheet" type="text/css" >
     </head>
     <body id="bd">
         <jsp:include page="Header.html"></jsp:include>
