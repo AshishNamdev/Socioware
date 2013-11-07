@@ -88,11 +88,11 @@ public class NgoList
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				NgoList ngolst =n ew NgoList();
+				NgoList ngolst = new NgoList();
 				ngolst.setName(rs.getString("ngoname"));
 				ngolst.setEmailid(rs.getString("EMail"));
 				ngolst.setNgologo(rs.getString(3));
-				ngo_list.add(nglost);
+				ngo_list.add(ngolst);
 			}
 			con.close();
 		}
