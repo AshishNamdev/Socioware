@@ -55,7 +55,7 @@ public class UserImage
 		DbContainor.loadDbDriver();
 		try
 		{
-			query = "update userinfo set userimage=? where EMail=?"
+			query = "update userinfo set userimage=? where EMail=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, userImage);
@@ -140,7 +140,7 @@ public class UserImage
         
 		try
 		{
-			query = "delete userimage from userinfo where EMail=?"
+			query = "delete userimage from userinfo where EMail=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, uid);

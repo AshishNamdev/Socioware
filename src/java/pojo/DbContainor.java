@@ -73,10 +73,11 @@ public abstract class DbContainor
 		return rpath;
 	}
 
-	public static Connection createConnection()
+	public static Connection createConnection() throws SQLException
 	{
 		Connection con = null;
-		con = DriverManager.getConnection(dburl,dbuser,dbpwd);
+
+                con = DriverManager.getConnection(dburl,dbuser,dbpwd);
 		if(con==null)
 		{
 			throw new NullPointerException();

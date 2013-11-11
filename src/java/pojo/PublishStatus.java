@@ -124,7 +124,7 @@ public class PublishStatus
 			ps.setString(5, statusId);
 			ps.setString(6,content);
 
-            if(ps.executeUpdate(>0)
+            if(ps.executeUpdate()>0)
 			{
 				System.out.println("status published succefully.");
 				ret_val = true;

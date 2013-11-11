@@ -79,7 +79,7 @@ public class UploadFileServlet extends HttpServlet
 				fileOut.flush();
 				fileOut.close();
 				saveFile = preFix+saveFile;
-				File file = new File(path+preFix+saveFile);
+				File fl = new File(path+preFix+saveFile);
 				HttpSession session=request.getSession(false);
 				session.setAttribute("image", saveFile);
 				System.out.println("in end of UploadFileServlet");

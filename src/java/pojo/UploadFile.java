@@ -140,6 +140,7 @@ public class UploadFile
 		ArrayList<UploadFile> upload_list = new ArrayList<UploadFile>();
 		ResultSet rs = null;
 		DbContainor.loadDbDriver();
+                String query = null;
 		
 		try
 		{
