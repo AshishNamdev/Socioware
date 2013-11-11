@@ -31,6 +31,7 @@ public class UserSignup
 	private String sec_que2;
 	private String sec_ans2;
 	private String name;
+        private String signupdate;
 
 	public String getSignupdate()
 	{
@@ -268,9 +269,8 @@ public class UserSignup
 			try
 			{
 				ps.setDate(8,DbContainor.toSQLDate(dob));
-				String signupDate = ;
 				/*  getting signupDate from getDate and converting it into sql date format directly 
-					without using any temporary variable
+                                    without using any temporary variable
 				*/
 				ps.setDate(9,DbContainor.toSQLDate(DbContainor.getDate()));
 			} 
@@ -321,7 +321,7 @@ public class UserSignup
         
 		try
 		{
-			query = "select * from userinfo where EMail=?"
+			query = "select * from userinfo where EMail=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps = con.prepareStatement(query);

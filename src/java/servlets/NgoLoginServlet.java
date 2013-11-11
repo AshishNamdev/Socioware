@@ -39,7 +39,7 @@ public class NgoLoginServlet extends HttpServlet
 		if(ngo_login.isValidNgo())
 		{
 			HttpSession session = request.getSession();
-			session.setAttribute("nid",ngo_login.getNgoid());
+			session.setAttribute("nid",ngo_login.getNgoId());
 			session.setMaxInactiveInterval(5000);
 			rd = request.getRequestDispatcher("NgoHome.jsp");
 			rd.forward(request, response);

@@ -52,14 +52,6 @@ public class Comment
 	{
 		this.comments = comments;
 	}
-	public Connection getCon()
-	{
-		return con;
-	}
-	public void setCon(Connection con)
-	{
-		this.con = con;
-	}
 	public int getLikes()
 	{
 		return likes;
@@ -67,14 +59,6 @@ public class Comment
 	public void setLikes(int likes)
 	{
 		this.likes = likes;
-	}
-	public PreparedStatement getPs()
-	{
-		return ps;
-	}
-	public void setPs(PreparedStatement ps)
-	{
-		this.ps = ps;
 	}
 	public String getUnid()
 	{
@@ -87,12 +71,12 @@ public class Comment
     
 	public Comment()
 	{
-		cmntid = new String();
-		unid = new String();
-		cmnton = new String();
-		mntdate = new String();
-		comments = new String();
-		ikes = 0;
+		this.cmntid = new String();
+		this.unid = new String();
+		this.cmnton = new String();
+		this.cmntdate = new String();
+		this.comments = new String();
+		this.likes = 0;
 	}
 	public Comment(String cmntid, String unid, String cmnton,String cmntdate,String comments, int likes)
 	{
@@ -180,6 +164,7 @@ public class Comment
 		{
 			System.out.println("sql error in deleteComment() of Comment.java  : " + sqle.getMessage());
 		}
+                return ret_val;
 	}
         
 	public  ArrayList<Comment> findAllComments()
