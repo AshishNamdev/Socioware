@@ -25,7 +25,7 @@ public class FriendRequestServlet extends HttpServlet
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd =n ull;
+		RequestDispatcher rd = null;
 		
 		try
 		{

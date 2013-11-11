@@ -171,7 +171,7 @@ public class Issue
 		DbContainor.loadDbDriver();
 		try
 		{
-			query = "delete from issues where issueid=?"
+			query = "delete from issues where issueid=?";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,issueid);

@@ -24,6 +24,7 @@ public class NgoSignup
 	private String sec_ans1;
 	private String sec_que2;
 	private String sec_ans2;
+        private String signupdate;
 
 	public String getAdd()
 	{
