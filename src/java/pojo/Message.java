@@ -95,7 +95,7 @@ public class Message
         
 		try
 		{
-			query = "insert into message values(?,?,?,?,?,?)";
+			query = "insert into message values(?,?,?,?,?,?,?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, msgid);
@@ -110,8 +110,9 @@ public class Message
 			{
 				System.out.println("can not convert date in saveMessage() of Message : "+ex.getMessage());
 			}
+                        ps.setString(5, "No Subject");
 			ps.setString(6, this.message);
-			ps.setString(5,this.status);
+			ps.setString(7,this.status);
 
 			if(ps.executeUpdate()>0)
 			{
