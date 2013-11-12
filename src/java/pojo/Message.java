@@ -110,8 +110,8 @@ public class Message
 			{
 				System.out.println("can not convert date in saveMessage() of Message : "+ex.getMessage());
 			}
-			ps.setString(6, this.message);
-			ps.setString(5,this.status);
+			ps.setString(5, this.message);
+			ps.setString(6,this.status);
 
 			if(ps.executeUpdate()>0)
 			{
