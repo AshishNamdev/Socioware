@@ -188,6 +188,7 @@ public class Message
 	{
 		ArrayList<Message> msg_list = new ArrayList<Message>();
 		String query = null;
+                ClobToString clobtostr = new ClobToString();
 		DbContainor.loadDbDriver();
 		
 		try
@@ -207,8 +208,10 @@ public class Message
 				msg.setSenderid(rs.getString(2));
 				msg.setReceiverid(rs.getString(3));
 				msg.setMsgDate(rs.getDate(4).toString());
-				msg.setMessage(rs.getString(6));
-				msg.setStatus(rs.getString(5));
+				clobtostr.setClob(rs.getClob(6));
+                                clobtostr.convertToString();
+                                msg.setMessage(clobtostr.getMessage());
+				msg.setStatus(rs.getString(7));
 				msg_list.add(msg);
 			}
 			con.close();
