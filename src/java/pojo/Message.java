@@ -19,6 +19,7 @@ public class Message
 	private String msgdate;
 	private String message;
 	private String status;
+	private String subject;
 
 	public Message(String msgid, String senderid, String receiverid, String msgdate, String message, String status)
 	{
@@ -38,6 +39,17 @@ public class Message
 		this.message = new String();
 		this.status = new String();
 	}
+	
+	public void setSubject(String subject)
+	{
+            this.subject = subject;
+	}
+
+	public String getSubject()
+	{
+		return subject;
+	}
+        
 	public String getMessage()
 	{
 		return message;
@@ -95,11 +107,11 @@ public class Message
         
 		try
 		{
-			query = "insert into message values(?,?,?,?,?,?)";
+			query = "insert into message values(?,?,?,?,?,?,?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1, msgid);
-			ps.setString(2, senderid);
+			ps.setString(1, this.msgid);
+			ps.setString(2, this.senderid);
 			ps.setString(3,this.receiverid);
             
 			try
@@ -108,10 +120,11 @@ public class Message
 			}
 			catch (ParseException ex)
 			{
-				System.out.println("can not convert date in saveMessage() of Message : "+ex.getMessage());
+				System.out.println("can not convert date in sendMessage() of Message : "+ex.getMessage());
 			}
-			ps.setString(6, this.message);
-			ps.setString(5,this.status);
+			ps.setString(5,this.subject);
+                        ps.setString(6, this.message);
+                        ps.setString(7, this.status);
 
 			if(ps.executeUpdate()>0)
 			{
@@ -131,7 +144,7 @@ public class Message
 		}
 		catch(SQLException sqle)
 		{
-			System.out.println("sql error in saveMessage() : "+sqle.getMessage());
+			System.out.println("sql error in sendMessage() : "+sqle.getMessage());
 		}
 		return ret_val;
 	}

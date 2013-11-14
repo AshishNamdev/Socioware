@@ -52,6 +52,11 @@ public class SendMessageServlet extends HttpServlet
 				msg.setMessage(request.getParameter("message"));
 				msg.setSenderid(sender);
 				msg.setReceiverid(receiver);
+                                /*At this time message subject is not supported ,
+                                * so providing hard coded value "No Subject" for 
+                                * maintiaing information flow in codebase
+                                */
+                                msg.setSubject("No Subject");
 				
 				if(msg.sendMessage())
 				{
@@ -60,7 +65,7 @@ public class SendMessageServlet extends HttpServlet
 				else
 				{
 					rd = request.getRequestDispatcher("SecondUserProfile.jsp?qid="+receiver+"");
-					out.println("<span id='res'>Can not Send Message This Time.");
+					out.println("<span id='res'>Can not Send Message Try again Later !.");
 					rd.include(request, response);
 				}
 			} 
