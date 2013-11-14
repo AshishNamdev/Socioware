@@ -199,7 +199,7 @@ public class Message
 			
 			ps.setString(1, this.receiverid);
 			ResultSet rs = ps.executeQuery();
-			String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
+			//String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
             
 			while(rs.next())
 			{
