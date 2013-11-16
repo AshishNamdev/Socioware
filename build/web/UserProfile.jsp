@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Socioware/UserProfile</title>
         
-        <link href="CSS/UserProfile.css" rel="stylesheet" type="text/css" > 
+        <link href="style/UserProfile.css" rel="stylesheet" type="text/css" > 
         <script type="text/javascript" src="js/jquery.js"></script>
         <script>
            $(document).ready(function(){
