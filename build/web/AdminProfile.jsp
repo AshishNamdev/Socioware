@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Socioware/AdminProfile</title>
-        <link  rel="stylesheet" type="text/css" href="CSS/AdminProfile.css" />
+        <link  rel="stylesheet" type="text/css" href="style/AdminProfile.css" />
 
         <script type="text/javascript" src="js/jquery.js"></script>
            <script type="text/javascript">
