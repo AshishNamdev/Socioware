@@ -1,66 +1,55 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is created to convert clob data into String
+ * While getting clob data from databse it can not be
+ * shown on web page directly it should be converted to readable format into Stirng
+ * This calss is created for this purpose only
  */
-
 package pojo;
-import java.io.*;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import java.sql.Clob;
+import java.sql.SQLException;
+
 /**
  *
  * @author AshishNamdev
  */
-public class ClobToString
-{
-    Clob data;
-    String string;
-
-    public Clob getData() {
-        return data;
-    }
-
-    public void setData(Clob data) {
-        this.data = data;
-    }
-
-    public String getString() {
-        return string;
-    }
-
-    public void setString(String string) {
-        this.string = string;
-    }
-    public String ClobToString()
+public class ClobToString {
+    
+    private Clob clob;
+    private String message;
+    
+    public ClobToString()
     {
-        StringBuilder sdb = null;
-        Reader reader = new Reader()
-        {
+        this.clob = null;
+        this.message = null;
+    }
 
-            @Override
-            public int read(char[] cbuf, int off, int len) throws IOException {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
+    public Clob getClob() {
+        return clob;
+    }
 
-            @Override
-            public void close() throws IOException {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-        };
-        BufferedReader br = new BufferedReader(reader);
-        String line;
-        try
-        {
-                while(null!=(line = br.readLine()))
-                {
-                    sdb.append(line);
-                }
-        }
-        catch (IOException ex) {
-            Logger.getLogger(ClobToString.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sdb.toString();
+    public void setClob(Clob clob)
+    {
+        this.clob = clob;
+    }
+    public String getMessage()
+    {
+        return message;
+    }
+    public void setMessage(String message)
+    {
+        this.message = message;
+    }
+    
+    /*
+     * This Method convets Clob data set into ClobToString class data members 
+     * to message anothe String data member of same class
+     * which is then rertun by getter method to use in jsp pages 
+     */
+    public void convertToString() throws SQLException
+    {
+        int length = (int)this.clob.length();
+        long pos = 1;
+        this.setMessage(this.clob.getSubString(pos, length));
     }
 }
-

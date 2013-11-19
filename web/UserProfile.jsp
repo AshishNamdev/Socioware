@@ -564,7 +564,7 @@
                  for(int i=0;i<msgs.size();i++)
                      {
                      
-                     System.out.println(msgs.get(i).getMessage());
+                     //System.out.println(msgs.get(i).getMessage());
                        %> 
                 <div class="MsgBox">
                     <%=msgs.get(i).getMessage()%>
