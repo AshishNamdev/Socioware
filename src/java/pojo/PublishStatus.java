@@ -189,7 +189,7 @@ public class PublishStatus
          
 		try
 		{
-			query = "select statusId,status,likes,updatedate from publishstatus where unid in(select friendlist.friendid from friendlist where"+ "friendlist.userid=?)";
+			query = "select statusId,status,likes,updatedate from publishstatus where unid in(select friendlist.friendid from friendlist where friendlist.userid=?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,unid);
