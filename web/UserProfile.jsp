@@ -580,34 +580,32 @@
         </div>
             <div id="Request">
                 <div id="RequestHeader"><span id="Req">Friend Request</span>
-                    <img id="ReqClose" src="images/btn-delete.gif"></div>
+                <img id="ReqClose" src="images/btn-delete.gif"></div>
                 <div id="RequestList">
-                    <div class="RequestList1">
 					<% 
 						FriendRequest frnd_req = new FriendRequest();
 						frnd_req.setReqReciever(id);
-                                                ArrayList<FriendRequest> frnd_req_list = frnd_req.findReceivedRequest();
-                                                for(int i=0;i<frnd_req_list.size();i++)
-                                                {
-                                                    frnd_req = frnd_req_list.get(i);
-                                        %>                                        
-                                        <div class="frnd">
-                                            <a class="rs" href="SecondUserProfile.jsp?qid=<%=frnd_req.getEmail()%>" style="color: white">
-                                            <img width="40px" height="40px" src="uploads/<%=frnd_req.getImage()%>" alt="ulpoads/na.jpg" title="<%=frnd_req.getName()%>"></img>
-                                            <span class="usr"><%=frnd_req.getName()%></span>   
-                                            </a>
-                                        </div>
-                                        <%
-                                                }
-                                        %>
-                        <form class="ReqForm">
-                            <input type="submit" value="Accept" title="Accept friend">
-                            <input type="button" value="Decline" title="Decline friend">
-                        </form>
-                    </div>
-					
-                   
-                </div>
+						ArrayList<FriendRequest> frnd_req_list = frnd_req.findReceivedRequest();
+						for(int i=0;i<frnd_req_list.size();i++)
+						{
+							frnd_req = frnd_req_list.get(i);
+					%> 
+					<div class="RequestList1">
+						<div class="frnd" >
+							<a class="rs" href="SecondUserProfile.jsp?qid=<%=frnd_req.getEmail()%>" style="color: white">
+								<img width="40px" height="40px" src="uploads/<%=frnd_req.getImage()%>" alt="ulpoads/na.jpg" title="<%=frnd_req.getName()%>"></img>
+								<span class="usr"><%=frnd_req.getName()%></span>   
+							</a>
+					</div>
+					<form class="ReqForm" action="AcceptRequestServlet?qid=<%=frnd_req.getEmail()%>">
+						<input type="submit" value="Accept" title="Accept friend">
+						<input type="button" value="Decline" title="Decline friend">
+					</form>
+					</div>
+					<%
+						}
+					%>
+				</div>
                </div>
         <div id="Notify">
                 <div id="NotifyHeader"><span id="Noti">My Notice Board</span>
