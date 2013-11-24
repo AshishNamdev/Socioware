@@ -6,6 +6,7 @@ package pojo;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FriendRequest
 	private String reqid;
 	private String name;
 	private String email;
+        private String image;
 	
 	public String getEmail()
 	{
@@ -82,10 +84,19 @@ public class FriendRequest
 	{
 		return status;
 	}
+        public String getImage()
+        {
+            return image;
+        }
+        public void setImage(String image)
+        {
+            this.image = image;
+        }
+        
 	public void setStatus(String status)
 	{
-	this.status=status;
-	}
+            this.status=status;
+        }
 	
 	public boolean sendRequest()
 	{
@@ -132,21 +143,22 @@ public class FriendRequest
 		return ret_val;  
 	}
     
-	public FriendRequest findReceivedRequest()
+	public ArrayList<FriendRequest> findReceivedRequest()
 	{
-		FriendRequest frnd_req = new FriendRequest();
-		String query = null;
+                String query = null;
+                ArrayList<FriendRequest> frnd_req_list = new ArrayList<FriendRequest>();
 		DbContainor.loadDbDriver();
 		try
 		{
-			query = "select fname, mname, lname, email from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='unconfirmed')";
+			query = "select fname, mname, lname, email, userimage from userinfo where email in (select reqsender from friendrequest where REQRECEIVER=? and status='Pending')";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1,reqReciever);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next())
+			while(rs.next())
 			{
-				String mname = rs.getString("mname");
+                                FriendRequest frnd_req = new FriendRequest();	
+                                String mname = rs.getString("mname");
 				/* System.out.println("mname is  :" +mname); */
 				if(mname==null)
 				{
@@ -154,6 +166,8 @@ public class FriendRequest
 				}
 				frnd_req.setName(rs.getString("fname")+" "+mname+" "+rs.getString("lname"));
 				frnd_req.setEmail(rs.getString("email"));
+                                frnd_req.setImage(rs.getString("userimage"));
+                                frnd_req_list.add(frnd_req);
 			}
 			con.close();
 		}
@@ -165,7 +179,7 @@ public class FriendRequest
 		{
 			System.out.println("SQL Error in findRecievedRequest() of FriendRequest.java  :"+ sqle.getMessage());
 		}		
-		return frnd_req;
+		return frnd_req_list;
 	}
      
 	public boolean updateRequest()

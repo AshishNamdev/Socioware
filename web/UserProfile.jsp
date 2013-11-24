@@ -429,7 +429,7 @@
                                 image="na.jpg";
                        %>
                 <div class="frnd">
-                     <a id="rs" href="SecondUserProfile.jsp?qid=<%=fls.get(i).getFriendid()%>">
+                     <a class="rs" href="SecondUserProfile.jsp?qid=<%=fls.get(i).getFriendid()%>">
                          <img width="40px" height="40px" alt="ulpoads/na.jpg" src="uploads/<%=image%>" />
                          <span class="usr"><%=fls.get(i).getName()%></span>
                      </a>
@@ -579,16 +579,33 @@
             </div>
         </div>
             <div id="Request">
-                <div id="RequestHeader"><span id="Req">Your Request Box</span>
+                <div id="RequestHeader"><span id="Req">Friend Request</span>
                     <img id="ReqClose" src="images/btn-delete.gif"></div>
                 <div id="RequestList">
                     <div class="RequestList1">
-                        <span id="Req">User Name</span>
+					<% 
+						FriendRequest frnd_req = new FriendRequest();
+						frnd_req.setReqReciever(id);
+                                                ArrayList<FriendRequest> frnd_req_list = frnd_req.findReceivedRequest();
+                                                for(int i=0;i<frnd_req_list.size();i++)
+                                                {
+                                                    frnd_req = frnd_req_list.get(i);
+                                        %>                                        
+                                        <div class="frnd">
+                                            <a class="rs" href="SecondUserProfile.jsp?qid=<%=frnd_req.getEmail()%>" style="color: white">
+                                            <img width="40px" height="40px" src="uploads/<%=frnd_req.getImage()%>" alt="ulpoads/na.jpg" title="<%=frnd_req.getName()%>"></img>
+                                            <span class="usr"><%=frnd_req.getName()%></span>   
+                                            </a>
+                                        </div>
+                                        <%
+                                                }
+                                        %>
                         <form class="ReqForm">
                             <input type="submit" value="Accept" title="Accept friend">
                             <input type="button" value="Decline" title="Decline friend">
                         </form>
                     </div>
+					
                    
                 </div>
                </div>
