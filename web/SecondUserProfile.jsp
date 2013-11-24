@@ -1090,7 +1090,8 @@ li ul{
                         </span>
             <div id="dv8">
                <ul class="ul2">
-                    <li class="li3"><a class="a3" href="#">Make friend</a>
+                    <li class="li3">
+                    <a class="a3" href="FriendRequestServlet?qid=<%=id%>" >Make friend</a>
                     </li>
                     <li class="li3"><a class="a3" id="ShowMessage" href="#" title="Send Message">Message</a>
                     </li>

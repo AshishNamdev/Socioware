@@ -94,22 +94,22 @@ public class FriendRequest
 		DbContainor.loadDbDriver();
 		try
 		{
-			query = "insert into friendrequest values(?,?,?,?,?,?)";
+                        query = "insert into friendrequest values(?,?,?,?,?,?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1, "reqid");
-			ps.setString(2, "reqsender");
-			ps.setString(3,"reqreceiver");
+			ps.setString(1,this.getReqid());
+			ps.setString(2, this.getReqSender());
+			ps.setString(3,this.getReqReciever());
 			try
 			{
-				ps.setDate(4,DbContainor.toSQLDate(reqdate));
+				ps.setDate(4,DbContainor.toSQLDate(this.getReqdate()));
 			}
 			catch (ParseException ex)
 			{
 				System.out.println("can not convert date : "+ex.getMessage());
 			}
-			ps.setString(5,"message");
-			ps.setString(6,"status");
+			ps.setString(5,this.getMsg());
+			ps.setString(6,this.getStatus());
 			if(ps.executeUpdate()>0)
 			{
 				System.out.println("Data Succesfully updated into FriendRequest table  ");
@@ -127,7 +127,7 @@ public class FriendRequest
 		}
 		catch(SQLException sqle)
 		{
-			System.out.println("SQL Error in sendRequest() of FriendRequest.java");
+			System.out.println("SQL Error in sendRequest() of FriendRequest.java : "+sqle.getMessage());
 		}
 		return ret_val;  
 	}

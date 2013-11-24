@@ -940,7 +940,7 @@ li ul{
                      }              
                   else{
                 String email=sessobj.getAttribute("id").toString();
-                String id=request.getParameter("qid");
+                String qid=request.getParameter("qid");
                 
                 
         %>
@@ -997,7 +997,7 @@ li ul{
                           <%
                 UserSignup us=new UserSignup();
                
-                us.setEmail(id);
+                us.setEmail(qid);
                  UserSignup usr=us.getUserInfo();
                 
                  %>
@@ -1038,7 +1038,7 @@ li ul{
                  <%
               PublishStatus pb=new PublishStatus();
               
-              pb.setUnid(id);
+              pb.setUnid(qid);
                ArrayList<PublishStatus> pbls=pb.findAllStatus();
              //  System.out.println("in uerprofile.jsp");
               for(int i=0;i<pbls.size();i++)
@@ -1058,7 +1058,7 @@ li ul{
         <div id="dv5">
             <div id="dv7">
                 <ul class="ul1">
-                    <li class="li2"><a class="a5" id="DisplayInfo" href="MyInfo.jsp?qid=<%=id%>">My Info</a>
+                    <li class="li2"><a class="a5" id="DisplayInfo" href="MyInfo.jsp?qid=<%=qid%>">My Info</a>
                     </li>
                     <li class="li2"><a class="a5" href="#">Show</a>
                         <ul>
@@ -1076,13 +1076,13 @@ li ul{
             </div>
                      <%
                        UserImage img=new UserImage();
-                       img.setUid(id);
+                       img.setUid(qid);
                        UserImage uimg=img.getImage();
                        String image=uimg.getUserImage();
                         %>
             
             <div id="dv6">
-                <a href="MyInfo.jsp?qid=<%=id%>"> <img width="150px" height="120px" src="uploads/<%=image%>" /></a>
+                <a href="MyInfo.jsp?qid=<%=qid%>"> <img width="150px" height="120px" src="uploads/<%=image%>" /></a>
                 
                
             </div>
@@ -1090,8 +1090,10 @@ li ul{
                         </span>
             <div id="dv8">
                <ul class="ul2">
-                    <li class="li3"><a class="a3" href="#">Make friend</a>
+			   <form action="FriendRequestServlet" method="post">
+                   <li class="li3"><a class="a3" >Make friend</a>
                     </li>
+				</form>
                     <li class="li3"><a class="a3" id="ShowMessage" href="#" title="Send Message">Message</a>
                     </li>
                     <li class="li3"><a class="a3" href="#">Home</a>
@@ -1113,7 +1115,7 @@ li ul{
             <div id="FriendScroller">
                  <%
                      FriendList fl=new FriendList();
-                     fl.setUserid(id);
+                     fl.setUserid(qid);
                       ArrayList<FriendList> fls=fl.getFriendList();
                       String frndIimage=null;
                         for(int i=0;i<fls.size();i++)
@@ -1203,7 +1205,7 @@ li ul{
                 <img id="MsgClose" src="images/btn-delete.gif">
             </div>
             <div id="MessageBox">
-                <form action="SendMessageServlet?qid=<%=id%>" method="post">
+                <form action="SendMessageServlet?qid=<%=qid%>" method="post">
                 <textarea id="MsgTextArea" name="message" rows="8" cols="35"></textarea>
                 
                     <input type="submit" value="Send" title="Send Your Message" >
