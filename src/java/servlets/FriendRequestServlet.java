@@ -29,8 +29,9 @@ public class FriendRequestServlet extends HttpServlet
 		
 		try
 		{
+                        
 			FriendRequest frnd_req = new FriendRequest();
-            HttpSession session = request.getSession(false);
+                        HttpSession session = request.getSession(false);
 
 			String msg = request.getParameter("message");
 			if(msg==null)
@@ -38,21 +39,23 @@ public class FriendRequestServlet extends HttpServlet
 				msg = "";
 			}
 			frnd_req.setMsg(msg);
-			frnd_req.setReqid("frnd-req"+UniqueId.generateId());
+			frnd_req.setReqid("frq"+UniqueId.generateId());
 			frnd_req.setReqSender(session.getAttribute("id").toString());
-			frnd_req.setReqReciever(session.getAttribute("qid").toString());
+			frnd_req.setReqReciever(request.getParameter("qid").toString());
 			frnd_req.setReqdate(DbContainor.getDate());
-			frnd_req.setStatus("unconfirmed");
+			frnd_req.setStatus("Pending");
 			
 			String referer = request.getHeader("Referer");
+                        referer = referer.substring(referer.lastIndexOf("/"),referer.length());
 			if(frnd_req.sendRequest())
 			{
-				rd = request.getRequestDispatcher("referer");
+				rd = request.getRequestDispatcher(referer);
+                                out.println("<span id='req_msg'>Request Sent succesfully !</span>");
 				rd.forward(request, response);
 			}
 			else
 			{
-				rd = request.getRequestDispatcher("referer");
+				rd = request.getRequestDispatcher(referer);
 				out.println("<span id='req_msg'>Can not Send Request , Try Again Later !</span>");
 				rd.forward(request, response);
 			}

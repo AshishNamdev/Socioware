@@ -19,6 +19,7 @@ public class Message
 	private String msgdate;
 	private String message;
 	private String status;
+	private String subject;
 
 	public Message(String msgid, String senderid, String receiverid, String msgdate, String message, String status)
 	{
@@ -38,6 +39,17 @@ public class Message
 		this.message = new String();
 		this.status = new String();
 	}
+	
+	public void setSubject(String subject)
+	{
+            this.subject = subject;
+	}
+
+	public String getSubject()
+	{
+		return subject;
+	}
+        
 	public String getMessage()
 	{
 		return message;
@@ -98,8 +110,8 @@ public class Message
 			query = "insert into message values(?,?,?,?,?,?,?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1, msgid);
-			ps.setString(2, senderid);
+			ps.setString(1, this.msgid);
+			ps.setString(2, this.senderid);
 			ps.setString(3,this.receiverid);
             
 			try
@@ -108,11 +120,11 @@ public class Message
 			}
 			catch (ParseException ex)
 			{
-				System.out.println("can not convert date in saveMessage() of Message : "+ex.getMessage());
+				System.out.println("can not convert date in sendMessage() of Message : "+ex.getMessage());
 			}
-                        ps.setString(5, "No Subject");
-			ps.setString(6, this.message);
-			ps.setString(7,this.status);
+			ps.setString(5,this.subject);
+                        ps.setString(6, this.message);
+                        ps.setString(7, this.status);
 
 			if(ps.executeUpdate()>0)
 			{
@@ -132,7 +144,7 @@ public class Message
 		}
 		catch(SQLException sqle)
 		{
-			System.out.println("sql error in saveMessage() : "+sqle.getMessage());
+			System.out.println("sql error in sendMessage() : "+sqle.getMessage());
 		}
 		return ret_val;
 	}
@@ -176,6 +188,7 @@ public class Message
 	{
 		ArrayList<Message> msg_list = new ArrayList<Message>();
 		String query = null;
+                ClobToString clobtostr = new ClobToString();
 		DbContainor.loadDbDriver();
 		
 		try
@@ -186,7 +199,7 @@ public class Message
 			
 			ps.setString(1, this.receiverid);
 			ResultSet rs = ps.executeQuery();
-			String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
+			//String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
             
 			while(rs.next())
 			{
@@ -195,8 +208,10 @@ public class Message
 				msg.setSenderid(rs.getString(2));
 				msg.setReceiverid(rs.getString(3));
 				msg.setMsgDate(rs.getDate(4).toString());
-				msg.setMessage(rs.getString(6));
-				msg.setStatus(rs.getString(5));
+				clobtostr.setClob(rs.getClob(6));
+                                clobtostr.convertToString();
+                                msg.setMessage(clobtostr.getMessage());
+				msg.setStatus(rs.getString(7));
 				msg_list.add(msg);
 			}
 			con.close();
