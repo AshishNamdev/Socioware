@@ -139,4 +139,31 @@ public class FriendList
 		}
 		return ret_val;
 	}
+        public boolean isFriend()
+        {
+            boolean ret_val = false;    
+            String query = null;
+            DbContainor.loadDbDriver();
+            System.out.println("in isFriend ...");
+            try
+            {
+                query = "select * from friendlist where USERID=? and FRIENDID=? ";
+                Connection con = DbContainor.createConnection();
+                PreparedStatement ps = con.prepareStatement(query);  
+                ps.setString(1, this.userid);
+                ps.setString(2, this.friendid);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next())
+                    ret_val = true;
+            }
+            catch(NullPointerException npe)
+            {
+		System.out.println("DbContainor.createConnection():can not create connection to database : "+npe.getMessage());
+            }
+            catch(SQLException sqle)
+            {
+		System.out.println("SQL Error in isFriend() of FriendRequest.java  :"+ sqle.getMessage());
+            }
+            return ret_val;
+         }
 }

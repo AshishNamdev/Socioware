@@ -36,59 +36,56 @@ public class AcceptRequestServlet extends HttpServlet
         
 		try 
 		{
-            FriendRequest frnd_req = new FriendRequest();
-            HttpSession session=request.getSession(false);
-            
-			if(session!=null)
-			{
-				String receiver = session.getAttribute("id").toString();
-				String sender=request.getParameter("qid").toString();
-				frnd_req.setReqSender(sender);
-				frnd_req.setReqReciever(receiver);
-				rd = request.getRequestDispatcher("UserProfile.jsp");
-            
-				if(frnd_req.updateRequest())
-				{
-					FriendList frnd_list = new FriendList();
-					frnd_list.setUserid(receiver);
-					frnd_list.setFriendid(sender);
-                    
-					if(frnd_list.updateFriendList())
-					{
-						frnd_list.setUserid(sender);
-						frnd_list.setFriendid(receiver);
-						
-						if(!frnd_list.updateFriendList())
-						{
-							out.println("<span id='response'>Database Insertion Failed</span>");
-							rd.include(request, response);
-						}
-					}
-					else
-					{
-						out.println("<span id='response'>Database Insertion Failed</span>");
-						rd.include(request, response);
-					}
-				}
-				else
-				{
-					out.println("<span id='response'>Database Insertion Failed</span>");
-					rd.include(request, response);
-				}
-			}
-			else
-			{
-				rd=request.getRequestDispatcher("Home.jsp");
-				out.println("<span id='response'>To Continue, Please Log In Again:</span>");
-				rd.include(request, response);
-			}
-		} 
+                    FriendRequest frnd_req = new FriendRequest();
+                    HttpSession session=request.getSession(false);
+                    if(session!=null)
+                    {
+                        String receiver = session.getAttribute("id").toString();
+                        String sender=request.getParameter("qid").toString();
+                        frnd_req.setReqSender(sender);
+                        frnd_req.setReqReciever(receiver);
+                        
+                        if(frnd_req.updateRequest())
+                        {
+                            FriendList frnd_list = new FriendList();
+                            frnd_list.setUserid(receiver);
+                            frnd_list.setFriendid(sender);
+                            if(frnd_list.updateFriendList())
+                            {
+                                frnd_list.setUserid(sender);
+                                frnd_list.setFriendid(receiver);
+                                if(!frnd_list.updateFriendList())
+                                {
+                                        out.println("<span id='response'>Database Insertion Failed</span>");
+                                        rd.include(request, response);
+                                }
+                            }
+                            else
+                            {
+                                out.println("<span id='response'>Database Insertion Failed</span>");
+                                rd.include(request, response);
+                            }
+                            rd = request.getRequestDispatcher("UserProfile.jsp");
+                            rd.forward(request, response);
+                        }
+                        else
+                        {
+                            out.println("<span id='response'>Database Insertion Failed</span>");
+                            rd.include(request, response);
+                        }
+                    }
+                    else
+                    {
+                        rd=request.getRequestDispatcher("Home.jsp");
+                        out.println("<span id='response'>To Continue, Please Log In Again:</span>");
+                        rd.include(request, response);
+                    }
+                } 
 		finally 
 		{ 
 			out.close();
 		}
 	}
-
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	* Handles the HTTP <code>POST</code> method.
