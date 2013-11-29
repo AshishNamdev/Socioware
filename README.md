@@ -4,15 +4,22 @@ Its a Project Initiated by Anoop Tiwari and Me.
 
 Below is the list of contributors to socioware with their Roles.
 
-Ashish Namdev : Java Developer (Web Developer) - Project Lead
-Megha Vaidya  : Database (oracle/sql)
-Vivek Jain    : Front End Developer (html/css/jquery)
-Ajit Gupta    : Java Developer (JDBC)
-Anoop Tiwari  : Planning
-Bhaskar Verma : Document Management.
+* Ashish Namdev : Java Developer (Web Developer)
+
+* Megha Vaidya  : Database (oracle/sql)
+
+* Vivek Jain    : Front End Developer (html/css/jquery)
+
+* Ajit Gupta    : Java Developer (JDBC)
+
+* Anoop Tiwari  : Planning
+
+* Bhaskar Verma : Document Management.
 
 
-Java doc  : you can find complete java doc on our specific site for documents
+
+Java doc  : you can find complete java doc on our specific site for documents.
+
 Link  :  http://socioware.github.io/socioware-javadoc/
 
 
