@@ -41,7 +41,7 @@ public class AcceptRequestServlet extends HttpServlet
                     if(session!=null)
                     {
                         String receiver = session.getAttribute("id").toString();
-                        String sender=request.getParameter("qid").toString();
+                        String sender = request.getParameter("qid").toString();
                         frnd_req.setReqSender(sender);
                         frnd_req.setReqReciever(receiver);
                         
