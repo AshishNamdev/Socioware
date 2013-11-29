@@ -8,7 +8,7 @@ package servlets;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import pojo.UserSignup;
+import pojo.User;
 
 /**
  *
@@ -31,7 +31,7 @@ public class UserSignupServlet extends HttpServlet
 		PrintWriter out = response.getWriter();
 		//System.out.println("in UserSignupServlet");
 		RequestDispatcher rd = null;
-		UserSignup sgn = new UserSignup();
+		User sgn = new User();
         
 		String email = request.getParameter("email").trim()+"@"+request.getParameter("host");
 		sgn.setEmail(email);

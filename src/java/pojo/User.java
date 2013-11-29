@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserSignup
+public class User
 {
 	private String fname;
 	private String mname;
@@ -325,9 +325,9 @@ public class UserSignup
 		return ret_val;
 	}
 	
-	public UserSignup getUserInfo()
+	public User getUserInfo()
 	{
-		UserSignup uinf = new UserSignup();
+		User uinf = new User();
 		String query = null;
 		DbContainor.loadDbDriver();
         

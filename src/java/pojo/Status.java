@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Ashish
  */
-public class PublishStatus
+public class Status
 {
 	private String Name;
 	private String unid;
@@ -81,7 +81,7 @@ public class PublishStatus
 		return unid;
 	}
   
-	public PublishStatus()
+	public Status()
 	{
 		this.report = null;
 		this.unid = null;
@@ -90,7 +90,7 @@ public class PublishStatus
 		this.content = null;
 		this.statusId = null;
 	}
-	public PublishStatus(String statusid,String unid, String updateDate, String content, String report)
+	public Status(String statusid,String unid, String updateDate, String content, String report)
 	{
 		this.statusId=statusid;
 		this.unid = unid;
@@ -181,9 +181,9 @@ public class PublishStatus
 		return ret_val;
 	}
  
-	public   ArrayList<PublishStatus> findAllStatus()
+	public   ArrayList<Status> findAllStatus()
 	{
-		ArrayList<PublishStatus> status_list = new ArrayList<PublishStatus>();
+		ArrayList<Status> status_list = new ArrayList<Status>();
 		String query = null;
 		DbContainor.loadDbDriver();
          
@@ -197,7 +197,7 @@ public class PublishStatus
             
 			while(rs.next())
 			{
-				PublishStatus pb_status = new  PublishStatus();
+				Status pb_status = new  Status();
 				pb_status.setStatusId(rs.getString(1));
 				pb_status.setContent(rs.getString(2));
 				pb_status.setLikes(rs.getInt(3));

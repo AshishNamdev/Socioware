@@ -20,7 +20,7 @@ public class Message
 	private String message;
 	private String status;
 	private String subject;
-        private UserSignup user;
+        private User user;
 
 	public Message(String msgid, String senderid, String receiverid, String msgdate, String message, String status)
 	{
@@ -100,11 +100,11 @@ public class Message
 		this.status = status;
 	}
 
-    public UserSignup getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserSignup user) {
+    public void setUser(User user) {
         this.user = user;
     }
         
@@ -216,7 +216,7 @@ public class Message
 			while(rs.next())
 			{
 				Message msg = new Message();
-                                UserSignup user = new UserSignup();
+                                User user = new User();
                                 String mname = rs.getString(2);
                                 if(mname==null)
                                     mname=" ";

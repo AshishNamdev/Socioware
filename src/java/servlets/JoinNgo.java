@@ -1,80 +1,82 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pojo.Discussion;
+import pojo.DbContainor;
+import pojo.NgoList;
+import pojo.UniqueId;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Ashish
+ * @author Ajit Gupta 
  */
-@WebServlet(name = "DeleteDiscussionServlet", urlPatterns = {"/DeleteDiscussionServlet"})
-public class DeleteDiscussionServlet extends HttpServlet
+@WebServlet(name = "JoinNgoServlet", urlPatterns = {"/JoinNgoServlet"})
+public class JoinNgo extends HttpServlet
 {
 
-	/** 
-	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-	* @param request servlet request
-	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs
-	* @throws IOException if an I/O error occurs
-	*/
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = null;
-        
+		RequestDispatcher rd=null;
+		
 		try
 		{
-			Discussion disc = new Discussion();
-			disc.setDiscid(request.getParameter("discid"));
-			String referer = request.getHeader("Referer");
-			if(disc.deleteDiscussion())
+			NgoList ngo_list = new NgoList();
+			HttpSession session = request.getSession();
+            
+			if(session!=null)
 			{
-				rd = request.getRequestDispatcher("referer");
-				out.println("<span id='desc_response'>Deleted Discussion Successfully !</span>");
-				rd.include(request, response);
+				ngo_list.setNgoid(request.getParameter("qid"));
+				ngo_list.setUnid(session.getAttribute("id").toString());
+				String referer = request.getHeader("Referer");
+
+				if(ngo_list.updateNgoList())
+				{
+					rd = request.getRequestDispatcher("referer");
+					rd.forward(request,response);
+				}
+				else
+				{
+					rd = request.getRequestDispatcher("referer");
+					rd.forward(request,response);
+				}
 			}
 			else
 			{
-				rd = request.getRequestDispatcher("referer");
-				out.println("<span id='desc_response'>Can not Delete Discussion , Try Again Later !</span>");
-				rd.include(request, response);
-			}
-		}
-		finally
+				response.sendRedirect("LoggedOut.jsp");
+			} 
+        }
+        finally
 		{
 			out.close();
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-  	/** 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-    
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}
 
-  	/** 
+	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response

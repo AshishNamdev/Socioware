@@ -8,17 +8,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import pojo.NgoLogo;
+import pojo.Discussion;
 
 /**
  *
  * @author Ashish
  */
-public class NgoLogoUploadServlet extends HttpServlet
+@WebServlet(name = "DeleteDiscussionServlet", urlPatterns = {"/DeleteDiscussionServlet"})
+public class DeleteDiscussion extends HttpServlet
 {
 
 	/** 
@@ -33,21 +34,22 @@ public class NgoLogoUploadServlet extends HttpServlet
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		RequestDispatcher rd = null;
-		NgoLogo logo = new NgoLogo();
         
 		try
 		{
-			HttpSession session = request.getSession(false); 
-			logo.setNgoid(session.getAttribute("id").toString());
-			request.setAttribute("id",logo.getNgoid());
-			rd = request.getRequestDispatcher("UploadFileServlet");
-			rd.include(request,response);
-			logo.setNgologo(session.getAttribute("filePath").toString());
-
-			if(logo.saveLogo())
+			Discussion disc = new Discussion();
+			disc.setDiscid(request.getParameter("discid"));
+			String referer = request.getHeader("Referer");
+			if(disc.deleteDiscussion())
 			{
-				rd = request.getRequestDispatcher("NgoProfile.jsp");
-				out.println("<span id='response'>Logo Uploaded</span>");
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='desc_response'>Deleted Discussion Successfully !</span>");
+				rd.include(request, response);
+			}
+			else
+			{
+				rd = request.getRequestDispatcher("referer");
+				out.println("<span id='desc_response'>Can not Delete Discussion , Try Again Later !</span>");
 				rd.include(request, response);
 			}
 		}
@@ -58,26 +60,28 @@ public class NgoLogoUploadServlet extends HttpServlet
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/** 
+  	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
+    
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}
 
-	/** 
-	* Handles the HTTP <code>POST</code> method.
+  	/** 
+	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
@@ -92,6 +96,5 @@ public class NgoLogoUploadServlet extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}
-	// </editor-fold>
+	}// </editor-fold>
 }

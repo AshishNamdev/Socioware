@@ -12,15 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import pojo.DbContainor;
-import pojo.Message;
-import pojo.UniqueId;
+import pojo.NgoLogo;
 
 /**
  *
  * @author Ashish
  */
-public class SendMessageServlet extends HttpServlet
+public class NgoLogoUpload extends HttpServlet
 {
 
 	/** 
@@ -30,52 +28,31 @@ public class SendMessageServlet extends HttpServlet
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		RequestDispatcher rd = null;
-       
+		NgoLogo logo = new NgoLogo();
+        
 		try
 		{
-			Message msg = new Message();
-			HttpSession session = request.getSession(false);
-			
-			if(session!=null)
+			HttpSession session = request.getSession(false); 
+			logo.setNgoid(session.getAttribute("id").toString());
+			request.setAttribute("id",logo.getNgoid());
+			rd = request.getRequestDispatcher("UploadFileServlet");
+			rd.include(request,response);
+			logo.setNgologo(session.getAttribute("filePath").toString());
+
+			if(logo.saveLogo())
 			{
-				String sender = session.getAttribute("id").toString();
-				String receiver = request.getParameter("qid");
-				msg.setMsgid(UniqueId.generateId());
-				msg.setMsgDate(DbContainor.getDate());
-				msg.setStatus("unread");
-				msg.setMessage(request.getParameter("message"));
-				msg.setSenderid(sender);
-				msg.setReceiverid(receiver);
-                                /*At this time message subject is not supported ,
-                                * so providing hard coded value "No Subject" for 
-                                * maintiaing information flow in codebase
-                                */
-                                msg.setSubject("No Subject");
-				
-				if(msg.sendMessage())
-				{
-					response.sendRedirect("SecondUserProfile.jsp?qid="+receiver+"");  
-                }
-				else
-				{
-					rd = request.getRequestDispatcher("SecondUserProfile.jsp?qid="+receiver+"");
-					out.println("<span id='res'>Can not Send Message Try again Later !.");
-					rd.include(request, response);
-				}
-			} 
-			else
-			{
-				rd=request.getRequestDispatcher("UserProfile.jsp");
+				rd = request.getRequestDispatcher("NgoProfile.jsp");
+				out.println("<span id='response'>Logo Uploaded</span>");
+				rd.include(request, response);
 			}
 		}
 		finally
-		{ 
+		{
 			out.close();
 		}
 	}
@@ -89,8 +66,7 @@ public class SendMessageServlet extends HttpServlet
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}
@@ -103,8 +79,7 @@ public class SendMessageServlet extends HttpServlet
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}
@@ -117,5 +92,6 @@ public class SendMessageServlet extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}// </editor-fold>
+	}
+	// </editor-fold>
 }

@@ -2,7 +2,7 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AddFileServlet</servlet-name>
-        <servlet-class>servlets.AddFileServlet</servlet-class>
+        <servlet-class>servlets.AddFile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminLoginServlet</servlet-name>
@@ -10,15 +10,15 @@
     </servlet>
     <servlet>
         <servlet-name>CreateEventServlet</servlet-name>
-        <servlet-class>servlets.CreateEventServlet</servlet-class>
+        <servlet-class>servlets.CreateEvent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateIssueServlet</servlet-name>
-        <servlet-class>servlets.CreateIssueServlet</servlet-class>
+        <servlet-class>servlets.CreateIssue</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteDiscussionServlet</servlet-name>
-        <servlet-class>servlets.DeleteDiscussionServlet</servlet-class>
+        <servlet-class>servlets.DeleteDiscussion</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DiscussionServlet</servlet-name>
@@ -30,7 +30,7 @@
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>servlets.LogoutServlet</servlet-class>
+        <servlet-class>servlets.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NgoLoginServlet</servlet-name>
@@ -38,7 +38,7 @@
     </servlet>
     <servlet>
         <servlet-name>NgoLogoUploadServlet</servlet-name>
-        <servlet-class>servlets.NgoLogoUploadServlet</servlet-class>
+        <servlet-class>servlets.NgoLogoUpload</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NgoSignupServlet</servlet-name>
@@ -46,11 +46,11 @@
     </servlet>
     <servlet>
         <servlet-name>PublishStatusServlet</servlet-name>
-        <servlet-class>servlets.PublishStatusServlet</servlet-class>
+        <servlet-class>servlets.PublishStatus</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserImageUploadServlet</servlet-name>
-        <servlet-class>servlets.UserImageUploadServlet</servlet-class>
+        <servlet-class>servlets.UserImageUpload</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserLoginServlet</servlet-name>
@@ -66,15 +66,15 @@
     </servlet>
     <servlet>
         <servlet-name>UploadFileServlet</servlet-name>
-        <servlet-class>servlets.UploadFileServlet</servlet-class>
+        <servlet-class>servlets.UploadFile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendMessageServlet</servlet-name>
-        <servlet-class>servlets.SendMessageServlet</servlet-class>
+        <servlet-class>servlets.SendMessage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcceptRequestServlet</servlet-name>
-        <servlet-class>servlets.AcceptRequestServlet</servlet-class>
+        <servlet-class>servlets.AcceptRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddFileServlet</servlet-name>

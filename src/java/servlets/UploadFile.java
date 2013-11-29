@@ -22,7 +22,7 @@ import pojo.DbContainor;
  *
  * @author Ashish
  */
-public class UploadFileServlet extends HttpServlet
+public class UploadFile extends HttpServlet
 {
 
 	/** 

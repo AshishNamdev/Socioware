@@ -18,7 +18,7 @@ import pojo.*;
  *
  * @author Ashish
  */
-public class AcceptRequestServlet extends HttpServlet 
+public class AcceptRequest extends HttpServlet 
 {
 
 	/** 

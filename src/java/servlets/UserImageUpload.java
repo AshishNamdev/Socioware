@@ -4,15 +4,21 @@
  */
 package servlets;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import pojo.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pojo.UserImage;
+
 /**
  *
  * @author Ashish
  */
-public class PublishStatusServlet extends HttpServlet
+public class UserImageUpload extends HttpServlet
 {
 
 	/** 
@@ -26,37 +32,29 @@ public class PublishStatusServlet extends HttpServlet
             throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
-		RequestDispatcher rd = null;
 		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = null;
+		UserImage img = new UserImage();
         
 		try
 		{
-			PublishStatus ps = new PublishStatus();
-			ps.setContent(request.getParameter("status").trim());
-			ps.setLikes(0);
-			ps.setUpdateDate(DbContainor.getDate());
-            
-			HttpSession session = request.getSession(false);
-           
-			ps.setUnid(session.getAttribute("id").toString());
-			ps.setStatusId("pbl"+UniqueId.generateId());
-			ps.setReport("normal");
+			HttpSession session = request.getSession(false); 
+			img.setUid(session.getAttribute("id").toString());
+			request.setAttribute("id",img.getUid());
+			rd = request.getRequestDispatcher("UploadFileServlet");
+            rd.include(request, response);
+			img.setUserImage(session.getAttribute("image").toString());
 
-            if(ps.saveStatus())
-			{
-				response.sendRedirect("UserProfile.jsp");
-            }
-			else
+			if(img.saveImage())
 			{
 				rd = request.getRequestDispatcher("UserProfile.jsp");
-				out.println("<span id='rid'>Data base Insertion Fail.</span>");
-				rd.include(request, response);
+				rd.forward(request, response);
 			}
 		}
 		finally
 		{
-			out.close();
-		}
+            out.close();
+        }
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,7 +76,7 @@ public class PublishStatusServlet extends HttpServlet
 	* Handles the HTTP <code>POST</code> method.
 	* @param request servlet request
 	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs
+	* @throws ServletException if a servlet-specific error occurs       
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
@@ -87,7 +85,6 @@ public class PublishStatusServlet extends HttpServlet
 	{
 		processRequest(request, response);
 	}
-
 	/** 
 	* Returns a short description of the servlet.
 	* @return a String containing servlet description
@@ -96,6 +93,5 @@ public class PublishStatusServlet extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}
-	// </editor-fold>
+	}// </editor-fold>
 }

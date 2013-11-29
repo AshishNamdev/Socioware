@@ -8,7 +8,7 @@ import java.sql.*;
 import java.text.ParseException;
 
 
-public class NgoSignup 
+public class Ngo 
 {
 	private String name;
 	private String email;
@@ -240,9 +240,9 @@ public class NgoSignup
 		return ret_val;
 	}
     
-	public NgoSignup getNgoInfo()
+	public Ngo getNgoInfo()
 	{
-		NgoSignup ninf = new NgoSignup();
+		Ngo ninf = new Ngo();
 		String query = null;
 		DbContainor.loadDbDriver();
         
