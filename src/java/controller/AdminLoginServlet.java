@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import java.io.*;
 import javax.servlet.*;

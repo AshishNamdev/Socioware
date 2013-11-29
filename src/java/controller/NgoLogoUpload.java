@@ -2,17 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package controller;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import pojo.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pojo.NgoLogo;
+
 /**
  *
  * @author Ashish
  */
-public class PublishStatus extends HttpServlet
+public class NgoLogoUpload extends HttpServlet
 {
 
 	/** 
@@ -22,34 +28,26 @@ public class PublishStatus extends HttpServlet
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
-		RequestDispatcher rd = null;
 		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = null;
+		NgoLogo logo = new NgoLogo();
         
 		try
 		{
-			Status ps = new Status();
-			ps.setContent(request.getParameter("status").trim());
-			ps.setLikes(0);
-			ps.setUpdateDate(DbContainor.getDate());
-            
-			HttpSession session = request.getSession(false);
-           
-			ps.setUnid(session.getAttribute("id").toString());
-			ps.setStatusId("pbl"+UniqueId.generateId());
-			ps.setReport("normal");
+			HttpSession session = request.getSession(false); 
+			logo.setNgoid(session.getAttribute("id").toString());
+			request.setAttribute("id",logo.getNgoid());
+			rd = request.getRequestDispatcher("UploadFileServlet");
+			rd.include(request,response);
+			logo.setNgologo(session.getAttribute("filePath").toString());
 
-            if(ps.saveStatus())
+			if(logo.saveLogo())
 			{
-				response.sendRedirect("UserProfile.jsp");
-            }
-			else
-			{
-				rd = request.getRequestDispatcher("UserProfile.jsp");
-				out.println("<span id='rid'>Data base Insertion Fail.</span>");
+				rd = request.getRequestDispatcher("NgoProfile.jsp");
+				out.println("<span id='response'>Logo Uploaded</span>");
 				rd.include(request, response);
 			}
 		}
@@ -68,8 +66,7 @@ public class PublishStatus extends HttpServlet
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}
@@ -82,8 +79,7 @@ public class PublishStatus extends HttpServlet
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		processRequest(request, response);
 	}

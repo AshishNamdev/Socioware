@@ -2,23 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import pojo.UserImage;
-
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import pojo.*;
 /**
  *
  * @author Ashish
  */
-public class UserImageUpload extends HttpServlet
+public class PublishStatus extends HttpServlet
 {
 
 	/** 
@@ -32,29 +26,37 @@ public class UserImageUpload extends HttpServlet
             throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		RequestDispatcher rd = null;
-		UserImage img = new UserImage();
+		PrintWriter out = response.getWriter();
         
 		try
 		{
-			HttpSession session = request.getSession(false); 
-			img.setUid(session.getAttribute("id").toString());
-			request.setAttribute("id",img.getUid());
-			rd = request.getRequestDispatcher("UploadFileServlet");
-            rd.include(request, response);
-			img.setUserImage(session.getAttribute("image").toString());
+			Status ps = new Status();
+			ps.setContent(request.getParameter("status").trim());
+			ps.setLikes(0);
+			ps.setUpdateDate(DbContainor.getDate());
+            
+			HttpSession session = request.getSession(false);
+           
+			ps.setUnid(session.getAttribute("id").toString());
+			ps.setStatusId("pbl"+UniqueId.generateId());
+			ps.setReport("normal");
 
-			if(img.saveImage())
+            if(ps.saveStatus())
+			{
+				response.sendRedirect("UserProfile.jsp");
+            }
+			else
 			{
 				rd = request.getRequestDispatcher("UserProfile.jsp");
-				rd.forward(request, response);
+				out.println("<span id='rid'>Data base Insertion Fail.</span>");
+				rd.include(request, response);
 			}
 		}
 		finally
 		{
-            out.close();
-        }
+			out.close();
+		}
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,7 +78,7 @@ public class UserImageUpload extends HttpServlet
 	* Handles the HTTP <code>POST</code> method.
 	* @param request servlet request
 	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs       
+	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
 	@Override
@@ -85,6 +87,7 @@ public class UserImageUpload extends HttpServlet
 	{
 		processRequest(request, response);
 	}
+
 	/** 
 	* Returns a short description of the servlet.
 	* @return a String containing servlet description
@@ -93,5 +96,6 @@ public class UserImageUpload extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}// </editor-fold>
+	}
+	// </editor-fold>
 }

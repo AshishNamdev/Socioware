@@ -1,60 +1,56 @@
-package servlets;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pojo.DbContainor;
-import pojo.Event;
-import pojo.UniqueId;
-import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
-
-
+import pojo.Discussion;
 
 /**
  *
- * @author Ajit Gupta 
+ * @author Ashish
  */
-@WebServlet(name = "CreateEventServlet", urlPatterns = {"/CreateEventServlet"})
-public class CreateEvent extends HttpServlet
+@WebServlet(name = "DeleteDiscussionServlet", urlPatterns = {"/DeleteDiscussionServlet"})
+public class DeleteDiscussion extends HttpServlet
 {
 
+	/** 
+	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+	* @param request servlet request
+	* @param response servlet response
+	* @throws ServletException if a servlet-specific error occurs
+	* @throws IOException if an I/O error occurs
+	*/
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		RequestDispatcher rd = null;
-		
+        
 		try
 		{
-			Event event = new Event();
-			HttpSession session = request.getSession();
-			
-			event.setEventid("Eve"+UniqueId.generateId());
-			event.setOrganiserid(session.getAttribute("id").toString());
-			event.setEventdate(request.getParameter("eventdate").trim());
-			event.setExpdate(request.getParameter("expdate").trim());
-			event.setEventdesc(request.getParameter("eventdesc"));
-			event.setLikes(0);
-			event.setVisibility("friends");
-			event.setSubject(request.getParameter("subject"));
-			event.setEventname(request.getParameter("eventname"));
-           
+			Discussion disc = new Discussion();
+			disc.setDiscid(request.getParameter("discid"));
 			String referer = request.getHeader("Referer");
-			if(event.createEvent())
+			if(disc.deleteDiscussion())
 			{
 				rd = request.getRequestDispatcher("referer");
-				rd.forward(request, response);
+				out.println("<span id='desc_response'>Deleted Discussion Successfully !</span>");
+				rd.include(request, response);
 			}
 			else
 			{
 				rd = request.getRequestDispatcher("referer");
-				out.println("<span id='event_msg'>Can not create event , Try Again Later !</span>");
-				rd.forward(request, response);
+				out.println("<span id='desc_response'>Can not Delete Discussion , Try Again Later !</span>");
+				rd.include(request, response);
 			}
 		}
 		finally
@@ -78,14 +74,14 @@ public class CreateEvent extends HttpServlet
 		processRequest(request, response);
 	}
 
-	/** 
+  	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-    
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{

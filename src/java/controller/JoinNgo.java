@@ -1,63 +1,67 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package servlets;
+
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pojo.DbContainor;
+import pojo.NgoList;
+import pojo.UniqueId;
 import javax.servlet.http.HttpSession;
-import pojo.NgoLogo;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Ashish
+ * @author Ajit Gupta 
  */
-public class NgoLogoUpload extends HttpServlet
+@WebServlet(name = "JoinNgoServlet", urlPatterns = {"/JoinNgoServlet"})
+public class JoinNgo extends HttpServlet
 {
 
-	/** 
-	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-	* @param request servlet request
-	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs
-	* @throws IOException if an I/O error occurs
-	*/
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = null;
-		NgoLogo logo = new NgoLogo();
-        
+		RequestDispatcher rd=null;
+		
 		try
 		{
-			HttpSession session = request.getSession(false); 
-			logo.setNgoid(session.getAttribute("id").toString());
-			request.setAttribute("id",logo.getNgoid());
-			rd = request.getRequestDispatcher("UploadFileServlet");
-			rd.include(request,response);
-			logo.setNgologo(session.getAttribute("filePath").toString());
-
-			if(logo.saveLogo())
+			NgoList ngo_list = new NgoList();
+			HttpSession session = request.getSession();
+            
+			if(session!=null)
 			{
-				rd = request.getRequestDispatcher("NgoProfile.jsp");
-				out.println("<span id='response'>Logo Uploaded</span>");
-				rd.include(request, response);
+				ngo_list.setNgoid(request.getParameter("qid"));
+				ngo_list.setUnid(session.getAttribute("id").toString());
+				String referer = request.getHeader("Referer");
+
+				if(ngo_list.updateNgoList())
+				{
+					rd = request.getRequestDispatcher("referer");
+					rd.forward(request,response);
+				}
+				else
+				{
+					rd = request.getRequestDispatcher("referer");
+					rd.forward(request,response);
+				}
 			}
-		}
-		finally
+			else
+			{
+				response.sendRedirect("LoggedOut.jsp");
+			} 
+        }
+        finally
 		{
 			out.close();
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
@@ -65,6 +69,7 @@ public class NgoLogoUpload extends HttpServlet
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
@@ -72,12 +77,13 @@ public class NgoLogoUpload extends HttpServlet
 	}
 
 	/** 
-	* Handles the HTTP <code>POST</code> method.
+	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
@@ -92,6 +98,5 @@ public class NgoLogoUpload extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}
-	// </editor-fold>
+	}// </editor-fold>
 }

@@ -2,80 +2,66 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import pojo.DbContainor;
-import pojo.Message;
+import pojo.TopicDiscussion;
 import pojo.UniqueId;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Ashish
+ * @author Ajit Gupta 
  */
-public class SendMessage extends HttpServlet
+@WebServlet(name = "TopicDiscussionServlet", urlPatterns = {"/TopicDiscussionServlet"})
+public class TopicDiscussionServlet extends HttpServlet
 {
-
-	/** 
-	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-	* @param request servlet request
-	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs
-	* @throws IOException if an I/O error occurs
-	*/
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = null;
-       
+		RequestDispatcher rd=null;
 		try
 		{
-			Message msg = new Message();
-			HttpSession session = request.getSession(false);
-			
-			if(session!=null)
+			TopicDiscussion topic_disc = new TopicDiscussion();
+			HttpSession httpsession = request.getSession(false);
+            
+            if(httpsession!=null)
 			{
-				String sender = session.getAttribute("id").toString();
-				String receiver = request.getParameter("qid");
-				msg.setMsgid(UniqueId.generateId());
-				msg.setMsgDate(DbContainor.getDate());
-				msg.setStatus("unread");
-				msg.setMessage(request.getParameter("message"));
-				msg.setSenderid(sender);
-				msg.setReceiverid(receiver);
-                                /*At this time message subject is not supported ,
-                                * so providing hard coded value "No Subject" for 
-                                * maintiaing information flow in codebase
-                                */
-                                msg.setSubject("No Subject");
-				
-				if(msg.sendMessage())
+				topic_disc.setDiscid(UniqueId.generateId());
+				topic_disc.setUnid(httpsession.getAttribute("unid").toString());
+				topic_disc.setDiscdate(DbContainor.getDate());
+				topic_disc.setLikes(0);
+				topic_disc.setComments(request.getParameter("comment"));
+
+				if(topic_disc.createTopicDiscussion())
 				{
-					response.sendRedirect("SecondUserProfile.jsp?qid="+receiver+"");  
-                }
+					rd = request.getRequestDispatcher("TopicDiscussion.jsp");
+					rd.forward(request,response);
+				}
 				else
 				{
-					rd = request.getRequestDispatcher("SecondUserProfile.jsp?qid="+receiver+"");
-					out.println("<span id='res'>Can not Send Message Try again Later !.");
-					rd.include(request, response);
+					rd = request.getRequestDispatcher("TopicDiscussion.jsp");
+					out.println("<span id='response'>Database Insertion Fail</span>");
+					rd.include(request,response);
 				}
-			} 
+			}
 			else
 			{
-				rd=request.getRequestDispatcher("UserProfile.jsp");
+				response.sendRedirect("LoggedOut.jsp");
 			}
 		}
 		finally
-		{ 
+		{
 			out.close();
 		}
 	}
@@ -87,7 +73,7 @@ public class SendMessage extends HttpServlet
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
-	*/
+	**/
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException

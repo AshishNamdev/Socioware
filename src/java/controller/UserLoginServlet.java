@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 /*
  * To change this template, choose Tools | Templates
@@ -8,13 +8,13 @@ package servlets;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import pojo.NgoLogin;
+import pojo.UserLogin;
 
 /**
  *
  * @author ANOOP
  */
-public class NgoLoginServlet extends HttpServlet
+public class UserLoginServlet extends HttpServlet
 {
 
 	/** 
@@ -24,25 +24,25 @@ public class NgoLoginServlet extends HttpServlet
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-   
+    
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		NgoLogin  ngo_login = new NgoLogin();
-		RequestDispatcher rd=null;
+		RequestDispatcher rd = null;
 		
-		ngo_login.setNgoId(request.getParameter("nid"));
-		ngo_login.setPwd(request.getParameter("pwd"));
-		
-		if(ngo_login.isValidNgo())
+		UserLogin  login = new UserLogin();
+		login.setUid(request.getParameter("uid").trim());
+		login.setPwd(request.getParameter("pwd"));
+        
+		if(login.isValidUser())
 		{
 			HttpSession session = request.getSession();
-			session.setAttribute("nid",ngo_login.getNgoId());
+			session.setAttribute("id",login.getUid());
 			session.setMaxInactiveInterval(5000);
-			rd = request.getRequestDispatcher("NgoHome.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("UserProfile.jsp");
 		}
 		else
 		{
@@ -52,7 +52,6 @@ public class NgoLoginServlet extends HttpServlet
 		}
 		out.close();
 	}
-    
 
 	/** 
 	* Returns a short description of the servlet.
@@ -62,6 +61,5 @@ public class NgoLoginServlet extends HttpServlet
 	public String getServletInfo()
 	{
 		return "Short description";
-	}
-	// </editor-fold>
+	}// </editor-fold>
 }

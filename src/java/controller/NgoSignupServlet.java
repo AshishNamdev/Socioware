@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 /*
  * To change this template, choose Tools | Templates

@@ -1,57 +1,63 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pojo.Feedback;
+import pojo.DbContainor;
+import pojo.FriendRequest;
+import pojo.UniqueId;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Ashish
+ * @author Ajit Gupta 
  */
-public class FeedbackServlet extends HttpServlet
+@WebServlet(name = "FriendRequestServlet", urlPatterns = {"/FriendRequestServlet"})
+public class FriendRequestServlet extends HttpServlet
 {
 
-	/** 
-	* Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-	* @param request servlet request
-	* @param response servlet response
-	* @throws ServletException if a servlet-specific error occurs
-	* @throws IOException if an I/O error occurs
-	*/
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		RequestDispatcher rd = null;
-			
+		
 		try
 		{
-			Feedback feedback = new Feedback();
-			feedback.setName(request.getParameter("name").trim());
-			feedback.setEmail(request.getParameter("email").trim());
-			feedback.setContact(request.getParameter("contact"));
-			feedback.setFeedback(request.getParameter("feedback").trim());
-        
-			if(feedback.storeFeedback())
+                        
+			FriendRequest frnd_req = new FriendRequest();
+                        HttpSession session = request.getSession(false);
+
+			String msg = request.getParameter("message");
+			if(msg==null)
 			{
-				rd = request.getRequestDispatcher("Feedback.jsp");
-				out.println("<span id='res'>Thank You For your Feedback.</span>");
-				rd.include(request, response);
+				msg = "";
+			}
+			frnd_req.setMsg(msg);
+			frnd_req.setReqid("frq"+UniqueId.generateId());
+			frnd_req.setReqSender(session.getAttribute("id").toString());
+			frnd_req.setReqReciever(request.getParameter("qid").toString());
+			frnd_req.setReqdate(DbContainor.getDate());
+			frnd_req.setStatus("Pending");
+			
+			String referer = request.getHeader("Referer");
+                        referer = referer.substring(referer.lastIndexOf("/"),referer.length());
+			if(frnd_req.sendRequest())
+			{
+				rd = request.getRequestDispatcher(referer);
+                                out.println("<span id='req_msg'>Request Sent succesfully !</span>");
+				rd.forward(request, response);
 			}
 			else
 			{
-				rd = request.getRequestDispatcher("Feedback.jsp");
-				out.println("<span id='res'>Sorry action could not be Completed.</span>");
-				rd.include(request, response);
+				rd = request.getRequestDispatcher(referer);
+				out.println("<span id='req_msg'>Can not Send Request , Try Again Later !</span>");
+				rd.forward(request, response);
 			}
 		}
 		finally
@@ -60,8 +66,8 @@ public class FeedbackServlet extends HttpServlet
 		}
 	}
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-  	/** 
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response

@@ -1,5 +1,5 @@
+package controller;
 
-package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,61 +8,46 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pojo.DbContainor;
-import pojo.NgoList;
-import pojo.UniqueId;
-import javax.servlet.http.HttpSession;
+import pojo.Discussion;
 import javax.servlet.RequestDispatcher;
+import pojo.UniqueId;
+import pojo.DbContainor;
+
+
+
 
 /**
  *
  * @author Ajit Gupta 
  */
-@WebServlet(name = "JoinNgoServlet", urlPatterns = {"/JoinNgoServlet"})
-public class JoinNgo extends HttpServlet
+@WebServlet(name = "DiscussionServlet", urlPatterns = {"/DiscussionServlet"})
+public class DiscussionServlet extends HttpServlet
 {
 
+    
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd=null;
+        RequestDispatcher dispatcher = null;
 		
 		try
 		{
-			NgoList ngo_list = new NgoList();
-			HttpSession session = request.getSession();
-            
-			if(session!=null)
-			{
-				ngo_list.setNgoid(request.getParameter("qid"));
-				ngo_list.setUnid(session.getAttribute("id").toString());
-				String referer = request.getHeader("Referer");
-
-				if(ngo_list.updateNgoList())
-				{
-					rd = request.getRequestDispatcher("referer");
-					rd.forward(request,response);
-				}
-				else
-				{
-					rd = request.getRequestDispatcher("referer");
-					rd.forward(request,response);
-				}
-			}
-			else
-			{
-				response.sendRedirect("LoggedOut.jsp");
-			} 
-        }
-        finally
+			Discussion disc_bean = new Discussion();
+			disc_bean.setTopic(request.getParameter("topic").trim());
+			disc_bean.setTopicdesc(request.getParameter("topicdesc").trim());
+			disc_bean.setDiscid("dis"+UniqueId.generateId());
+			disc_bean.setTopicdate(DbContainor.getDate());
+			disc_bean.createDiscussion();
+		}
+		finally
 		{
 			out.close();
 		}
 	}
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/** 
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+  	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
@@ -76,14 +61,14 @@ public class JoinNgo extends HttpServlet
 		processRequest(request, response);
 	}
 
-	/** 
+  	/** 
 	* Handles the HTTP <code>GET</code> method.
 	* @param request servlet request
 	* @param response servlet response
 	* @throws ServletException if a servlet-specific error occurs
 	* @throws IOException if an I/O error occurs
 	*/
-	
+    
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
 	{
