@@ -557,21 +557,24 @@
             <div id="Message">
                 <div id="MsgScroller">
             <div id="MessageBox">
-               <%
-                  Message msg=new Message();
-                  msg.setReceiverid(id);
-                 ArrayList<Message> msgs= msg.findAllMessages();
-                 for(int i=0;i<msgs.size();i++)
-                     {
-                     
-                     //System.out.println(msgs.get(i).getMessage());
-                       %> 
-                <div class="MsgBox">
-                    <%=msgs.get(i).getMessage()%>
-                </div>
-                <%
-                     }
-                       %>
+			<%
+				Message msg = new Message();
+                                UserSignup user = new UserSignup();
+				msg.setReceiverid(id);
+				ArrayList<Message> msgs_list = msg.findAllMessages();
+				for(int i=0;i<msgs_list.size();i++)
+				{
+                                    user = msgs_list.get(i).getUser();
+			%> 
+			<div class="MsgBox">
+				<a class="rs" href="SecondUserProfile.jsp?qid=<%=msgs_list.get(i).getSenderid()%>">
+				<img width="30px" height="30px" alt="ulpoads/na.jpg" src="uploads/<%=user.getUserImage()%>" />
+				<span class="usr"><%=user.getFname()+user.getMname()+user.getLname()%></span>
+				<span class="msg"><%=msgs_list.get(i).getMessage()%></span>
+			</div>
+			<%
+				}
+			%>
                <!-- <div id="MsgBox2"></div>
                 <div id="MsgBox3"></div> -->
             </div>
