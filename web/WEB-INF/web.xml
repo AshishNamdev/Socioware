@@ -72,6 +72,10 @@
         <servlet-name>SendMessageServlet</servlet-name>
         <servlet-class>servlets.SendMessageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AcceptRequestServlet</servlet-name>
+        <servlet-class>servlets.AcceptRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddFileServlet</servlet-name>
         <url-pattern>/AddFileServlet</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>SendMessageServlet</servlet-name>
         <url-pattern>/SendMessageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptRequestServlet</servlet-name>
+        <url-pattern>/AcceptRequestServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

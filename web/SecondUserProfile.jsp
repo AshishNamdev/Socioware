@@ -1090,8 +1090,20 @@ li ul{
                         </span>
             <div id="dv8">
                <ul class="ul2">
+                 <% 
+                        String status = "Make Friend";
+                        String url = "FriendRequestServlet?qid="+id;
+                        FriendList frnd_list = new FriendList();
+                        frnd_list.setFriendid(id);
+                        frnd_list.setUserid(email);
+                        if(frnd_list.isFriend())
+                        {
+                            status = "Friends";
+                            url = "#";
+                        }
+                 %>
                     <li class="li3">
-                    <a class="a3" href="FriendRequestServlet?qid=<%=id%>" >Make friend</a>
+                        <a class="a3" href=<%=url%>><%=status%></a>
                     </li>
                     <li class="li3"><a class="a3" id="ShowMessage" href="#" title="Send Message">Message</a>
                     </li>
