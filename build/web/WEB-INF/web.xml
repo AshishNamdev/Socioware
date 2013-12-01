@@ -73,7 +73,7 @@
         <servlet-class>controller.SendMessage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AcceptRequestServlet</servlet-name>
+        <servlet-name>AcceptRequest</servlet-name>
         <servlet-class>controller.AcceptRequest</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -149,8 +149,8 @@
         <url-pattern>/SendMessageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AcceptRequestServlet</servlet-name>
-        <url-pattern>/AcceptRequestServlet</url-pattern>
+        <servlet-name>AcceptRequest</servlet-name>
+        <url-pattern>/AcceptRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

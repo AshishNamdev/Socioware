@@ -570,6 +570,7 @@
 				<a class="rs" href="SecondUserProfile.jsp?qid=<%=msgs_list.get(i).getSenderid()%>">
 				<img width="30px" height="30px" alt="ulpoads/na.jpg" src="uploads/<%=user.getUserImage()%>" />
 				<span class="usr"><%=user.getFname()+user.getMname()+user.getLname()%></span>
+				</a>
 				<span class="msg"><%=msgs_list.get(i).getMessage()%></span>
 			</div>
 			<%
@@ -583,8 +584,9 @@
         </div>
             <div id="Request">
                 <div id="RequestHeader"><span id="Req">Friend Request</span>
-                <img id="ReqClose" src="images/btn-delete.gif"></div>
-                <div id="RequestList">
+                <img id="ReqClose" src="images/btn-delete.gif">
+                </div>
+                
 					<% 
 						FriendRequest frnd_req = new FriendRequest();
 						frnd_req.setReqReciever(id);
@@ -593,22 +595,24 @@
 						{
 							frnd_req = frnd_req_list.get(i);
 					%> 
-					<div class="RequestList1">
+					<div id="RequestList">
+                                        <div class="RequestList1">
 						<div class="frnd" >
 							<a class="rs" href="SecondUserProfile.jsp?qid=<%=frnd_req.getEmail()%>" style="color: white">
 								<img width="40px" height="40px" src="uploads/<%=frnd_req.getImage()%>" alt="ulpoads/na.jpg" title="<%=frnd_req.getName()%>"></img>
 								<span class="usr"><%=frnd_req.getName()%></span>   
 							</a>
 					</div>
-					<form class="ReqForm" action="AcceptRequestServlet?qid=<%=frnd_req.getEmail()%>">
+					<form class="ReqForm" action="AcceptRequest?qid=<%=frnd_req.getEmail()%>" method="post">
 						<input type="submit" value="Accept" title="Accept friend">
 						<input type="button" value="Decline" title="Decline friend">
 					</form>
 					</div>
+                                        </div>
 					<%
 						}
 					%>
-				</div>
+				
                </div>
         <div id="Notify">
                 <div id="NotifyHeader"><span id="Noti">My Notice Board</span>
