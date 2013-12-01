@@ -335,22 +335,27 @@
         <div id="dv3">
             <div id="dv3_1">My Updates</div>
             <div id="UpdateScroller"> 
-            <%
-              Status status=new Status();
-              
-              status.setUnid(id);
-               ArrayList<Status> status_list = status.findAllStatus();
-             //  System.out.println("in uerprofile.jsp");
-              for(int i=0;i<status_list.size();i++)
-                 {
-                           
+                <%
+                    Status status = new Status();
+                    status.setUnid(id);
+                    User user = new User();
+                    ArrayList<Status> status_list = status.findAllStatus();
+                    for(int i=0;i<status_list.size();i++)
+                    {
+                        user = status_list.get(i).getUser();
+                        status = status_list.get(i);
                 %>  
-                <div class="stts"><%=status_list.get(i).getContent()%>
+                <div class="stts">
+                     <a class="rs" href="SecondUserProfile.jsp?qid=<%=user.getEmail()%>">
+                         <img width="30px" height="30px" alt="ulpoads/na.jpg" src="uploads/<%=user.getUserImage()%>" />
+                         <span class="pblsr"><%=user.getFname()+user.getMname()+user.getLname()%></span>
+                     </a>
+                </div>
+                <div class="stts"><%=status.getContent()%>
                 </div>
                 <%
-                 }
-             //  System.out.println("chk");
-                 %>
+                    }
+                %>
              </div>
         </div>
         <div id="dv4">
@@ -559,7 +564,6 @@
             <div id="MessageBox">
 			<%
 				Message msg = new Message();
-                                User user = new User();
 				msg.setReceiverid(id);
 				ArrayList<Message> msgs_list = msg.findAllMessages();
 				for(int i=0;i<msgs_list.size();i++)

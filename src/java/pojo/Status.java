@@ -21,6 +21,7 @@ public class Status
 	private String report;
 	private int likes;
 	private String statusId;
+	private User user;
 
 	public String getName()
 	{
@@ -80,7 +81,15 @@ public class Status
 	{
 		return unid;
 	}
-  
+	public User getUser()
+	{
+		return user;
+	}
+	public void setUser(User user)
+	{
+		this.user = user;
+	}
+        
 	public Status()
 	{
 		this.report = null;
@@ -185,24 +194,36 @@ public class Status
 	{
 		ArrayList<Status> status_list = new ArrayList<Status>();
 		String query = null;
+		User usr = new User();
 		DbContainor.loadDbDriver();
          
 		try
 		{
-			query = "select statusId,status,likes,updatedate from publishstatus where unid in(select friendlist.friendid from friendlist where friendlist.userid=?)";
+			query = "select statusid , U.fname,U.mname,U.lname,U.email, U.userimage,  updatedate ,report , likes,  status from publishstatus P JOIN userinfo U on P.unid=U.email where U.email in(select friendid from friendlist where userid=?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1,unid);
+			ps.setString(1,this.getUnid());
 			ResultSet rs = ps.executeQuery();
             
 			while(rs.next())
 			{
-				Status pb_status = new  Status();
-				pb_status.setStatusId(rs.getString(1));
-				pb_status.setContent(rs.getString(2));
-				pb_status.setLikes(rs.getInt(3));
-				pb_status.setUpdateDate(rs.getDate(4).toString());
-				status_list.add(pb_status);
+				Status status = new  Status();
+				usr.setFname(rs.getString("fname"));
+				String mname = rs.getString("mname");
+				if(mname==null)
+					mname=" ";
+				usr.setMname(mname);
+				usr.setLname(rs.getString("lname"));
+				usr.setUserImage(rs.getString("userimage"));
+				usr.setEmail(rs.getString("email"));
+				
+				status.setUser(usr);
+				status.setStatusId(rs.getString("statusid"));
+				status.setContent(rs.getString("status"));
+				status.setLikes(rs.getInt("likes"));
+				status.setUpdateDate(rs.getDate("updatedate").toString());
+				status.setReport(rs.getString("report"));
+				status_list.add(status);
 			}
 			/* System.out.println("array list prepared");*/
 			con.close();

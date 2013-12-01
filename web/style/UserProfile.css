@@ -755,6 +755,13 @@ li ul{
     padding:5px;
     
 }
+.pblsr
+{
+    position: relative;
+    top: 0px;
+    margin-left: 2px;
+    padding:1px;
+}
          
          
             .info{
@@ -1019,4 +1026,3 @@ li ul{
    border-color:seagreen;
    border-collapse: collapse;
 }
-     
