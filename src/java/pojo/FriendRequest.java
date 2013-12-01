@@ -34,7 +34,7 @@ public class FriendRequest
 	}
 	public String getName()
 	{
-	return name;
+            return name;
 	}
 	public void setName(String name)
 	{
