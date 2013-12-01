@@ -559,7 +559,7 @@
             <div id="MessageBox">
 			<%
 				Message msg = new Message();
-                                UserSignup user = new UserSignup();
+                                User user = new User();
 				msg.setReceiverid(id);
 				ArrayList<Message> msgs_list = msg.findAllMessages();
 				for(int i=0;i<msgs_list.size();i++)
