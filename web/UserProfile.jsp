@@ -336,16 +336,16 @@
             <div id="dv3_1">My Updates</div>
             <div id="UpdateScroller"> 
             <%
-              PublishStatus pb=new PublishStatus();
+              Status status=new Status();
               
-              pb.setUnid(id);
-               ArrayList<PublishStatus> pbls=pb.findAllStatus();
+              status.setUnid(id);
+               ArrayList<Status> status_list = status.findAllStatus();
              //  System.out.println("in uerprofile.jsp");
-              for(int i=0;i<pbls.size();i++)
+              for(int i=0;i<status_list.size();i++)
                  {
                            
                 %>  
-                <div class="stts"><%=pbls.get(i).getContent()%> 
+                <div class="stts"><%=status_list.get(i).getContent()%>
                 </div>
                 <%
                  }
