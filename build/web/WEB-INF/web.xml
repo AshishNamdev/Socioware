@@ -2,79 +2,79 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AddFileServlet</servlet-name>
-        <servlet-class>servlets.AddFileServlet</servlet-class>
+        <servlet-class>controller.AddFile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminLoginServlet</servlet-name>
-        <servlet-class>servlets.AdminLoginServlet</servlet-class>
+        <servlet-class>controller.AdminLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateEventServlet</servlet-name>
-        <servlet-class>servlets.CreateEventServlet</servlet-class>
+        <servlet-class>controller.CreateEvent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateIssueServlet</servlet-name>
-        <servlet-class>servlets.CreateIssueServlet</servlet-class>
+        <servlet-class>controller.CreateIssue</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteDiscussionServlet</servlet-name>
-        <servlet-class>servlets.DeleteDiscussionServlet</servlet-class>
+        <servlet-class>controller.DeleteDiscussion</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DiscussionServlet</servlet-name>
-        <servlet-class>servlets.DiscussionServlet</servlet-class>
+        <servlet-class>controller.DiscussionServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FriendRequestServlet</servlet-name>
-        <servlet-class>servlets.FriendRequestServlet</servlet-class>
+        <servlet-class>controller.FriendRequestServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>servlets.LogoutServlet</servlet-class>
+        <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NgoLoginServlet</servlet-name>
-        <servlet-class>servlets.NgoLoginServlet</servlet-class>
+        <servlet-class>controller.NgoLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NgoLogoUploadServlet</servlet-name>
-        <servlet-class>servlets.NgoLogoUploadServlet</servlet-class>
+        <servlet-class>controller.NgoLogoUpload</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NgoSignupServlet</servlet-name>
-        <servlet-class>servlets.NgoSignupServlet</servlet-class>
+        <servlet-class>controller.NgoSignupServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PublishStatusServlet</servlet-name>
-        <servlet-class>servlets.PublishStatusServlet</servlet-class>
+        <servlet-class>controller.PublishStatus</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserImageUploadServlet</servlet-name>
-        <servlet-class>servlets.UserImageUploadServlet</servlet-class>
+        <servlet-class>controller.UserImageUpload</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserLoginServlet</servlet-name>
-        <servlet-class>servlets.UserLoginServlet</servlet-class>
+        <servlet-class>controller.UserLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserSignupServlet</servlet-name>
-        <servlet-class>servlets.UserSignupServlet</servlet-class>
+        <servlet-class>controller.UserSignupServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FeedbackServlet</servlet-name>
-        <servlet-class>servlets.FeedbackServlet</servlet-class>
+        <servlet-class>controller.FeedbackServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadFileServlet</servlet-name>
-        <servlet-class>servlets.UploadFileServlet</servlet-class>
+        <servlet-class>controller.UploadFile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendMessageServlet</servlet-name>
-        <servlet-class>servlets.SendMessageServlet</servlet-class>
+        <servlet-class>controller.SendMessage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AcceptRequestServlet</servlet-name>
-        <servlet-class>servlets.AcceptRequestServlet</servlet-class>
+        <servlet-name>AcceptRequest</servlet-name>
+        <servlet-class>controller.AcceptRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddFileServlet</servlet-name>
@@ -149,8 +149,8 @@
         <url-pattern>/SendMessageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AcceptRequestServlet</servlet-name>
-        <url-pattern>/AcceptRequestServlet</url-pattern>
+        <servlet-name>AcceptRequest</servlet-name>
+        <url-pattern>/AcceptRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,23 +1,38 @@
-Hello This is the information to tell more about socioware development. 
-Its a Project Initiated by Me (Ashish Namdev ) and my team
+Socioware : A Socila Networking site for social responsibilities.
 
-Ashish Namdev -> Java Developer (Web Developer). 
+Its a Project Initiated by Anoop Tiwari and Me.
 
-Anoop Tiwari -> Back End (Oracle). 
+Below is the list of contributors to socioware with their Roles.
 
-Ajit Gupta -> Java Developer (JDBC). 
+* Ashish Namdev : Java Developer (Web Developer)
 
-Bhaskar Verma -> Document Management. 
+* Megha Vaidya  : Database (oracle/sql)
 
-Vivek Jain -> Front End Developer.
+* Vivek Jain    : Front End Developer (html/css/jquery)
 
-These all fellows are From Bhopal (M.P.) , India. The idea of Socioware came during a discussion of Anoop and Me. 
-and The Name and title was proposed by Vivek jain. while the contribution of Bhaskar Verma with well managed document was very helpful for me.
-I want to appreciate the work done by these all young guys. and also want to thank them to be available 24*7 for socioware. 
+* Ajit Gupta    : Java Developer (JDBC)
 
-Here i am starting Socioware again as Open Source Product. So seeking for Contribution for its Development with great Ideas.
+* Anoop Tiwari  : Planning
 
-The New and Great Ideas are always Welcome every Where so Same here in Socioware. We Welcome your creative ideas and we will implement those, 
-or why to wait ? you can also implement your own idea while contributing socioware and enjoy it.
+* Bhaskar Verma : Document Management.
 
-I am Thankig you all to give your time for Socioware and its Development.
+
+
+Java doc  : you can find complete java doc on our specific site for documents.
+
+Link  :  http://socioware.github.io/socioware-javadoc/
+
+
+Steps :
+
+Fork repository to your github account and clone on your system.
+
+Install below mentioned tools :
+* JDK/JRE
+* Oracle 10gXE
+* Apache Tomcat (version 6.0 atleast)
+* Netbeans (Version 6.0 atleast)
+
+
+
+

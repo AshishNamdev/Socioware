@@ -32,11 +32,23 @@ public class UserSignup
 	private String sec_ans2;
 	private String name;
         private String signupdate;
+        private String userImage;
 
 	public String getSignupdate()
 	{
 		return signupdate;
 	}
+
+        public String getUserImage()
+        {
+            return userImage;
+        }
+
+        public void setUserImage(String userImage)
+        {
+            this.userImage = userImage;
+        }
+        
 
 	public void setSignupdate(String signupdate)
 	{
