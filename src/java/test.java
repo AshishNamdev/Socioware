@@ -1,6 +1,6 @@
 
 import java.util.ArrayList;
-import pojo.PublishStatus;
+import pojo.Status;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,11 +13,11 @@ import pojo.PublishStatus;
  */
 public class test {
     public static void main(String[] args) {
-         PublishStatus pb=new PublishStatus();
+         Status pb=new Status();
           // String  email="anku.namdev@gmail.com"; 
             String  email="satyam.ajitgupta@gmail.com"; 
               pb.setUnid(email);
-               ArrayList<PublishStatus> pbls=pb.findAllStatus();
+               ArrayList<Status> pbls=pb.findAllStatus();
                System.out.println("pbls size is  : "+pbls.size());
                /*if(pbls==null)
                    System.out.println("No Record Found");
