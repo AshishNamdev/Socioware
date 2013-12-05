@@ -191,7 +191,7 @@
     
     left: 290px;
     top: 0px;
-    width: 309px;
+    width: 409px;
     height: 400px;
     margin-top: 3px;
     overflow: auto;
@@ -751,9 +751,16 @@ li ul{
 .usr{
   position: absolute;
     margin-top:5px;
-    margin-left: 25px;
+    margin-left: 10px;
     padding:5px;
     
+}
+.pblsr
+{
+    position: relative;
+    top: 0px;
+    margin-left: 2px;
+    padding:1px;
 }
          
          
@@ -847,7 +854,7 @@ li ul{
               position: absolute;
               top: 60px;
               left: 690px;
-                width: 400px;
+                width: 200px;
                 height: 550px;
                 opacity:.9;
                 border-radius:5px;
@@ -879,12 +886,12 @@ li ul{
 }
 #ReqClose{
     position: absolute;
-    left: 383px;
+    left: 183px;
 }
 #RequestList{
     position: absolute;
     top: 31px;
-    width: 400px;
+    width: 200px;
     height: 518px;
     overflow: auto;
     border: 1px orangered solid;
@@ -895,7 +902,7 @@ li ul{
     position: relative;
     margin: 0px;
     height: 86.3px;
-    width: 400px;
+    width: 230px;
     border-bottom: 1px whitesmoke solid;
 
 }
@@ -1004,4 +1011,18 @@ li ul{
    border-color:seagreen;
    border-collapse: collapse;
 }
-     
+.frnd_req
+{
+   position: relative;
+   color:white;
+   font-weight: normal;
+   font-size: medium;
+   display:block;
+   padding: 5px;
+   width:200px;
+   height: 35px;
+   border-top-style: solid;
+   border-width: 1px;
+   border-color:seagreen;
+   border-collapse: collapse;
+}

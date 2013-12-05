@@ -20,6 +20,7 @@ public class Message
 	private String message;
 	private String status;
 	private String subject;
+        private User user;
 
 	public Message(String msgid, String senderid, String receiverid, String msgdate, String message, String status)
 	{
@@ -98,6 +99,16 @@ public class Message
 	{
 		this.status = status;
 	}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+        
+        
     
 	public boolean sendMessage()
 	{
@@ -193,25 +204,36 @@ public class Message
 		
 		try
 		{
-			query = "select * from message where receiverid=?";
+			//query = "select * from message where receiverid=?";
+                        query = "select fname ,mname ,lname ,U.userimage,M.senderid, M.message , M.msgdate  ,M.status,M.msgid from userinfo U JOIN  message M ON U.email=M.senderid where M.senderid in(select senderid from message where receiverid=?)";
 			Connection con = DbContainor.createConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			
-			ps.setString(1, this.receiverid);
+			ps.setString(1, this.getReceiverid());
 			ResultSet rs = ps.executeQuery();
 			//String qry = "select fname,mname,lname,email from userinfo where email in (select SENDERID from message where RECEIVERID=?)";
             
 			while(rs.next())
 			{
-				Message msg=new Message();
-				msg.setMsgid(rs.getString(1));
-				msg.setSenderid(rs.getString(2));
-				msg.setReceiverid(rs.getString(3));
-				msg.setMsgDate(rs.getDate(4).toString());
+				Message msg = new Message();
+                                User user = new User();
+                                String mname = rs.getString(2);
+                                if(mname==null)
+                                    mname=" ";
+                                user.setFname(rs.getString(1));
+                                user.setMname(mname);
+                                user.setLname(rs.getString(3));
+                                user.setUserImage(rs.getString(4));
+                                msg.setUser(user);
+				//msg.setMsgid(rs.getString(1));
+				msg.setSenderid(rs.getString(5));
 				clobtostr.setClob(rs.getClob(6));
                                 clobtostr.convertToString();
                                 msg.setMessage(clobtostr.getMessage());
-				msg.setStatus(rs.getString(7));
+                                msg.setMsgDate(rs.getDate(7).toString());
+				msg.setStatus(rs.getString(8));
+                                msg.setMsgid(rs.getString(9));
+                                msg.setReceiverid(this.getReceiverid());
 				msg_list.add(msg);
 			}
 			con.close();
