@@ -53,7 +53,6 @@ public class AdminLogin
 			{
 				ret_val = true;
 			}
-			con.close();
 		}
 		catch(NullPointerException npe)
 		{
@@ -62,6 +61,10 @@ public class AdminLogin
 		catch(SQLException sqle)
 		{
 			System.out.println("SQl Error Occured : "+sqle.getMessage());
+		}
+		finally
+		{
+			con.close();
 		}
 		return ret_val;
 	}
